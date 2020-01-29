@@ -15,7 +15,7 @@ class HomePageViewController: UIViewController {
         
         article.delegate = self
         article.dataSource = self
-
+        self.view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         // Do any additional setup after loading the view.
     }
     
@@ -35,15 +35,23 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         cell1.articleTitle.text = "眼尾加重法"
         cell1.personalAccount.text = "QAQ77777"
         cell1.likeNumber.text = "1200"
-//        cell1.contentView.layer.borderWidth = 1
-//        cell1.contentView.layer.borderColor = UIColor.gray.cgColor
+        cell1.littleView.layer.borderWidth = 0.5
+        cell1.littleView.layer.borderColor = #colorLiteral(red: 0.7867800593, green: 0.6210635304, blue: 0.620044291, alpha: 1)
+        cell1.littleView.backgroundColor = #colorLiteral(red: 0.9294117647, green: 0.8784313725, blue: 0.862745098, alpha: 1)
+        cell1.layer.cornerRadius = UIScreen.main.bounds.width / 60
+        //底下的view右下跟左下角的框框改成圓弧
+        cell1.littleView.layer.cornerRadius = UIScreen.main.bounds.width / 60
+        cell1.littleView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+       
+
         return cell1
     }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (UIScreen.main.bounds.width - 40)/2
-        let size = CGSize(width: width, height: UIScreen.main.bounds.height / 2.5)
+        let width = (UIScreen.main.bounds.width - 36)/2
+        //佔螢幕高度的1/2.8
+        let size = CGSize(width: width, height: UIScreen.main.bounds.height / 2.8)
         return size
         
         
@@ -51,7 +59,7 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
     
     //中間距離
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return CGFloat(16)
+        return CGFloat(12)
     }
     
     //最旁邊間距

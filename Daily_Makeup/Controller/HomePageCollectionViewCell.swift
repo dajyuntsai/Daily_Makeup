@@ -18,5 +18,7 @@ class HomePageCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var personalAccount: UILabel!
     
+    @IBOutlet var littleView: UIView!
+    
     @IBOutlet var likeNumber: UILabel!
 }
