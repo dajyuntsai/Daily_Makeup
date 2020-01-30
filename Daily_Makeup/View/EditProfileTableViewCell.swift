@@ -1,5 +1,5 @@
 //
-//  CatalogTableViewCell.swift
+//  EditProfileTableViewCell.swift
 //  Daily_Makeup
 //
 //  Created by Hueijyun  on 2020/1/30.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CatalogTableViewCell: UITableViewCell {
+class EditProfileTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()

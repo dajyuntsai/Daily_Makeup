@@ -1,5 +1,5 @@
 //
-//  CatalogViewController.swift
+//  CategoryViewController.swift
 //  Daily_Makeup
 //
 //  Created by Hueijyun  on 2020/1/30.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CatalogViewController: UIViewController {
+class CategoryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
