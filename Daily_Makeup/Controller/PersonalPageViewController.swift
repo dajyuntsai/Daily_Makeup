@@ -15,10 +15,27 @@ class PersonalPageViewController: UIViewController {
     
         personalArtical.delegate = self
         personalArtical.dataSource = self
+        personalArtical.contentInset = UIEdgeInsets(top: 160, left: 0, bottom: 0, right: 0)
+    }
+    
+    @IBAction func editProfileButton(_ sender: UIButton) {
+        
+        guard let profileVC = storyboard?.instantiateViewController(withIdentifier: "editProfile") as? EditProfileViewController else { return }
+        
+        self.show(profileVC, sender: nil)
+        
+        
         
     }
     
+    @IBOutlet var test: UIView!
+    
     @IBOutlet var personalArtical: UICollectionView!
+    
+    @IBOutlet var profileTopConstraint: NSLayoutConstraint!
+    
+    
+    
 }
 
 
@@ -58,6 +75,15 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 12, left: 12, bottom: 0, right: 12)
     }
+    
+    //
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+           
+           let yPosition = -(160 + scrollView.contentOffset.y)
+           
+           profileTopConstraint.constant = yPosition
+       }
+
     
  
 

@@ -15,6 +15,11 @@ class EditProfileTableViewCell: UITableViewCell {
         // Initialization code
     }
 
+    @IBOutlet var profileLabel: UILabel!
+    
+    
+    @IBOutlet var nameTextField: UITextField!
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
