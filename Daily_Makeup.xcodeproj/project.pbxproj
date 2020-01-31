@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5C52A36623E4279D00969BDE /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C52A36523E4279D00969BDE /* ProductDetailViewController.swift */; };
 		5C52A36A23E427F300969BDE /* ProductDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C52A36923E427F300969BDE /* ProductDetailTableViewCell.swift */; };
+		5C52A36C23E4992B00969BDE /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C52A36B23E4992B00969BDE /* ListViewController.swift */; };
+		5C52A37023E4996700969BDE /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C52A36F23E4996700969BDE /* ListTableViewCell.swift */; };
 		5C57F34723DC46E00010A672 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C57F34623DC46E00010A672 /* AppDelegate.swift */; };
 		5C57F34B23DC46E00010A672 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C57F34A23DC46E00010A672 /* ViewController.swift */; };
 		5C57F34E23DC46E00010A672 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C57F34C23DC46E00010A672 /* Main.storyboard */; };
@@ -29,6 +31,8 @@
 /* Begin PBXFileReference section */
 		5C52A36523E4279D00969BDE /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
 		5C52A36923E427F300969BDE /* ProductDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailTableViewCell.swift; sourceTree = "<group>"; };
+		5C52A36B23E4992B00969BDE /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		5C52A36F23E4996700969BDE /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		5C57F34323DC46E00010A672 /* Daily_Makeup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Daily_Makeup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C57F34623DC46E00010A672 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C57F34A23DC46E00010A672 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				5C57F34C23DC46E00010A672 /* Main.storyboard */,
+				5C52A36F23E4996700969BDE /* ListTableViewCell.swift */,
 				5C52A36923E427F300969BDE /* ProductDetailTableViewCell.swift */,
 				5CF684D423E2D0A100F3C363 /* EditProfileTableViewCell.swift */,
 				5C78699623E1BB2B007A94A1 /* HomePageCollectionViewCell.swift */,
@@ -113,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				5C57F34A23DC46E00010A672 /* ViewController.swift */,
+				5C52A36B23E4992B00969BDE /* ListViewController.swift */,
 				5C52A36523E4279D00969BDE /* ProductDetailViewController.swift */,
 				5CF684CC23E2CFCD00F3C363 /* EditProfileViewController.swift */,
 				5CF684C823E2B75800F3C363 /* PersonalPageViewController.swift */,
@@ -196,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CF684D123E2D04B00F3C363 /* CategoryViewController.swift in Sources */,
+				5C52A37023E4996700969BDE /* ListTableViewCell.swift in Sources */,
 				5CF684CD23E2CFCD00F3C363 /* EditProfileViewController.swift in Sources */,
 				5C52A36A23E427F300969BDE /* ProductDetailTableViewCell.swift in Sources */,
 				5CF684C923E2B75800F3C363 /* PersonalPageViewController.swift in Sources */,
@@ -203,6 +210,7 @@
 				5C52A36623E4279D00969BDE /* ProductDetailViewController.swift in Sources */,
 				5C57F34B23DC46E00010A672 /* ViewController.swift in Sources */,
 				5CF684CB23E2B78E00F3C363 /* PersonalPageCollectionViewCell.swift in Sources */,
+				5C52A36C23E4992B00969BDE /* ListViewController.swift in Sources */,
 				5CF684D323E2D07C00F3C363 /* CategoryTableViewCell.swift in Sources */,
 				5CF684D523E2D0A100F3C363 /* EditProfileTableViewCell.swift in Sources */,
 				5C57F34723DC46E00010A672 /* AppDelegate.swift in Sources */,
