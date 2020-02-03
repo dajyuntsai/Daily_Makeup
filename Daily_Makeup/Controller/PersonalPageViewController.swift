@@ -16,6 +16,8 @@ class PersonalPageViewController: UIViewController {
         personalArtical.delegate = self
         personalArtical.dataSource = self
         personalArtical.contentInset = UIEdgeInsets(top: test.frame.size.height, left: 0, bottom: 0, right: 0)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        
     }
     
     @IBAction func editProfileButton(_ sender: UIButton) {
