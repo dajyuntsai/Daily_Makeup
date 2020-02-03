@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>558131512717-0iag3bpvmcbq9b9kdsva5t9evt6nnkl5.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.558131512717-0iag3bpvmcbq9b9kdsva5t9evt6nnkl5</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAod_oxhlp2p3PqH-MpTNUJ7o9oHxSwniU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>558131512717</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>huei.Daily-Makeup</string>
+	<key>PROJECT_ID</key>
+	<string>dailymakeup-8ac8c</string>
+	<key>STORAGE_BUCKET</key>
+	<string>dailymakeup-8ac8c.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:558131512717:ios:1f3a21d87ffdcffa27e9c4</string>
+	<key>DATABASE_URL</key>
+	<string>https://dailymakeup-8ac8c.firebaseio.com</string>
+</dict>
+</plist>
