@@ -13,6 +13,7 @@ class ProductDetailViewController: UIViewController {
     
     @IBOutlet var productDetailTableView: UITableView!
     
+    @IBOutlet var productImage: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,7 +35,9 @@ extension ProductDetailViewController:UITableViewDelegate,UITableViewDataSource{
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ProductDetailTableViewCell else { return UITableViewCell()}
         
         cell.ProdectDetailLabel.text = productDetail[indexPath.row]
-        
+        productImage.layer.cornerRadius = UIScreen.main.bounds.width / 40
+        productImage.layer.maskedCorners = [.layerMinXMaxYCorner]
+
         return cell
             
     }
