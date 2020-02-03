@@ -15,9 +15,13 @@ class ListViewController: UIViewController {
         
         listTableView.delegate = self
         listTableView.dataSource = self
-        listTableView.separatorColor = .white
+        listTableView.separatorStyle = .none
         
 //        profileTableView.separatorStyle = .none
+    }
+    
+    @IBAction func backtoCategory(_ sender: UIBarButtonItem) {
+        navigationController?.popViewController(animated: true)
     }
     
     @IBOutlet var listTableView: UITableView!
@@ -40,8 +44,7 @@ extension ListViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 112
-        
+        return 110
         
     }
     

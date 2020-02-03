@@ -11,6 +11,9 @@ import UIKit
 class ProductDetailViewController: UIViewController {
 
     
+    @IBAction func backToList(_ sender: UIBarButtonItem) {
+        navigationController?.popViewController(animated: true)
+    }
     @IBOutlet var productDetailTableView: UITableView!
     
     @IBOutlet var productImage: UIImageView!
