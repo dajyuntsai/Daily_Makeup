@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kYn-lS-rko">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
@@ -477,7 +477,7 @@
         <!--Makeup-->
         <scene sceneID="xwh-vA-9ku">
             <objects>
-                <viewController id="iBN-81-3Ve" customClass="HomePageViewController" customModule="Daily_Makeup" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="homePage" id="iBN-81-3Ve" customClass="HomePageViewController" customModule="Daily_Makeup" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1UV-vW-6Cc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -693,7 +693,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="Wqx-4H-HfU">
             <objects>
-                <tabBarController id="kYn-lS-rko" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabBarController" id="kYn-lS-rko" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Gho-Ij-gzj"/>
                     <tabBar key="tabBar" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" id="S9L-lV-LVI">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
