@@ -130,7 +130,6 @@
 			isa = PBXGroup;
 			children = (
 				5C57F34C23DC46E00010A672 /* Main.storyboard */,
-				5CC4651123E84C2F00424243 /* SinginViewController.swift */,
 				5C52A36F23E4996700969BDE /* ListTableViewCell.swift */,
 				5C52A36923E427F300969BDE /* ProductDetailTableViewCell.swift */,
 				5CF684D423E2D0A100F3C363 /* EditProfileTableViewCell.swift */,
@@ -149,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				5C57F34A23DC46E00010A672 /* ViewController.swift */,
+				5CC4651123E84C2F00424243 /* SinginViewController.swift */,
 				5C52A36B23E4992B00969BDE /* ListViewController.swift */,
 				5C52A37123E7B50300969BDE /* PostViewController.swift */,
 				5C52A36523E4279D00969BDE /* ProductDetailViewController.swift */,
