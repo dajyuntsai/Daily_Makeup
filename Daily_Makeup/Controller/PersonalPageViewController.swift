@@ -16,10 +16,11 @@ class PersonalPageViewController: UIViewController {
         personalArtical.delegate = self
         personalArtical.dataSource = self
         personalArtical.contentInset = UIEdgeInsets(top: test.frame.size.height, left: 0, bottom: 0, right: 0)
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        
         
     }
     
+    //切到editprofile page
     @IBAction func editProfileButton(_ sender: UIButton) {
         
         guard let profileVC = storyboard?.instantiateViewController(withIdentifier: "editProfile") as? EditProfileViewController else { return }
@@ -36,10 +37,8 @@ class PersonalPageViewController: UIViewController {
     
     @IBOutlet var profileTopConstraint: NSLayoutConstraint!
     
-    
-    
-}
 
+}
 
 extension PersonalPageViewController:UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

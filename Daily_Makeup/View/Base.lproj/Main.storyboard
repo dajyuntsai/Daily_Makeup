@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kYn-lS-rko">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
@@ -151,13 +151,13 @@
         <!--Product Detail-->
         <scene sceneID="6f4-Fp-oJP">
             <objects>
-                <viewController id="gcK-oV-48X" customClass="ProductDetailViewController" customModule="Daily_Makeup" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addProduct" id="gcK-oV-48X" customClass="ProductDetailViewController" customModule="Daily_Makeup" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zgS-VD-Id1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0tg-RZ-DSf">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="UYb-jR-k8u">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="234"/>
@@ -175,8 +175,8 @@
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     <constraints>
-                                        <constraint firstItem="CPL-E4-Whf" firstAttribute="top" secondItem="UYb-jR-k8u" secondAttribute="top" id="0ny-a3-YKK"/>
                                         <constraint firstAttribute="trailing" secondItem="CPL-E4-Whf" secondAttribute="trailing" id="6ka-DJ-QMa"/>
+                                        <constraint firstItem="CPL-E4-Whf" firstAttribute="top" secondItem="UYb-jR-k8u" secondAttribute="top" id="Ysj-0V-VUy"/>
                                     </constraints>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -271,6 +271,11 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nqf-79-PhE">
+                                <rect key="frame" x="-46" y="-21" width="471" height="91"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -282,11 +287,11 @@
                         <viewLayoutGuide key="safeArea" id="1XV-OB-bQ1"/>
                     </view>
                     <navigationItem key="navigationItem" title="Product Detail" id="lc9-iz-eo2">
-                        <barButtonItem key="leftBarButtonItem" title="List" image="chevron.left" catalog="system" id="OcS-6a-T0s">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="OcS-6a-T0s">
                             <color key="tintColor" red="0.70588235290000001" green="0.53725490200000003" blue="0.49803921569999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="backToList:" destination="gcK-oV-48X" id="nNf-2c-Zqe"/>
-                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="PA2-QP-idn">
+                            <color key="tintColor" red="0.70588235290000001" green="0.53725490200000003" blue="0.49803921569999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -296,7 +301,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="raK-Oj-d68" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-543" y="2235"/>
+            <point key="canvasLocation" x="-226.08695652173915" y="2234.5982142857142"/>
         </scene>
         <!--List-->
         <scene sceneID="ROi-fF-nJ3">
@@ -462,7 +467,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="lve-iI-FuK">
                             <color key="tintColor" red="0.70588235294117641" green="0.53725490196078429" blue="0.49803921568627452" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
-                                <segue destination="gcK-oV-48X" kind="show" id="BKI-qd-OBf"/>
+                                <action selector="addProductButton:" destination="xjj-EY-lZ5" id="eoU-4h-4is"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

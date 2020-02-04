@@ -17,11 +17,17 @@ class ListViewController: UIViewController {
         listTableView.dataSource = self
         listTableView.separatorStyle = .none
         
-//        profileTableView.separatorStyle = .none
+
     }
     
-    @IBAction func backtoCategory(_ sender: UIBarButtonItem) {
-        navigationController?.popViewController(animated: true)
+    //切換至新增商品細節
+    @IBAction func addProductButton(_ sender: Any) {
+        
+        guard let listVC = storyboard?.instantiateViewController(identifier: "addProduct") as? ProductDetailViewController else {
+            return }
+        
+        self.show(listVC, sender: nil)
+        
     }
     
     @IBOutlet var listTableView: UITableView!

@@ -17,13 +17,26 @@ class EditProfileViewController: UIViewController {
         profileTableView.delegate = self
         profileTableView.dataSource = self
         profileTableView.separatorStyle = .none
-        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(back))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
     }
+    
+
+    
+    @objc func save() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func back() {
+           navigationController?.popViewController(animated: true)
+       }
     
     @IBOutlet var profileTableView: UITableView!
     @IBOutlet var profileImage: UIImageView!
     
     let profile = ["Name","Uesrname","Email","Phone","Bio"]
+    
+   
     
 }
 

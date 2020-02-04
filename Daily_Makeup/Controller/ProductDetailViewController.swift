@@ -10,10 +10,12 @@ import UIKit
 
 class ProductDetailViewController: UIViewController {
 
+    //跳回List頁
+//    @IBAction func backToList(_ sender: UIBarButtonItem) {
+//        navigationController?.popViewController(animated: true)
+//    }
     
-    @IBAction func backToList(_ sender: UIBarButtonItem) {
-        navigationController?.popViewController(animated: true)
-    }
+
     @IBOutlet var productDetailTableView: UITableView!
     
     @IBOutlet var productImage: UIImageView!
@@ -23,8 +25,20 @@ class ProductDetailViewController: UIViewController {
         productDetailTableView.delegate = self
         productDetailTableView.dataSource = self
         productDetailTableView.separatorStyle = .none
-        // Do any additional setup after loading the view.
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(back))
+        navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
+        navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
+        
     }
+    @objc func back() {
+        navigationController?.popViewController(animated: true)
+    }
+    @objc func save() {
+        navigationController?.popViewController(animated: true)
+    }
+
     
     let productDetail = ["Title","Color","Brand","Opened","EXP",]
 }
