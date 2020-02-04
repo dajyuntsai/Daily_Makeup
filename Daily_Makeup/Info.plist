@@ -31,16 +31,17 @@
 	<string>1</string>
 	<key>FacebookAppID</key>
 	<string>673749810098613</string>
-	<key>Item0</key>
-	<string>fbapi</string>
-	<key>Item1</key>
-	<string>fb-messenger-api</string>
-	<key>Item2</key>
-	<string>fbauth2</string>
-	<key>Item3</key>
-	<string>fbshareextension</string>
+	<key>FacebookDisplayName</key>
+	<string>Daily_makeup</string>
 	<key>LSApplicationQueriesSchemes</key>
-	<array/>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
