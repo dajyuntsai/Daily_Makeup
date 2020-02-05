@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C3D6AAE23E97F5D00257991 /* productDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3D6AAD23E97F5D00257991 /* productDetail.swift */; };
+		5C3D6AB023EA90F700257991 /* editProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3D6AAF23EA90F700257991 /* editProfile.swift */; };
 		5C52A36623E4279D00969BDE /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C52A36523E4279D00969BDE /* ProductDetailViewController.swift */; };
 		5C52A36A23E427F300969BDE /* ProductDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C52A36923E427F300969BDE /* ProductDetailTableViewCell.swift */; };
 		5C52A36C23E4992B00969BDE /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C52A36B23E4992B00969BDE /* ListViewController.swift */; };
@@ -37,6 +39,8 @@
 
 /* Begin PBXFileReference section */
 		1EDBDCB2B2DABF2EAF0B4A64 /* Pods-Daily_Makeup.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Daily_Makeup.debug.xcconfig"; path = "Target Support Files/Pods-Daily_Makeup/Pods-Daily_Makeup.debug.xcconfig"; sourceTree = "<group>"; };
+		5C3D6AAD23E97F5D00257991 /* productDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = productDetail.swift; sourceTree = "<group>"; };
+		5C3D6AAF23EA90F700257991 /* editProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editProfile.swift; sourceTree = "<group>"; };
 		5C52A36523E4279D00969BDE /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
 		5C52A36923E427F300969BDE /* ProductDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailTableViewCell.swift; sourceTree = "<group>"; };
 		5C52A36B23E4992B00969BDE /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +126,8 @@
 			isa = PBXGroup;
 			children = (
 				5C57F34623DC46E00010A672 /* AppDelegate.swift */,
+				5C3D6AAD23E97F5D00257991 /* productDetail.swift */,
+				5C3D6AAF23EA90F700257991 /* editProfile.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -292,12 +298,14 @@
 				5C52A37823E7C63400969BDE /* PostTitleTableViewCell.swift in Sources */,
 				5CF684D123E2D04B00F3C363 /* CategoryViewController.swift in Sources */,
 				5C52A37A23E7C65600969BDE /* PostContentTableViewCell.swift in Sources */,
+				5C3D6AB023EA90F700257991 /* editProfile.swift in Sources */,
 				5C52A37023E4996700969BDE /* ListTableViewCell.swift in Sources */,
 				5CF684CD23E2CFCD00F3C363 /* EditProfileViewController.swift in Sources */,
 				5C52A37223E7B50300969BDE /* PostViewController.swift in Sources */,
 				5C52A36A23E427F300969BDE /* ProductDetailTableViewCell.swift in Sources */,
 				5CF684C923E2B75800F3C363 /* PersonalPageViewController.swift in Sources */,
 				5C78699723E1BB2B007A94A1 /* HomePageCollectionViewCell.swift in Sources */,
+				5C3D6AAE23E97F5D00257991 /* productDetail.swift in Sources */,
 				5C52A36623E4279D00969BDE /* ProductDetailViewController.swift in Sources */,
 				5C57F34B23DC46E00010A672 /* ViewController.swift in Sources */,
 				5CF684CB23E2B78E00F3C363 /* PersonalPageCollectionViewCell.swift in Sources */,

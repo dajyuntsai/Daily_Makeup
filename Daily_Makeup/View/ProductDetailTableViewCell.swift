@@ -20,10 +20,23 @@ class ProductDetailTableViewCell: UITableViewCell {
     
     @IBOutlet var productDetailTextField: UITextField!
     
+    
+    
+        
+    var passText: ((String) -> Void)?
+    
+    
+       @IBAction func textFieldEditingDidEnd(_ sender: UITextField) {
+           guard let text = sender.text else { return }
+           passText?(text)
+       }
+       
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
+
 
 }

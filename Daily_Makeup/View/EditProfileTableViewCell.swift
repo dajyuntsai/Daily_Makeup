@@ -20,9 +20,19 @@ class EditProfileTableViewCell: UITableViewCell {
     
     @IBOutlet var nameTextField: UITextField!
     
+    var profileText:((String) -> Void)?
+    
+    @IBAction func profileTexEnd(_ sender: UITextField) {
+        
+        guard let text = sender.text else { return }
+        profileText?(text)
+        
+    }
+    
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
 
