@@ -9,10 +9,10 @@
 import UIKit
 
 class PersonalPageViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         personalArtical.delegate = self
         personalArtical.dataSource = self
         personalArtical.contentInset = UIEdgeInsets(top: test.frame.size.height, left: 0, bottom: 0, right: 0)
@@ -37,7 +37,7 @@ class PersonalPageViewController: UIViewController {
     
     @IBOutlet var profileTopConstraint: NSLayoutConstraint!
     
-
+    
 }
 
 extension PersonalPageViewController:UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
@@ -79,13 +79,13 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
     
     //
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-           
+        
         let yPosition = -(test.frame.size.height + scrollView.contentOffset.y)
-           
-           profileTopConstraint.constant = yPosition
-       }
-
+        
+        profileTopConstraint.constant = yPosition
+    }
     
- 
-
+    
+    
+    
 }

@@ -144,8 +144,8 @@
 				5CF684CA23E2B78E00F3C363 /* PersonalPageCollectionViewCell.swift */,
 				5C52A37B23E7EC5100969BDE /* PostTimeTableViewCell.swift */,
 				5C52A37723E7C63400969BDE /* PostTitleTableViewCell.swift */,
-				5CF684D223E2D07C00F3C363 /* CategoryTableViewCell.swift */,
 				5C52A37923E7C65600969BDE /* PostContentTableViewCell.swift */,
+				5CF684D223E2D07C00F3C363 /* CategoryTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
