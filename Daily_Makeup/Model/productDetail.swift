@@ -22,6 +22,6 @@ struct Product:Codable {
     
     let note: String
     
-    
+    let id: String
     
 }

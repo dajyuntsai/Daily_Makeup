@@ -155,9 +155,9 @@
 			children = (
 				5C57F34A23DC46E00010A672 /* ViewController.swift */,
 				5CC4651123E84C2F00424243 /* SinginViewController.swift */,
-				5C52A36B23E4992B00969BDE /* ListViewController.swift */,
 				5C52A37123E7B50300969BDE /* PostViewController.swift */,
 				5C52A36523E4279D00969BDE /* ProductDetailViewController.swift */,
+				5C52A36B23E4992B00969BDE /* ListViewController.swift */,
 				5CF684CC23E2CFCD00F3C363 /* EditProfileViewController.swift */,
 				5CF684C823E2B75800F3C363 /* PersonalPageViewController.swift */,
 				5C78699423E1B9B9007A94A1 /* HomePageViewController.swift */,

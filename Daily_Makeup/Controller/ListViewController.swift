@@ -31,10 +31,8 @@ class ListViewController: UIViewController {
        
 //        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(back))
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(back))
-        navigationItem.backBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
+        navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add))
-        
-        
         navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
 
         
@@ -59,7 +57,17 @@ class ListViewController: UIViewController {
         loadData()
     }
     
- 
+    func deletDocument(a:Int) {
+        let id = listArray[a].id
+        db.collection("ProductDetail").document(id).delete() { err in
+            if let err  = err {
+                print("Error removing document: \(err)")
+            }  else {
+                print("Document successfully removed!")
+            }
+            
+        }
+    }
     
 }
 
@@ -111,6 +119,16 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
         return 110
         
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            deletDocument(a: indexPath.row)
+            listArray.remove(at: indexPath.row)
+        }
+        
+        tableView.reloadData()
+    }
+    
     
     
 }
