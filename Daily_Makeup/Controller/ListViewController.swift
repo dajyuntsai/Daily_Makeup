@@ -44,7 +44,7 @@ class ListViewController: UIViewController {
         
     }
     @objc func add() {
-        guard let listVC = storyboard?.instantiateViewController(identifier: "addProduct") as? ProductDetailViewController else {
+        guard let listVC = storyboard?.instantiateViewController(withIdentifier: "addProduct") as? ProductDetailViewController else {
 
             return
         }
@@ -128,6 +128,25 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
         
         tableView.reloadData()
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let productDetailVC = storyboard?.instantiateViewController(withIdentifier: "addProduct") as? ProductDetailViewController else   { return }
+        productDetailVC.productDetailTitle = listArray[indexPath.row].title
+        productDetailVC.productDetailBrand = listArray[indexPath.row].brand
+        productDetailVC.productDetailColor = listArray[indexPath.row].colortone
+        productDetailVC.productdetailOpened = listArray[indexPath.row].opened
+        productDetailVC.productExpirydate = listArray[indexPath.row].expirydate
+        
+        productDetailVC.productTextFieldNote = listArray[indexPath.row].note
+        
+        productDetailVC.productDocumentID = listArray[indexPath.row].id
+        self.show(productDetailVC, sender: nil)
+        
+        
+        
+    }
+    
+    
     
     
     

@@ -10,15 +10,23 @@ import UIKit
 
 class PersonalPageViewController: UIViewController {
     
+    @IBOutlet var test: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        personalArtical.delegate = self
-        personalArtical.dataSource = self
-        personalArtical.contentInset = UIEdgeInsets(top: test.frame.size.height, left: 0, bottom: 0, right: 0)
+        articalCollectionView.delegate = self
+        articalCollectionView.dataSource = self
+        articalCollectionView.contentInset = UIEdgeInsets(top: test.frame.size.height, left: 0, bottom: 0, right: 0)
         
         
     }
+    
+    @IBOutlet var articalCollectionView: UICollectionView!
+    @IBOutlet var topConstraint: NSLayoutConstraint!
+    
+    
+    
+   
     
     //切到editprofile page
     @IBAction func editProfileButton(_ sender: UIButton) {
@@ -30,12 +38,10 @@ class PersonalPageViewController: UIViewController {
         
         
     }
+
     
-    @IBOutlet var test: UIView!
     
-    @IBOutlet var personalArtical: UICollectionView!
     
-    @IBOutlet var profileTopConstraint: NSLayoutConstraint!
     
     
 }
@@ -82,7 +88,7 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
         
         let yPosition = -(test.frame.size.height + scrollView.contentOffset.y)
         
-        profileTopConstraint.constant = yPosition
+        topConstraint.constant = yPosition
     }
     
     

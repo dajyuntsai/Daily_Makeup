@@ -22,12 +22,12 @@
 		5C57F34E23DC46E00010A672 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C57F34C23DC46E00010A672 /* Main.storyboard */; };
 		5C57F35023DC46E20010A672 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C57F34F23DC46E20010A672 /* Assets.xcassets */; };
 		5C57F35323DC46E20010A672 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C57F35123DC46E20010A672 /* LaunchScreen.storyboard */; };
+		5C67C5C923ED79A000534D44 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5C67C5C823ED79A000534D44 /* GoogleService-Info.plist */; };
 		5C78699523E1B9B9007A94A1 /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C78699423E1B9B9007A94A1 /* HomePageViewController.swift */; };
 		5C78699723E1BB2B007A94A1 /* HomePageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C78699623E1BB2B007A94A1 /* HomePageCollectionViewCell.swift */; };
 		5C78699D23E1F8E2007A94A1 /* SavePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C78699C23E1F8E2007A94A1 /* SavePageViewController.swift */; };
 		5C78699F23E1F91C007A94A1 /* SavePageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C78699E23E1F91C007A94A1 /* SavePageCollectionViewCell.swift */; };
 		5CC4651223E84C2F00424243 /* SinginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC4651123E84C2F00424243 /* SinginViewController.swift */; };
-		5CC6CB2723E85A7C0004366D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5CC6CB2623E85A7C0004366D /* GoogleService-Info.plist */; };
 		5CF684C923E2B75800F3C363 /* PersonalPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF684C823E2B75800F3C363 /* PersonalPageViewController.swift */; };
 		5CF684CB23E2B78E00F3C363 /* PersonalPageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF684CA23E2B78E00F3C363 /* PersonalPageCollectionViewCell.swift */; };
 		5CF684CD23E2CFCD00F3C363 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF684CC23E2CFCD00F3C363 /* EditProfileViewController.swift */; };
@@ -56,12 +56,12 @@
 		5C57F34F23DC46E20010A672 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5C57F35223DC46E20010A672 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5C57F35423DC46E20010A672 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5C67C5C823ED79A000534D44 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5C78699423E1B9B9007A94A1 /* HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
 		5C78699623E1BB2B007A94A1 /* HomePageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageCollectionViewCell.swift; sourceTree = "<group>"; };
 		5C78699C23E1F8E2007A94A1 /* SavePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePageViewController.swift; sourceTree = "<group>"; };
 		5C78699E23E1F91C007A94A1 /* SavePageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePageCollectionViewCell.swift; sourceTree = "<group>"; };
 		5CC4651123E84C2F00424243 /* SinginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinginViewController.swift; sourceTree = "<group>"; };
-		5CC6CB2623E85A7C0004366D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Pods/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5CF684C823E2B75800F3C363 /* PersonalPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalPageViewController.swift; sourceTree = "<group>"; };
 		5CF684CA23E2B78E00F3C363 /* PersonalPageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalPageCollectionViewCell.swift; sourceTree = "<group>"; };
 		5CF684CC23E2CFCD00F3C363 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +115,7 @@
 			children = (
 				5C57F35123DC46E20010A672 /* LaunchScreen.storyboard */,
 				5C57F35423DC46E20010A672 /* Info.plist */,
+				5C67C5C823ED79A000534D44 /* GoogleService-Info.plist */,
 				5C78699223E1B612007A94A1 /* View */,
 				5C78699123E1B5D8007A94A1 /* Model */,
 				5C78699323E1B61B007A94A1 /* Controller */,
@@ -138,10 +139,10 @@
 				5C57F34C23DC46E00010A672 /* Main.storyboard */,
 				5C52A36F23E4996700969BDE /* ListTableViewCell.swift */,
 				5C52A36923E427F300969BDE /* ProductDetailTableViewCell.swift */,
-				5CF684D423E2D0A100F3C363 /* EditProfileTableViewCell.swift */,
 				5C78699623E1BB2B007A94A1 /* HomePageCollectionViewCell.swift */,
 				5C78699E23E1F91C007A94A1 /* SavePageCollectionViewCell.swift */,
 				5CF684CA23E2B78E00F3C363 /* PersonalPageCollectionViewCell.swift */,
+				5CF684D423E2D0A100F3C363 /* EditProfileTableViewCell.swift */,
 				5C52A37B23E7EC5100969BDE /* PostTimeTableViewCell.swift */,
 				5C52A37723E7C63400969BDE /* PostTitleTableViewCell.swift */,
 				5C52A37923E7C65600969BDE /* PostContentTableViewCell.swift */,
@@ -158,13 +159,12 @@
 				5C52A37123E7B50300969BDE /* PostViewController.swift */,
 				5C52A36523E4279D00969BDE /* ProductDetailViewController.swift */,
 				5C52A36B23E4992B00969BDE /* ListViewController.swift */,
-				5CF684CC23E2CFCD00F3C363 /* EditProfileViewController.swift */,
 				5CF684C823E2B75800F3C363 /* PersonalPageViewController.swift */,
+				5CF684CC23E2CFCD00F3C363 /* EditProfileViewController.swift */,
 				5C78699423E1B9B9007A94A1 /* HomePageViewController.swift */,
 				5C78699C23E1F8E2007A94A1 /* SavePageViewController.swift */,
 				5CF684D023E2D04B00F3C363 /* CategoryViewController.swift */,
 				5C57F34F23DC46E20010A672 /* Assets.xcassets */,
-				5CC6CB2623E85A7C0004366D /* GoogleService-Info.plist */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -239,7 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C57F35323DC46E20010A672 /* LaunchScreen.storyboard in Resources */,
-				5CC6CB2723E85A7C0004366D /* GoogleService-Info.plist in Resources */,
+				5C67C5C923ED79A000534D44 /* GoogleService-Info.plist in Resources */,
 				5C57F35023DC46E20010A672 /* Assets.xcassets in Resources */,
 				5C57F34E23DC46E00010A672 /* Main.storyboard in Resources */,
 			);
@@ -461,15 +461,18 @@
 			baseConfigurationReference = 1EDBDCB2B2DABF2EAF0B4A64 /* Pods-Daily_Makeup.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = R6UX26VC4P;
+				DEVELOPMENT_TEAM = 6LAT54CJSN;
 				INFOPLIST_FILE = Daily_Makeup/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "huei.Daily-Makeup";
+				PRODUCT_BUNDLE_IDENTIFIER = huei.Daily.Makeup.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -480,15 +483,18 @@
 			baseConfigurationReference = ADEE0E7F3CACC3135BD337BF /* Pods-Daily_Makeup.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = R6UX26VC4P;
+				DEVELOPMENT_TEAM = 6LAT54CJSN;
 				INFOPLIST_FILE = Daily_Makeup/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "huei.Daily-Makeup";
+				PRODUCT_BUNDLE_IDENTIFIER = huei.Daily.Makeup.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
