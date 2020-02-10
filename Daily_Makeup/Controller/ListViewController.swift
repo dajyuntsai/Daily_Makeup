@@ -19,7 +19,14 @@ class ListViewController: UIViewController {
     var listArray : [Product] = []
     
     @IBOutlet var listTableView: UITableView!
-    
+  
+    @IBAction func backtoTop(_ sender: Any) {
+        
+        let indexPath = IndexPath(row: 0, section: 0)
+        self.listTableView.scrollToRow(at: indexPath, at: .top, animated: true)
+
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,10 +39,9 @@ class ListViewController: UIViewController {
 //        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(back))
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(back))
         navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add))
         navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
-
-        
         
     }
     
@@ -43,6 +49,7 @@ class ListViewController: UIViewController {
         navigationController?.popViewController(animated: true)
         
     }
+    
     @objc func add() {
         guard let listVC = storyboard?.instantiateViewController(withIdentifier: "addProduct") as? ProductDetailViewController else {
 
@@ -120,6 +127,7 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
         
     }
     
+    //刪除cell
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             deletDocument(a: indexPath.row)
@@ -128,6 +136,7 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
         
         tableView.reloadData()
     }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let productDetailVC = storyboard?.instantiateViewController(withIdentifier: "addProduct") as? ProductDetailViewController else   { return }

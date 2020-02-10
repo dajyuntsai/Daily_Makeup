@@ -17,53 +17,87 @@ class EditProfileViewController: UIViewController {
     var db: Firestore!
     
     var editProfileName = ""
-    var editProfileUserName = ""
     var editProfileEmail = ""
-    var editProfilePhone = ""
     var editProfileBio = ""
-
+    var uid = ""
+    var editProfileArray: [Profile] = []
+    
+    let userDefaults = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        db = Firestore.firestore()
         
+        db = Firestore.firestore()
+        //        setUp()
         profileTableView.delegate = self
         profileTableView.dataSource = self
         profileTableView.separatorStyle = .none
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
         
+        loadData()
     }
     
-
     
+   
     @objc func save() {
         navigationController?.popViewController(animated: true)
         
         let profile = Profile (
             name: editProfileName,
-            username: editProfileUserName,
             email: editProfileEmail,
-            phone: editProfilePhone,
-            bio: editProfileBio)
+            bio: editProfileBio,
+            uid: uid)
         
         do {
-            try db.collection("editProfile").addDocument(from: profile)
+            try db.collection("user").addDocument(from: profile)
         } catch {
             print(error)
         }
+        
     }
     
+    func loadData() {
+        
+        guard let uid = userDefaults.string(forKey: "uid") else { return }
+        
+        
+        
+        let docRef = db.collection("user").document(uid)
+        
+        docRef.getDocument { (document, error) in
+            let result = Result {
+                try document.flatMap {
+                    try $0.data(as: Profile.self)
+                }
+            }
+            switch result {
+            case .success(let editProfile):
+                if let editProfile = editProfile {
+                    print("User: \(editProfile)")
+                    self.editProfileName = editProfile.name
+                    self.editProfileEmail = editProfile.email
+                    self.editProfileBio = editProfile.bio ?? ""
+                    self.profileTableView.reloadData()
+                } else {
+                    print("Document does not exist")
+                }
+            case .failure(let error):
+                print("Error decoding city: \(error)")
+            }
+        }
+    }
+    
+    
     @objc func cancel() {
-           navigationController?.popViewController(animated: true)
-       }
+        navigationController?.popViewController(animated: true)
+    }
     
     @IBOutlet var profileTableView: UITableView!
     @IBOutlet var profileImage: UIImageView!
     
-    let profile = ["Name","Uesrname","Email","Phone","Bio"]
-    
-   
+    let profile = ["Name","Email","Bio"]
     
 }
 
@@ -79,11 +113,14 @@ extension EditProfileViewController:UITableViewDataSource,UITableViewDelegate{
         
         cell.profileLabel.text = profile[indexPath.row]
         switch indexPath.row {
-        case 0:cell.profileText = { [weak self] text in self?.editProfileName = text }
-        case 1:cell.profileText = { [weak self] text in self?.editProfileUserName = text }
-        case 2:cell.profileText = { [weak self] text in self?.editProfileEmail = text }
-        case 3:cell.profileText = { [weak self] text in self?.editProfilePhone = text }
-        case 4:
+        case 0:
+            cell.nameTextField.text = editProfileName
+            cell.profileText = { [weak self] text in self?.editProfileName = text }
+        case 1:
+            cell.nameTextField.text = editProfileEmail
+            cell.profileText = { [weak self] text in self?.editProfileEmail = text }
+        case 2:
+            cell.nameTextField.text =  editProfileBio
             cell.profileText = { [weak self] text in self?.editProfileBio = text }
         default:
             print(123)

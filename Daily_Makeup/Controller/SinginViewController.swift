@@ -9,13 +9,24 @@
 import UIKit
 import FBSDKLoginKit
 import Firebase
+import GoogleSignIn
+import Firebase
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
+
 
 class SinginViewController: UIViewController {
+    
+    var db: Firestore!
+    
+    let userDefaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        db = Firestore.firestore()
     }
     
     @IBAction func fbsigninButton(_ sender: UIButton) {
@@ -46,6 +57,31 @@ class SinginViewController: UIViewController {
                     return
                 }
                 
+//                user?.user.refreshToken
+                guard let uid = user?.user.uid, let name = user?.user.displayName, let email = user?.user.email else { return }
+                
+                //                guard let currentUser = Auth.auth().currentUser, let name =  else { return }
+                
+                //                let uid = currentUser.uid
+                //                let name = currentUser.displayName
+                //                let email = currentUser.email
+                
+                self.userDefaults.setValue(name, forKey: "name")
+                self.userDefaults.setValue(email, forKey: "email")
+                self.userDefaults.setValue(uid, forKey: "uid")
+                
+               
+                let signInID = SignID (
+                    name: name,
+                    email: email,
+                    uid: uid)
+                
+                do {
+                    try self.db.collection("user").document(uid).setData(from: signInID, merge: true)
+                } catch {
+                    print(error)
+                }
+                
                 // Present the main view
                 if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "tabBarController") {
                     
@@ -59,16 +95,11 @@ class SinginViewController: UIViewController {
         }
     }
     
+    
+    @IBAction func googleSignin(_ sender: Any) {
+        
+        GIDSignIn.sharedInstance().signIn()
+    }
+    
 }
-
-/*
- // MARK: - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
- // Get the new view controller using segue.destination.
- // Pass the selected object to the new view controller.
- }
- */
-
 

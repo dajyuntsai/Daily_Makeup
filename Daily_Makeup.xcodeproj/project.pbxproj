@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C20982123F125D500BE515D /* signinID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C20982023F125D500BE515D /* signinID.swift */; };
 		5C3D6AAE23E97F5D00257991 /* productDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3D6AAD23E97F5D00257991 /* productDetail.swift */; };
 		5C3D6AB023EA90F700257991 /* editProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3D6AAF23EA90F700257991 /* editProfile.swift */; };
 		5C52A36623E4279D00969BDE /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C52A36523E4279D00969BDE /* ProductDetailViewController.swift */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		1EDBDCB2B2DABF2EAF0B4A64 /* Pods-Daily_Makeup.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Daily_Makeup.debug.xcconfig"; path = "Target Support Files/Pods-Daily_Makeup/Pods-Daily_Makeup.debug.xcconfig"; sourceTree = "<group>"; };
+		5C20982023F125D500BE515D /* signinID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signinID.swift; sourceTree = "<group>"; };
 		5C3D6AAD23E97F5D00257991 /* productDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = productDetail.swift; sourceTree = "<group>"; };
 		5C3D6AAF23EA90F700257991 /* editProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editProfile.swift; sourceTree = "<group>"; };
 		5C52A36523E4279D00969BDE /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
@@ -87,7 +89,6 @@
 		5BDF2506CD097B1F08043122 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FA4D39A30E24CBD550FCE89B /* Pods_Daily_Makeup.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -129,6 +130,7 @@
 				5C57F34623DC46E00010A672 /* AppDelegate.swift */,
 				5C3D6AAD23E97F5D00257991 /* productDetail.swift */,
 				5C3D6AAF23EA90F700257991 /* editProfile.swift */,
+				5C20982023F125D500BE515D /* signinID.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -165,6 +167,7 @@
 				5C78699C23E1F8E2007A94A1 /* SavePageViewController.swift */,
 				5CF684D023E2D04B00F3C363 /* CategoryViewController.swift */,
 				5C57F34F23DC46E20010A672 /* Assets.xcassets */,
+				FA4D39A30E24CBD550FCE89B /* Pods_Daily_Makeup.framework */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 				5C57F34023DC46E00010A672 /* Frameworks */,
 				5C57F34123DC46E00010A672 /* Resources */,
 				BD657616C98E1A1FD16380E7 /* [CP] Embed Pods Frameworks */,
+				0CD550F61B7E7E3BE011022B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -248,6 +252,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0CD550F61B7E7E3BE011022B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Daily_Makeup/Pods-Daily_Makeup-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Daily_Makeup/Pods-Daily_Makeup-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Daily_Makeup/Pods-Daily_Makeup-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		BD657616C98E1A1FD16380E7 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -316,6 +337,7 @@
 				5C57F34723DC46E00010A672 /* AppDelegate.swift in Sources */,
 				5C78699523E1B9B9007A94A1 /* HomePageViewController.swift in Sources */,
 				5C78699F23E1F91C007A94A1 /* SavePageCollectionViewCell.swift in Sources */,
+				5C20982123F125D500BE515D /* signinID.swift in Sources */,
 				5C78699D23E1F8E2007A94A1 /* SavePageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

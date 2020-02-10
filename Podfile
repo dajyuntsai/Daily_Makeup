@@ -17,6 +17,7 @@ target 'Daily_Makeup' do
   pod 'Firebase/Auth'
   pod 'FirebaseFirestoreSwift'
   pod 'IQKeyboardManagerSwift'
+  pod 'GoogleSignIn'
   	
 
 end
