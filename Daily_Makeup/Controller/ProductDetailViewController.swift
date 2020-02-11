@@ -155,6 +155,10 @@ extension ProductDetailViewController:UITableViewDelegate,UITableViewDataSource 
             case 3:
                 cell.productDetailTextField.text = productdetailOpened
                 cell.passText = { [weak self] text in self?.productdetailOpened = text }
+                
+                cell.productDetailTextField.inputView = openDatepicker
+                
+                self.openTextField = cell.productDetailTextField
             
                 
             case 4:

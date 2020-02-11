@@ -101,12 +101,12 @@
                                     <constraint firstAttribute="height" constant="45" id="L2g-C3-XG5"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="FaceBook">
+                                <state key="normal" title="Facebook">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="20"/>
+                                        <integer key="value" value="15"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -119,13 +119,13 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="o7J-wD-x8Y"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="google">
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Google">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="20"/>
+                                        <integer key="value" value="15"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -234,12 +234,12 @@
                                                 <constraint firstAttribute="width" constant="100" id="uig-vh-A8w"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <nil key="textColor"/>
+                                            <color key="textColor" red="0.70588235290000001" green="0.53725490200000003" blue="0.49803921569999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VzG-zd-6jU">
                                             <rect key="frame" x="16" y="71" width="386" height="140"/>
-                                            <color key="backgroundColor" red="0.70588235290000001" green="0.53725490200000003" blue="0.49803921569999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" red="0.95686274510000002" green="0.93333333330000001" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="140" id="1cR-ei-u1U"/>
                                             </constraints>
@@ -560,7 +560,7 @@
                                         <state key="normal" image="magnifyingglass" catalog="system"/>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UC5-Ii-wxo">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="40"/>
+                                        <rect key="frame" x="8" y="0.0" width="366" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -568,7 +568,7 @@
                                 <color key="backgroundColor" red="0.96043509244918823" green="0.93338054418563843" blue="0.92941147089004517" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="zAx-FC-Wdj" secondAttribute="bottom" constant="10" id="9ZP-6m-hAZ"/>
-                                    <constraint firstItem="UC5-Ii-wxo" firstAttribute="leading" secondItem="gj0-4f-ZYl" secondAttribute="leading" id="NgS-48-Ie8"/>
+                                    <constraint firstItem="UC5-Ii-wxo" firstAttribute="leading" secondItem="gj0-4f-ZYl" secondAttribute="leading" constant="8" id="NgS-48-Ie8"/>
                                     <constraint firstAttribute="bottom" secondItem="UC5-Ii-wxo" secondAttribute="bottom" id="RFq-rp-888"/>
                                     <constraint firstAttribute="height" constant="40" id="SDC-Xq-OXu"/>
                                     <constraint firstAttribute="trailing" secondItem="UC5-Ii-wxo" secondAttribute="trailing" id="cjt-sW-t35"/>
@@ -1389,7 +1389,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Liked" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fdb-hZ-pT8">
-                                        <rect key="frame" x="177" y="150" width="44" height="22"/>
+                                        <rect key="frame" x="180" y="150" width="44" height="22"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1407,7 +1407,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="344" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T33-cd-dV1">
-                                        <rect key="frame" x="183" y="124" width="32" height="20"/>
+                                        <rect key="frame" x="186" y="124" width="32" height="20"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1454,7 +1454,7 @@
                                     <constraint firstAttribute="trailing" secondItem="AKa-Ru-zf1" secondAttribute="trailing" constant="45" id="MGk-wX-vkv"/>
                                     <constraint firstAttribute="bottom" secondItem="XEX-pg-bMc" secondAttribute="bottom" id="OdI-V8-VfR"/>
                                     <constraint firstItem="lN4-DB-ue7" firstAttribute="centerY" secondItem="Fdb-hZ-pT8" secondAttribute="centerY" id="PcY-3M-fbT"/>
-                                    <constraint firstItem="T33-cd-dV1" firstAttribute="leading" secondItem="PmX-9B-hrV" secondAttribute="trailing" constant="99" id="SQz-YG-dMI"/>
+                                    <constraint firstItem="T33-cd-dV1" firstAttribute="leading" secondItem="PmX-9B-hrV" secondAttribute="trailing" constant="102" id="SQz-YG-dMI"/>
                                     <constraint firstItem="XhG-9p-uEU" firstAttribute="centerX" secondItem="PmX-9B-hrV" secondAttribute="centerX" id="SRf-8k-QbY"/>
                                     <constraint firstItem="PmX-9B-hrV" firstAttribute="leading" secondItem="Db4-Ts-iys" secondAttribute="leading" constant="45" id="T8W-st-G7C"/>
                                     <constraint firstItem="T33-cd-dV1" firstAttribute="centerY" secondItem="AKa-Ru-zf1" secondAttribute="centerY" id="VER-vY-LQC"/>

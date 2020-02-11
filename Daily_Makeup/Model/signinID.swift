@@ -10,9 +10,9 @@ import Foundation
 
 struct SignID:Codable {
      
-    let name:String
+    let name: String
     
-    let email:String
+    let email: String
     
     let uid: String
         

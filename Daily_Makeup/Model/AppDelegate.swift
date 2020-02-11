@@ -27,14 +27,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,accessToken: authentication.accessToken)
         
         Auth.auth().signIn(with: credential) { (authResult, error) in
-          if let error = error {
-            // ...
-            return
-          }
-          // User is signed in
-          // ...
+            if let error = error {
+                // ...
+                return
+            }
+            
+            NotificationCenter.default.post(name: Notification.Name("success"), object: nil)
+           
         }
-
+        
     }
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         // Perform any operations when the user disconnects from app here.
@@ -49,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        
         return GIDSignIn.sharedInstance().handle(url)
     }
     

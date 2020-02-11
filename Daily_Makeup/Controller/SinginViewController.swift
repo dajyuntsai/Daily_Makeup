@@ -24,9 +24,18 @@ class SinginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(success), name: Notification.Name("success"), object: nil)
         
         GIDSignIn.sharedInstance()?.presentingViewController = self
         db = Firestore.firestore()
+    }
+    
+    @objc func success() {
+        guard let home = storyboard?.instantiateViewController(identifier: "tabBarController") as? UITabBarController else { return }
+        
+        self.view.window?.rootViewController = home
+        
+//        self.present(home, animated: true, completion: nil)
     }
     
     @IBAction func fbsigninButton(_ sender: UIButton) {
@@ -57,20 +66,14 @@ class SinginViewController: UIViewController {
                     return
                 }
                 
-//                user?.user.refreshToken
+                //                user?.user.refreshToken
                 guard let uid = user?.user.uid, let name = user?.user.displayName, let email = user?.user.email else { return }
-                
-                //                guard let currentUser = Auth.auth().currentUser, let name =  else { return }
-                
-                //                let uid = currentUser.uid
-                //                let name = currentUser.displayName
-                //                let email = currentUser.email
-                
+    
                 self.userDefaults.setValue(name, forKey: "name")
                 self.userDefaults.setValue(email, forKey: "email")
                 self.userDefaults.setValue(uid, forKey: "uid")
                 
-               
+                
                 let signInID = SignID (
                     name: name,
                     email: email,
@@ -99,6 +102,12 @@ class SinginViewController: UIViewController {
     @IBAction func googleSignin(_ sender: Any) {
         
         GIDSignIn.sharedInstance().signIn()
+//                if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "tabBarController") {
+//
+//                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+//                appDelegate.window?.rootViewController = viewController
+//                self.dismiss(animated: true, completion: nil)
+//                }
     }
     
 }

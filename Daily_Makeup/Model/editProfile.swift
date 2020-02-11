@@ -10,11 +10,11 @@ import Foundation
 
 struct Profile:Codable {
     
-    let name:String
+    let name: String
     
-    let email:String
+    let email: String
     
-    let bio:String?
+    let bio: String?
     
     let uid: String
 }
