@@ -77,7 +77,8 @@ class SinginViewController: UIViewController {
                 let signInID = SignID (
                     name: name,
                     email: email,
-                    uid: uid)
+                    uid: uid
+                    )
                 
                 do {
                     try self.db.collection("user").document(uid).setData(from: signInID, merge: true)

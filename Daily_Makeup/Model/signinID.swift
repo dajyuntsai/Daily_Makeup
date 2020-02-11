@@ -8,12 +8,13 @@
 
 import Foundation
 
-struct SignID:Codable {
+struct SignID: Codable {
      
     let name: String
     
     let email: String
     
     let uid: String
+    
         
 }

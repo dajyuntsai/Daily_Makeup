@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Profile:Codable {
+struct Profile: Codable {
     
     let name: String
     

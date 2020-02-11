@@ -62,9 +62,9 @@ class PersonalPageViewController: UIViewController {
     
     func loadData() {
         
+        guard let uid =  userDefaults.string(forKey: "uid") else { return }
         
-        
-        let docRef = db.collection("user").document()
+        let docRef = db.collection("user").document(uid)
         
         docRef.getDocument { (document, error) in
             let result = Result {
@@ -76,7 +76,8 @@ class PersonalPageViewController: UIViewController {
             case .success(let profile):
                 if let profile = profile {
                    print("Profile: \(profile)")
-                    
+                    self.bioLabel.text = profile.bio
+                    self.nameLabel.text = profile.name
                 } else {
                     print("Document does not exist")
                 }

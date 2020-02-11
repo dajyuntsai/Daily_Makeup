@@ -42,7 +42,11 @@ class EditProfileViewController: UIViewController {
     
    
     @objc func save() {
-        navigationController?.popViewController(animated: true)
+        
+        guard let uid = userDefaults.string(forKey: "uid") else { return }
+        
+        
+        let document = db.collection("user").document(uid)
         
         let profile = Profile (
             name: editProfileName,
@@ -51,11 +55,13 @@ class EditProfileViewController: UIViewController {
             uid: uid)
         
         do {
-            try db.collection("user").addDocument(from: profile)
+            try document.setData(from: profile, merge: true)
+            
+            
         } catch {
             print(error)
         }
-        
+        navigationController?.popViewController(animated: true)
     }
     
     func loadData() {
