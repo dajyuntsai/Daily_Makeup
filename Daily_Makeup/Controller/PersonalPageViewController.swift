@@ -30,7 +30,7 @@ class PersonalPageViewController: UIViewController {
         userDefaults.value(forKey: "email")
         userDefaults.value(forKey: "uid")
         
-        nameLabel.text = userDefaults.value(forKey: "name") as! String
+        nameLabel.text = userDefaults.value(forKey: "name") as? String
         
         articalCollectionView.delegate = self
         articalCollectionView.dataSource = self

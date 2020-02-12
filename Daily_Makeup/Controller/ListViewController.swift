@@ -16,8 +16,20 @@ import FirebaseFirestoreSwift
 class ListViewController: UIViewController {
     
     var db: Firestore!
-    var listArray : [Product] = []
+    var listArray = [Product]() {
+        didSet{
+            if listArray.isEmpty {
+                self.totalNumber.isHidden = true
+            } else {
+                self.totalNumber.isHidden = false
+                self.totalNumber.text = "\(self.listArray.count)"
+                self.listTableView.reloadData()
+            }
+        }
+    }
     
+    
+    @IBOutlet var totalNumber: UILabel!
     @IBOutlet var listTableView: UITableView!
   
     @IBAction func backtoTop(_ sender: Any) {
@@ -29,7 +41,8 @@ class ListViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//        loadData()
+        self.totalNumber.isHidden = true
         listTableView.delegate = self
         listTableView.dataSource = self
         listTableView.separatorStyle = .none
@@ -99,7 +112,6 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
                     }
                     
                 }
-                self.listTableView.reloadData()
             }
         }
 
