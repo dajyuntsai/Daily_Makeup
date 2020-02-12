@@ -290,10 +290,8 @@ extension ProductDetailViewController : UIImagePickerControllerDelegate, UINavig
         dismiss(animated: true, completion: nil)
     }
     
-    
-    
-    
-    
-    
+
 }
+
+
 

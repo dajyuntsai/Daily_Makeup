@@ -24,6 +24,8 @@ class EditProfileViewController: UIViewController {
     
     let userDefaults = UserDefaults.standard
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,8 +41,77 @@ class EditProfileViewController: UIViewController {
         loadData()
     }
     
+    @IBOutlet var addImageOutlet: UIButton!
     
-   
+    
+    @IBAction func cPPButton(_ sender: Any) {
+        let imagePickerController = UIImagePickerController()
+        
+        imagePickerController.delegate = self
+        let imagePickerAlertController = UIAlertController(title: "上傳圖片", message: "請選擇要上傳的圖片", preferredStyle: .actionSheet)
+        
+        let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (Void) in
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                imagePickerController.sourceType = .photoLibrary
+                self.present(imagePickerController, animated: true, completion: nil)
+            }
+        }
+        let imageFromCameraAction = UIAlertAction(title: "相機", style: .default) { (Void) in
+            
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                imagePickerController.sourceType = .camera
+                self.present(imagePickerController, animated: true, completion: nil)
+            }
+        }
+        
+
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (Void) in
+            
+            imagePickerAlertController.dismiss(animated: true, completion: nil)
+        }
+        
+        imagePickerAlertController.addAction(imageFromLibAction)
+        imagePickerAlertController.addAction(imageFromCameraAction)
+        imagePickerAlertController.addAction(cancelAction)
+        
+        present(imagePickerAlertController, animated: true, completion: nil)
+        
+    }
+    @IBAction func addImageBtn(_ sender: Any) {
+        let imagePickerController = UIImagePickerController()
+        
+        imagePickerController.delegate = self
+        let imagePickerAlertController = UIAlertController(title: "上傳圖片", message: "請選擇要上傳的圖片", preferredStyle: .actionSheet)
+        
+        let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (Void) in
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                imagePickerController.sourceType = .photoLibrary
+                self.present(imagePickerController, animated: true, completion: nil)
+            }
+        }
+        let imageFromCameraAction = UIAlertAction(title: "相機", style: .default) { (Void) in
+            
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                imagePickerController.sourceType = .camera
+                self.present(imagePickerController, animated: true, completion: nil)
+            }
+        }
+        
+
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (Void) in
+            
+            imagePickerAlertController.dismiss(animated: true, completion: nil)
+        }
+        
+        imagePickerAlertController.addAction(imageFromLibAction)
+        imagePickerAlertController.addAction(imageFromCameraAction)
+        imagePickerAlertController.addAction(cancelAction)
+        
+        present(imagePickerAlertController, animated: true, completion: nil)
+        
+        
+    }
+    
     @objc func save() {
         
         guard let uid = userDefaults.string(forKey: "uid") else { return }
@@ -141,3 +212,34 @@ extension EditProfileViewController:UITableViewDataSource,UITableViewDelegate{
     }
     
 }
+
+extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        
+        var selectedImageFromPicker: UIImage?
+        
+        // 取得從 UIImagePickerController 選擇的檔案
+        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            
+            selectedImageFromPicker = pickedImage
+        }
+        
+        // 可以自動產生一組獨一無二的 ID 號碼，方便等一下上傳圖片的命名
+        let uniqueString = NSUUID().uuidString
+        
+        // 當判斷有 selectedImage 時，我們會在 if 判斷式裡將圖片上傳
+        if let selectedImage = selectedImageFromPicker {
+            
+            profileImage.image = selectedImage
+            
+            print("\(uniqueString), \(selectedImage)")
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+
+}
+
+

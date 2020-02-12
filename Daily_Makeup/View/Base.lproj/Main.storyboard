@@ -729,8 +729,9 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="e5M-1X-f6f">
-                                <rect key="frame" x="0.0" y="138" width="414" height="56"/>
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e5M-1X-f6f">
+                                <rect key="frame" x="12" y="138" width="390" height="56"/>
+                                <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                         </subviews>
@@ -739,27 +740,28 @@
                             <constraint firstItem="1Bt-xo-48L" firstAttribute="bottom" secondItem="5tn-eu-OxV" secondAttribute="bottom" id="15n-HS-A2p"/>
                             <constraint firstItem="2Ig-6P-s7T" firstAttribute="top" secondItem="kD6-16-T5u" secondAttribute="bottom" constant="14" id="3G8-Pe-E14"/>
                             <constraint firstItem="2Ig-6P-s7T" firstAttribute="leading" secondItem="1UV-vW-6Cc" secondAttribute="leading" id="3IC-Jk-gCe"/>
+                            <constraint firstItem="5tn-eu-OxV" firstAttribute="trailing" secondItem="e5M-1X-f6f" secondAttribute="trailing" constant="12" id="5Ua-qx-oIe"/>
                             <constraint firstItem="5tn-eu-OxV" firstAttribute="trailing" secondItem="or6-sa-OQL" secondAttribute="trailing" constant="20" id="7QS-o2-dvZ"/>
                             <constraint firstAttribute="trailing" secondItem="2Ig-6P-s7T" secondAttribute="trailing" id="8SD-x8-HSu"/>
                             <constraint firstItem="1Bt-xo-48L" firstAttribute="trailing" secondItem="5tn-eu-OxV" secondAttribute="trailing" id="AYs-rb-beG"/>
-                            <constraint firstItem="e5M-1X-f6f" firstAttribute="top" secondItem="2Ig-6P-s7T" secondAttribute="bottom" id="DMP-yS-dsO"/>
                             <constraint firstItem="Qar-nd-ZHO" firstAttribute="centerY" secondItem="kD6-16-T5u" secondAttribute="centerY" id="G5i-eJ-VKv"/>
                             <constraint firstItem="Qar-nd-ZHO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kD6-16-T5u" secondAttribute="trailing" constant="8" symbolic="YES" id="I37-Ps-oXF"/>
-                            <constraint firstItem="e5M-1X-f6f" firstAttribute="leading" secondItem="5tn-eu-OxV" secondAttribute="leading" id="Opb-0f-xiP"/>
+                            <constraint firstItem="e5M-1X-f6f" firstAttribute="top" secondItem="2Ig-6P-s7T" secondAttribute="bottom" id="Igz-ek-G0r"/>
                             <constraint firstItem="or6-sa-OQL" firstAttribute="centerY" secondItem="Qar-nd-ZHO" secondAttribute="centerY" id="Peb-Vx-Z1D"/>
                             <constraint firstItem="1Bt-xo-48L" firstAttribute="leading" secondItem="5tn-eu-OxV" secondAttribute="leading" id="Vzt-yG-prQ"/>
                             <constraint firstItem="kD6-16-T5u" firstAttribute="leading" secondItem="5tn-eu-OxV" secondAttribute="leading" constant="20" id="Y3o-ql-PHp"/>
                             <constraint firstItem="kD6-16-T5u" firstAttribute="top" secondItem="5tn-eu-OxV" secondAttribute="top" constant="14" id="cMf-B1-Mhm"/>
-                            <constraint firstItem="1Bt-xo-48L" firstAttribute="top" secondItem="e5M-1X-f6f" secondAttribute="bottom" id="h1K-fh-oRs"/>
                             <constraint firstItem="or6-sa-OQL" firstAttribute="leading" secondItem="Qar-nd-ZHO" secondAttribute="trailing" constant="15" id="kJf-9p-CpG"/>
-                            <constraint firstItem="e5M-1X-f6f" firstAttribute="trailing" secondItem="5tn-eu-OxV" secondAttribute="trailing" id="r8k-Tk-JXf"/>
+                            <constraint firstItem="1Bt-xo-48L" firstAttribute="top" secondItem="e5M-1X-f6f" secondAttribute="bottom" id="pNH-9p-8SX"/>
+                            <constraint firstItem="e5M-1X-f6f" firstAttribute="leading" secondItem="5tn-eu-OxV" secondAttribute="leading" constant="12" id="qXc-X4-edm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5tn-eu-OxV"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Makeup" id="RuV-9V-K2c"/>
+                    <navigationItem key="navigationItem" title="Makeup" largeTitleDisplayMode="always" id="RuV-9V-K2c"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="article" destination="1Bt-xo-48L" id="q2b-le-a0s"/>
+                        <outlet property="searchBar" destination="e5M-1X-f6f" id="LkC-j1-jPe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZN7-Vv-bJW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1554,6 +1556,9 @@
                                             <state key="normal" title="Change Profile Photo">
                                                 <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
+                                            <connections>
+                                                <action selector="cPPButton:" destination="pfe-5O-Umv" eventType="touchUpInside" id="BJG-3v-hkN"/>
+                                            </connections>
                                         </button>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nwu-ZQ-A0w">
                                             <rect key="frame" x="0.0" y="184" width="414" height="0.5"/>
@@ -1562,12 +1567,13 @@
                                                 <constraint firstAttribute="height" constant="0.5" id="fhU-Ht-8fQ"/>
                                             </constraints>
                                         </view>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sticker" translatesAutoresizingMaskIntoConstraints="NO" id="GLD-f7-IeI">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GLD-f7-IeI">
                                             <rect key="frame" x="157" y="26" width="100" height="100"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="100" id="7Hz-OV-umb"/>
                                                 <constraint firstAttribute="width" constant="100" id="gRT-hW-MNt"/>
+                                                <constraint firstAttribute="width" secondItem="GLD-f7-IeI" secondAttribute="height" multiplier="1:1" id="isx-6g-x9r"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1575,16 +1581,32 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cAW-22-qh6">
+                                            <rect key="frame" x="157" y="26" width="100" height="100"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <state key="normal" image="plus" catalog="system">
+                                                <color key="titleColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="addImageBtn:" destination="pfe-5O-Umv" eventType="touchUpInside" id="k6m-6x-ARX"/>
+                                                <action selector="addImageButton:" destination="kTb-Kg-nS7" eventType="touchUpInside" id="njX-wi-pJo"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="piV-F1-4mk" secondAttribute="trailing" constant="40" id="CD3-hv-NZN"/>
+                                        <constraint firstItem="cAW-22-qh6" firstAttribute="leading" secondItem="GLD-f7-IeI" secondAttribute="leading" id="FVJ-9J-VVp"/>
                                         <constraint firstItem="piV-F1-4mk" firstAttribute="leading" secondItem="uln-WU-FG7" secondAttribute="leading" constant="40" id="MWD-aH-6FN"/>
                                         <constraint firstItem="GLD-f7-IeI" firstAttribute="top" secondItem="uln-WU-FG7" secondAttribute="top" constant="26" id="P2d-TG-MJ3"/>
                                         <constraint firstItem="piV-F1-4mk" firstAttribute="top" secondItem="GLD-f7-IeI" secondAttribute="bottom" constant="8" id="YLf-RD-1c9"/>
+                                        <constraint firstItem="piV-F1-4mk" firstAttribute="top" secondItem="cAW-22-qh6" secondAttribute="bottom" constant="8" id="aog-sJ-RTn"/>
                                         <constraint firstItem="nwu-ZQ-A0w" firstAttribute="leading" secondItem="uln-WU-FG7" secondAttribute="leading" id="b0W-qk-jdc"/>
                                         <constraint firstItem="nwu-ZQ-A0w" firstAttribute="top" secondItem="piV-F1-4mk" secondAttribute="bottom" constant="20" id="dIH-wu-ppe"/>
                                         <constraint firstItem="GLD-f7-IeI" firstAttribute="centerX" secondItem="piV-F1-4mk" secondAttribute="centerX" id="f9E-Qa-FCJ"/>
+                                        <constraint firstItem="GLD-f7-IeI" firstAttribute="trailing" secondItem="cAW-22-qh6" secondAttribute="trailing" id="tPo-MC-W0d"/>
+                                        <constraint firstItem="cAW-22-qh6" firstAttribute="top" secondItem="uln-WU-FG7" secondAttribute="top" constant="26" id="yZU-0H-cYf"/>
                                         <constraint firstAttribute="trailing" secondItem="nwu-ZQ-A0w" secondAttribute="trailing" id="yxX-hP-pzq"/>
                                     </constraints>
                                 </view>
@@ -1651,11 +1673,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="Edit profile" id="Y0Q-iR-fCk"/>
                     <connections>
+                        <outlet property="addImageOutlet" destination="cAW-22-qh6" id="Wby-5V-Ug5"/>
                         <outlet property="profileImage" destination="GLD-f7-IeI" id="Wnp-FM-9xA"/>
                         <outlet property="profileTableView" destination="8cO-de-Abr" id="MSZ-oG-cBe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3gN-iH-ShX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="kTb-Kg-nS7" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4847.826086956522" y="1506.6964285714284"/>
         </scene>

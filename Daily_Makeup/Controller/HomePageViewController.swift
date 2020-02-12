@@ -19,8 +19,12 @@ class HomePageViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    @IBOutlet var searchTextField: UITextField!
+    
+    @IBOutlet var searchBar: UISearchBar!
+    
+    
     @IBOutlet var article: UICollectionView!
+    
     
 }
 

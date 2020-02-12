@@ -29,7 +29,7 @@ class ListViewController: UIViewController {
     }
     
     var newArray: [Product] = []
-    
+    var swtichDisplay = false
     //搜尋功能
     @IBAction func serchButton(_ sender: UIButton) {
         for product in listArray {
@@ -37,11 +37,15 @@ class ListViewController: UIViewController {
             if searchTextField.text == product.brand {
                 print(product.brand)
                 newArray.append(product)
+                swtichDisplay = true
+            }
+            if searchTextField.text == ""{
                 
             }
         }
+        
         listTableView.reloadData()
-//      loadData()
+        //      loadData()
     }
     
     @IBOutlet var searchTextField: UITextField!
@@ -53,8 +57,13 @@ class ListViewController: UIViewController {
         let indexPath = IndexPath(row: 0, section: 0)
         self.listTableView.scrollToRow(at: indexPath, at: .top, animated: true)
         
+    }
+    
+    
+    @IBAction func addImageButton(_ sender: UIButton) {
         
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //        loadData()
@@ -136,20 +145,34 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return newArray.count
+        if swtichDisplay == false
+        {
+            return listArray.count
+        }
+        else
+        {
+            return newArray.count
+            
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListTableViewCell else { return UITableViewCell()}
         
-        
-//        cell.productTitle.text = listArray[indexPath.row].title
-//        cell.productColorTone.text = listArray[indexPath.row].colortone
-//        cell.productBrand.text = listArray[indexPath.row].brand
-        
-        cell.productTitle.text = newArray[indexPath.row].title
-        cell.productColorTone.text = newArray[indexPath.row].colortone
-        cell.productBrand.text = newArray[indexPath.row].brand
+        if swtichDisplay == true
+        {
+            cell.productTitle.text = newArray[indexPath.row].title
+            cell.productColorTone.text = newArray[indexPath.row].colortone
+            cell.productBrand.text = newArray[indexPath.row].brand
+        }
+        else{
+            cell.productTitle.text = listArray[indexPath.row].title
+            cell.productColorTone.text = listArray[indexPath.row].colortone
+            cell.productBrand.text = listArray[indexPath.row].brand
+            
+        }
+        //
+        //swtichDisplay = !swtichDisplay
         
         return cell
     }
