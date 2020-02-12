@@ -28,28 +28,44 @@ class ListViewController: UIViewController {
         }
     }
     
+    var newArray: [Product] = []
     
+    //搜尋功能
+    @IBAction func serchButton(_ sender: UIButton) {
+        for product in listArray {
+            print(product.brand)
+            if searchTextField.text == product.brand {
+                print(product.brand)
+                newArray.append(product)
+                
+            }
+        }
+        listTableView.reloadData()
+//      loadData()
+    }
+    
+    @IBOutlet var searchTextField: UITextField!
     @IBOutlet var totalNumber: UILabel!
     @IBOutlet var listTableView: UITableView!
-  
+    
     @IBAction func backtoTop(_ sender: Any) {
         
         let indexPath = IndexPath(row: 0, section: 0)
         self.listTableView.scrollToRow(at: indexPath, at: .top, animated: true)
-
+        
         
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-//        loadData()
+        //        loadData()
         self.totalNumber.isHidden = true
         listTableView.delegate = self
         listTableView.dataSource = self
         listTableView.separatorStyle = .none
         
         db = Firestore.firestore()
-       
-//        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(back))
+        
+        //        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(back))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(back))
         
         navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
@@ -66,10 +82,10 @@ class ListViewController: UIViewController {
     
     @objc func add() {
         guard let listVC = storyboard?.instantiateViewController(withIdentifier: "addProduct") as? ProductDetailViewController else {
-
+            
             return
         }
-
+        
         self.show(listVC, sender: nil)
     }
     
@@ -101,7 +117,7 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
             } else {
                 self.listArray = []
                 for document in querySnapshot!.documents {
-                   
+                    
                     do {
                         guard let result = try document.data(as: Product.self, decoder: Firestore.Decoder()) else { return }
                         print(result)
@@ -114,22 +130,26 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
                 }
             }
         }
-
+        
         
         
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listArray.count
+        return newArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListTableViewCell else { return UITableViewCell()}
         
         
-        cell.productTitle.text = listArray[indexPath.row].title
-        cell.productColorTone.text = listArray[indexPath.row].colortone
-        cell.productBrand.text = listArray[indexPath.row].brand
+//        cell.productTitle.text = listArray[indexPath.row].title
+//        cell.productColorTone.text = listArray[indexPath.row].colortone
+//        cell.productBrand.text = listArray[indexPath.row].brand
+        
+        cell.productTitle.text = newArray[indexPath.row].title
+        cell.productColorTone.text = newArray[indexPath.row].colortone
+        cell.productBrand.text = newArray[indexPath.row].brand
         
         return cell
     }
@@ -164,7 +184,7 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
         productDetailVC.productDocumentID = listArray[indexPath.row].id
         
         
-    
+        
         self.show(productDetailVC, sender: nil)
         
         

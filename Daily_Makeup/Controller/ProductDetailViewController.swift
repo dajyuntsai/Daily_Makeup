@@ -280,9 +280,7 @@ extension ProductDetailViewController : UIImagePickerControllerDelegate, UINavig
         if let selectedImage = selectedImageFromPicker {
             
             imageView.image = selectedImage
-            
-            
-//            imageOutlet.isHidden = true
+
             imageOutlet.setTitleColor(UIColor.clear, for: .normal)
     
             
