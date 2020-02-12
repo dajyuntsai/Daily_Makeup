@@ -32,29 +32,19 @@ class ProductDetailViewController: UIViewController {
     var date = ""
     var date1 = ""
     
+    var textFieldEditable = true
     
     @IBOutlet var imageOutlet: UIButton!
     @IBOutlet var imageView: UIImageView!
     @IBAction func addImageBtn(_ sender: UIButton) {
         
-        //         建立一個 UIImagePickerController 的實體
         let imagePickerController = UIImagePickerController()
         
-        // 委任代理
         imagePickerController.delegate = self
-        
-        // 建立一個 UIAlertController 的實體
-        // 設定 UIAlertController 的標題與樣式為 動作清單 (actionSheet)
         let imagePickerAlertController = UIAlertController(title: "上傳圖片", message: "請選擇要上傳的圖片", preferredStyle: .actionSheet)
         
-        // 建立三個 UIAlertAction 的實體
-        // 新增 UIAlertAction 在 UIAlertController actionSheet 的 動作 (action) 與標題
         let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (Void) in
-            
-            // 判斷是否可以從照片圖庫取得照片來源
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-                
-                // 如果可以，指定 UIImagePickerController 的照片來源為 照片圖庫 (.photoLibrary)，並 present UIImagePickerController
                 imagePickerController.sourceType = .photoLibrary
                 self.present(imagePickerController, animated: true, completion: nil)
             }
@@ -63,8 +53,6 @@ class ProductDetailViewController: UIViewController {
             
             // 判斷是否可以從相機取得照片來源
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                
-                // 如果可以，指定 UIImagePickerController 的照片來源為 照片圖庫 (.camera)，並 present UIImagePickerController
                 imagePickerController.sourceType = .camera
                 self.present(imagePickerController, animated: true, completion: nil)
             }
@@ -93,6 +81,8 @@ class ProductDetailViewController: UIViewController {
     
     @IBOutlet var productImage: UIImageView!
     
+    var rightBarButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -106,8 +96,10 @@ class ProductDetailViewController: UIViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Cancel))
         navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
         navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
+        
         
         showDateFormatter.dateFormat = "yyyy-MM-dd"
         openDatepicker.datePickerMode = .date
@@ -120,7 +112,17 @@ class ProductDetailViewController: UIViewController {
         
         expDatePicker.addTarget(self, action: #selector(selectedExpOpenDate), for: .valueChanged)
         
+        
+        if productDocumentID != "" {
+            navigationItem.rightBarButtonItem?.title = "Edit"
+            textFieldEditable = false
+            productDetailNote.isEditable = false
+            
+        }
     }
+    
+    
+    
     //日期picker
     @objc func selectedOpenDate() {
         openTextField?.text = showDateFormatter.string(from: openDatepicker.date)
@@ -154,26 +156,45 @@ class ProductDetailViewController: UIViewController {
             } catch {
                 print(error)
             }
+            navigationController?.popViewController(animated: true)
         } else {
-            let document = db.collection("ProductDetail").document(productDocumentID)
             
-            let product = Product (
-                title: productDetailTitle,
-                colortone: productDetailColor,
-                brand: productDetailBrand,
-                opened: productdetailOpened,
-                expirydate: productExpirydate,
-                note: productDetailNote.text,
-                id:  document.documentID)
+            guard let title = navigationItem.rightBarButtonItem?.title else { return }
             
-            do {
-                try document.setData(from: product, merge: true)
-            } catch {
-                print(error)
+            if title == "Edit" {
+                //改成save
+                navigationItem.rightBarButtonItem?.title = "Save"
+                productDetailNote.isEditable = true
+                textFieldEditable = true
+                productDetailTableView.reloadData()
+            } else {
+                //改成edit
+                navigationItem.rightBarButtonItem?.title = "Edit"
+                productDetailNote.isEditable = false
+                textFieldEditable = false
+                productDetailTableView.reloadData()
+                let document = db.collection("ProductDetail").document(productDocumentID)
+                
+                let product = Product (
+                    title: productDetailTitle,
+                    colortone: productDetailColor,
+                    brand: productDetailBrand,
+                    opened: productdetailOpened,
+                    expirydate: productExpirydate,
+                    note: productDetailNote.text,
+                    id:  document.documentID)
+                
+                do {
+                    try document.setData(from: product, merge: true)
+                } catch {
+                    print(error)
+                }
+                
             }
+            
+            
         }
         
-        navigationController?.popViewController(animated: true)
     }
     
     let productDetail = ["Title","Colortone","Brand","Opened","EXP"]
@@ -193,6 +214,9 @@ extension ProductDetailViewController:UITableViewDelegate,UITableViewDataSource 
         cell.ProdectDetailLabel.text = productDetail[indexPath.row]
         productImage.layer.cornerRadius = UIScreen.main.bounds.width / 40
         productImage.layer.maskedCorners = [.layerMinXMaxYCorner]
+        
+        cell.productDetailTextField.isEnabled = textFieldEditable
+    
         
         switch indexPath.row {
         case 0:
@@ -258,13 +282,20 @@ extension ProductDetailViewController : UIImagePickerControllerDelegate, UINavig
             imageView.image = selectedImage
             
             
-            imageOutlet.isHidden = true
-            
+//            imageOutlet.isHidden = true
+            imageOutlet.setTitleColor(UIColor.clear, for: .normal)
+    
             
             print("\(uniqueString), \(selectedImage)")
         }
         
         dismiss(animated: true, completion: nil)
     }
+    
+    
+    
+    
+    
+    
 }
 

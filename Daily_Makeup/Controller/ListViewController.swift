@@ -162,6 +162,9 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
         productDetailVC.productTextFieldNote = listArray[indexPath.row].note
         
         productDetailVC.productDocumentID = listArray[indexPath.row].id
+        
+        
+    
         self.show(productDetailVC, sender: nil)
         
         
