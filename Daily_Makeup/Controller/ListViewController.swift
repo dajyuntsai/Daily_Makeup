@@ -30,22 +30,27 @@ class ListViewController: UIViewController {
         }
     }
     
-    var newArray: [Product] = []
+    var isFilter = false {
+        didSet{
+            self.totalNumber.text = "\(self.listArray.count)"
+            self.listTableView.reloadData()
+        }
+    }
+    
+    
+    var filterArray: [Product] = [] {
+        didSet{
+            if filterArray.isEmpty {
+                self.totalNumber.isHidden = true
+            } else {
+                self.totalNumber.isHidden = false
+                self.totalNumber.text = "\(self.filterArray.count)"
+                self.listTableView.reloadData()
+            }
+        }
+    }
     var swtichDisplay = false
-    //搜尋功能
-//    @IBAction func serchButton(_ sender: UIButton) {
-//        for product in listArray {
-//            print(product.brand)
-//            if searchTextField.text == product.brand {
-//                print(product.brand)
-//                newArray.append(product)
-//                swtichDisplay = true
-//            }
-//            if searchTextField.text == "" {
-//            }
-//        }
-//        listTableView.reloadData()
-//    }
+  
 
     @IBOutlet var serchBar: UISearchBar!
     @IBOutlet var searchTextField: UITextField!
@@ -111,9 +116,10 @@ class ListViewController: UIViewController {
         navigationItem.searchController = search
         search.searchBar.placeholder = "搜尋品牌..."
         search.searchBar.tintColor = .white
-
-
-
+        search.searchResultsUpdater = self
+        search.searchBar.delegate = self
+        search.searchBar.sizeToFit()
+        search.obscuresBackgroundDuringPresentation = false
     }
     
     @objc func back() {
@@ -154,8 +160,12 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       
-            return listArray.count
+        
+        if isFilter {
+            return filterArray.count
+        } else {
+             return listArray.count
+        }
         
     }
     
@@ -164,11 +174,16 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
             return UITableViewCell()
 
         }
+            var container: [Product] = []
+        if isFilter {
+            container = filterArray
+        } else {
+            container = listArray
+        }
 
-
-            cell.productTitle.text = listArray[indexPath.row].title
-            cell.productColorTone.text = listArray[indexPath.row].colortone
-            cell.productBrand.text = listArray[indexPath.row].brand
+            cell.productTitle.text = container [indexPath.row].title
+            cell.productColorTone.text = container [indexPath.row].colortone
+            cell.productBrand.text = container[indexPath.row].brand
 
 
         
@@ -204,16 +219,60 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
         productDetailVC.productTextFieldNote = listArray[indexPath.row].note
         
         productDetailVC.productDocumentID = listArray[indexPath.row].id
-        
-        
-        
         self.show(productDetailVC, sender: nil)
     
     }
+}
+
+extension ListViewController: UISearchResultsUpdating {
     
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        guard let search = search.searchBar.text  else {
+            
+           isFilter = false
+            return }
+        
+        if search.isEmpty {
+            isFilter = false
+            return
+        }
+        isFilter = true
+        
+        filterArray =  listArray.filter { product in
+            
+            let brand = product.brand
+            let title = product.title
+            
+            let brandMatch = brand.localizedCaseInsensitiveContains(search)
+            
+            let titleMatch = title.localizedCaseInsensitiveContains(search)
+            
+            if brandMatch || titleMatch {
+                
+                return true
+            }
+            return false
+        }
+        listTableView.reloadData()
+    }
+}
+
+extension ListViewController: UISearchBarDelegate {
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        isFilter = true
+    }
     
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        isFilter = false
+    }
     
-    
-    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+      
+      if !isFilter {
+        isFilter = true
+      }
+      search.searchBar.resignFirstResponder()
+    }
 }

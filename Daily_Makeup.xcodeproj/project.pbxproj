@@ -8,8 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		5C20982123F125D500BE515D /* signinID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C20982023F125D500BE515D /* signinID.swift */; };
+		5C20982323F5409B00BE515D /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C20982223F5409A00BE515D /* TabViewController.swift */; };
 		5C3D6AAE23E97F5D00257991 /* productDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3D6AAD23E97F5D00257991 /* productDetail.swift */; };
 		5C3D6AB023EA90F700257991 /* editProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3D6AAF23EA90F700257991 /* editProfile.swift */; };
+		5C4CF8E123F550D800AB65B6 /* EditArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4CF8E023F550D700AB65B6 /* EditArticleViewController.swift */; };
+		5C4CF8E323F56B4100AB65B6 /* EditArticleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4CF8E223F56B4100AB65B6 /* EditArticleCollectionViewCell.swift */; };
 		5C52A36623E4279D00969BDE /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C52A36523E4279D00969BDE /* ProductDetailViewController.swift */; };
 		5C52A36A23E427F300969BDE /* ProductDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C52A36923E427F300969BDE /* ProductDetailTableViewCell.swift */; };
 		5C52A36C23E4992B00969BDE /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C52A36B23E4992B00969BDE /* ListViewController.swift */; };
@@ -41,8 +44,11 @@
 /* Begin PBXFileReference section */
 		1EDBDCB2B2DABF2EAF0B4A64 /* Pods-Daily_Makeup.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Daily_Makeup.debug.xcconfig"; path = "Target Support Files/Pods-Daily_Makeup/Pods-Daily_Makeup.debug.xcconfig"; sourceTree = "<group>"; };
 		5C20982023F125D500BE515D /* signinID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signinID.swift; sourceTree = "<group>"; };
+		5C20982223F5409A00BE515D /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		5C3D6AAD23E97F5D00257991 /* productDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = productDetail.swift; sourceTree = "<group>"; };
 		5C3D6AAF23EA90F700257991 /* editProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editProfile.swift; sourceTree = "<group>"; };
+		5C4CF8E023F550D700AB65B6 /* EditArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditArticleViewController.swift; sourceTree = "<group>"; };
+		5C4CF8E223F56B4100AB65B6 /* EditArticleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditArticleCollectionViewCell.swift; sourceTree = "<group>"; };
 		5C52A36523E4279D00969BDE /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
 		5C52A36923E427F300969BDE /* ProductDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailTableViewCell.swift; sourceTree = "<group>"; };
 		5C52A36B23E4992B00969BDE /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
@@ -149,6 +155,7 @@
 				5C52A37723E7C63400969BDE /* PostTitleTableViewCell.swift */,
 				5C52A37923E7C65600969BDE /* PostContentTableViewCell.swift */,
 				5CF684D223E2D07C00F3C363 /* CategoryTableViewCell.swift */,
+				5C4CF8E223F56B4100AB65B6 /* EditArticleCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -156,6 +163,8 @@
 		5C78699323E1B61B007A94A1 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				5C4CF8E023F550D700AB65B6 /* EditArticleViewController.swift */,
+				5C20982223F5409A00BE515D /* TabViewController.swift */,
 				5C57F34A23DC46E00010A672 /* ViewController.swift */,
 				5CC4651123E84C2F00424243 /* SinginViewController.swift */,
 				5C52A37123E7B50300969BDE /* PostViewController.swift */,
@@ -323,8 +332,10 @@
 				5C52A37023E4996700969BDE /* ListTableViewCell.swift in Sources */,
 				5CF684CD23E2CFCD00F3C363 /* EditProfileViewController.swift in Sources */,
 				5C52A37223E7B50300969BDE /* PostViewController.swift in Sources */,
+				5C20982323F5409B00BE515D /* TabViewController.swift in Sources */,
 				5C52A36A23E427F300969BDE /* ProductDetailTableViewCell.swift in Sources */,
 				5CF684C923E2B75800F3C363 /* PersonalPageViewController.swift in Sources */,
+				5C4CF8E123F550D800AB65B6 /* EditArticleViewController.swift in Sources */,
 				5C78699723E1BB2B007A94A1 /* HomePageCollectionViewCell.swift in Sources */,
 				5C3D6AAE23E97F5D00257991 /* productDetail.swift in Sources */,
 				5C52A36623E4279D00969BDE /* ProductDetailViewController.swift in Sources */,
@@ -338,6 +349,7 @@
 				5C78699523E1B9B9007A94A1 /* HomePageViewController.swift in Sources */,
 				5C78699F23E1F91C007A94A1 /* SavePageCollectionViewCell.swift in Sources */,
 				5C20982123F125D500BE515D /* signinID.swift in Sources */,
+				5C4CF8E323F56B4100AB65B6 /* EditArticleCollectionViewCell.swift in Sources */,
 				5C78699D23E1F8E2007A94A1 /* SavePageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

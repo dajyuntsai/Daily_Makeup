@@ -34,6 +34,8 @@ class ProductDetailViewController: UIViewController {
     
     var textFieldEditable = true
     
+    var imageStore: [UIImage] = []
+    
     @IBOutlet var imageOutlet: UIButton!
     @IBOutlet var imageView: UIImageView!
     @IBAction func addImageBtn(_ sender: UIButton) {
@@ -145,8 +147,9 @@ class ProductDetailViewController: UIViewController {
         
         if productDocumentID == "" {
             do {
-                let document = db.collection("ProductDetail").document()
                 
+                let document = db.collection("ProductDetail").document()
+
                 let product = Product (
                     title: productDetailTitle,
                     colortone: productDetailColor,
@@ -155,7 +158,7 @@ class ProductDetailViewController: UIViewController {
                     expirydate: productExpirydate,
                     note: productDetailNote.text,
                     id:  document.documentID)
-                
+
                 try document.setData(from: product)
             } catch {
                 print(error)
@@ -286,6 +289,8 @@ extension ProductDetailViewController : UIImagePickerControllerDelegate, UINavig
             imageView.image = selectedImage
 
             imageOutlet.setTitleColor(UIColor.clear, for: .normal)
+            
+            imageStore.append(selectedImage)
     
             
             print("\(uniqueString), \(selectedImage)")
