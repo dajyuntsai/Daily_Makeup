@@ -21,4 +21,5 @@ class HomePageCollectionViewCell: UICollectionViewCell {
     @IBOutlet var littleView: UIView!
     
     @IBOutlet var likeNumber: UILabel!
+    
 }

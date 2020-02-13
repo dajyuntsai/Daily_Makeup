@@ -70,7 +70,7 @@
 		5CF684D023E2D04B00F3C363 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		5CF684D223E2D07C00F3C363 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		5CF684D423E2D0A100F3C363 /* EditProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewCell.swift; sourceTree = "<group>"; };
-		ADEE0E7F3CACC3135BD337BF /* Pods-Daily_Makeup.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Daily_Makeup.release.xcconfig"; path = "Target Support Files/Pods-Daily_Makeup/Pods-Daily_Makeup.release.xcconfig"; sourceTree = "<group>"; };
+		ADEE0E7F3CACC3135BD337BF /* Pods-Daily_Makeup.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Daily_Makeup.release.xcconfig"; sourceTree = "<group>"; };
 		FA4D39A30E24CBD550FCE89B /* Pods_Daily_Makeup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Daily_Makeup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -160,6 +160,7 @@
 				5CC4651123E84C2F00424243 /* SinginViewController.swift */,
 				5C52A37123E7B50300969BDE /* PostViewController.swift */,
 				5C52A36523E4279D00969BDE /* ProductDetailViewController.swift */,
+				ADEE0E7F3CACC3135BD337BF /* Pods-Daily_Makeup.release.xcconfig */,
 				5C52A36B23E4992B00969BDE /* ListViewController.swift */,
 				5CF684C823E2B75800F3C363 /* PersonalPageViewController.swift */,
 				5CF684CC23E2CFCD00F3C363 /* EditProfileViewController.swift */,
@@ -176,7 +177,6 @@
 			isa = PBXGroup;
 			children = (
 				1EDBDCB2B2DABF2EAF0B4A64 /* Pods-Daily_Makeup.debug.xcconfig */,
-				ADEE0E7F3CACC3135BD337BF /* Pods-Daily_Makeup.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -487,7 +487,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6LAT54CJSN;
 				INFOPLIST_FILE = Daily_Makeup/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -509,7 +509,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6LAT54CJSN;
 				INFOPLIST_FILE = Daily_Makeup/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

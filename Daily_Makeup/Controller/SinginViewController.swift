@@ -24,6 +24,7 @@ class SinginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //google signin
         NotificationCenter.default.addObserver(self, selector: #selector(success), name: Notification.Name("success"), object: nil)
         
         GIDSignIn.sharedInstance()?.presentingViewController = self
@@ -31,7 +32,7 @@ class SinginViewController: UIViewController {
     }
     
     @objc func success() {
-        guard let home = storyboard?.instantiateViewController(identifier: "tabBarController") as? UITabBarController else { return }
+        guard let home = storyboard?.instantiateViewController(withIdentifier: "tabBarController") as? UITabBarController else { return }
         
         self.view.window?.rootViewController = home
         

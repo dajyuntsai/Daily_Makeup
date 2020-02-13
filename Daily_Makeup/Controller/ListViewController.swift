@@ -15,6 +15,8 @@ import FirebaseFirestoreSwift
 
 class ListViewController: UIViewController {
     
+    
+    
     var db: Firestore!
     var listArray = [Product]() {
         didSet{
@@ -31,23 +33,21 @@ class ListViewController: UIViewController {
     var newArray: [Product] = []
     var swtichDisplay = false
     //搜尋功能
-    @IBAction func serchButton(_ sender: UIButton) {
-        for product in listArray {
-            print(product.brand)
-            if searchTextField.text == product.brand {
-                print(product.brand)
-                newArray.append(product)
-                swtichDisplay = true
-            }
-            if searchTextField.text == ""{
-                
-            }
-        }
-        
-        listTableView.reloadData()
-        //      loadData()
-    }
-    
+//    @IBAction func serchButton(_ sender: UIButton) {
+//        for product in listArray {
+//            print(product.brand)
+//            if searchTextField.text == product.brand {
+//                print(product.brand)
+//                newArray.append(product)
+//                swtichDisplay = true
+//            }
+//            if searchTextField.text == "" {
+//            }
+//        }
+//        listTableView.reloadData()
+//    }
+
+    @IBOutlet var serchBar: UISearchBar!
     @IBOutlet var searchTextField: UITextField!
     @IBOutlet var totalNumber: UILabel!
     @IBOutlet var listTableView: UITableView!
@@ -64,9 +64,33 @@ class ListViewController: UIViewController {
         
     }
     
+    let search = UISearchController(searchResultsController: nil )
+    
+    func loadData() {
+        db.collection("ProductDetail").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                self.listArray = []
+                for document in querySnapshot!.documents {
+                    
+                    do {
+                        guard let result = try document.data(as: Product.self, decoder: Firestore.Decoder()) else { return }
+                        print(result)
+                        
+                        self.listArray.append(result)
+                    } catch {
+                        print(error)
+                    }
+                    
+                }
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        loadData()
+//        loadData()
         self.totalNumber.isHidden = true
         listTableView.delegate = self
         listTableView.dataSource = self
@@ -82,6 +106,14 @@ class ListViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add))
         navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
         
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.963026464, green: 0.9243792892, blue: 0.9118029475, alpha: 1)
+        navigationItem.searchController = search
+        search.searchBar.placeholder = "搜尋品牌..."
+        search.searchBar.tintColor = .white
+
+
+
     }
     
     @objc func back() {
@@ -119,62 +151,29 @@ class ListViewController: UIViewController {
 
 extension ListViewController: UITableViewDelegate,UITableViewDataSource {
     
-    func loadData() {
-        db.collection("ProductDetail").getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                self.listArray = []
-                for document in querySnapshot!.documents {
-                    
-                    do {
-                        guard let result = try document.data(as: Product.self, decoder: Firestore.Decoder()) else { return }
-                        print(result)
-                        
-                        self.listArray.append(result)
-                    } catch {
-                        print(error)
-                    }
-                    
-                }
-            }
-        }
-        
-        
-        
-    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if swtichDisplay == false
-        {
+       
             return listArray.count
-        }
-        else
-        {
-            return newArray.count
-            
-        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListTableViewCell else { return UITableViewCell()}
-        
-        if swtichDisplay == true
-        {
-            cell.productTitle.text = newArray[indexPath.row].title
-            cell.productColorTone.text = newArray[indexPath.row].colortone
-            cell.productBrand.text = newArray[indexPath.row].brand
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListTableViewCell else {
+            return UITableViewCell()
+
         }
-        else{
+
+
             cell.productTitle.text = listArray[indexPath.row].title
             cell.productColorTone.text = listArray[indexPath.row].colortone
             cell.productBrand.text = listArray[indexPath.row].brand
-            
-        }
-        //
-        //swtichDisplay = !swtichDisplay
+
+
         
         return cell
+//        return UITableViewCell()
     }
     
     
@@ -209,11 +208,9 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
         
         
         self.show(productDetailVC, sender: nil)
-        
-        
-        
-        
+    
     }
+    
     
     
     

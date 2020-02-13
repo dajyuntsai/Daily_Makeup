@@ -9,6 +9,8 @@
 import UIKit
 
 class HomePageViewController: UIViewController {
+    
+    let search = UISearchController(searchResultsController: nil)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,17 +18,21 @@ class HomePageViewController: UIViewController {
         article.delegate = self
         article.dataSource = self
         self.view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        // Do any additional setup after loading the view.
+        
+//        navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.9200562835, green: 0.7299407125, blue: 0.7380668521, alpha: 1)
+//        navigationItem.searchController = search
+//        search.searchBar.placeholder = "搜尋文章..."
+//        search.searchBar.tintColor = .white        
+//        search.searchBar.searchTextField.backgroundColor = .white
     }
     
     
     @IBOutlet var searchBar: UISearchBar!
-    
-    
     @IBOutlet var article: UICollectionView!
-    
-    
+
 }
+
+
 
 extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
@@ -43,7 +49,8 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         cell1.littleView.layer.borderWidth = 0.5
         cell1.littleView.layer.borderColor = #colorLiteral(red: 0.7867800593, green: 0.6210635304, blue: 0.620044291, alpha: 1)
         cell1.littleView.backgroundColor = #colorLiteral(red: 0.9294117647, green: 0.8784313725, blue: 0.862745098, alpha: 1)
-        cell1.layer.cornerRadius = UIScreen.main.bounds.width / 60
+        cell1.layer.cornerRadius = 10
+//        cell1.layer.cornerRadius = UIScreen.main.bounds.width / 60
         //底下的view右下跟左下角的框框改成圓弧
         cell1.littleView.layer.cornerRadius = UIScreen.main.bounds.width / 60
         cell1.littleView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]

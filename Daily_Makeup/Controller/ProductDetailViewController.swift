@@ -92,6 +92,9 @@ class ProductDetailViewController: UIViewController {
         productDetailTableView.dataSource = self
         productDetailTableView.separatorStyle = .none
         
+        
+        
+
         productDetailNote.text = productTextFieldNote
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Cancel))
@@ -117,6 +120,7 @@ class ProductDetailViewController: UIViewController {
             navigationItem.rightBarButtonItem?.title = "Edit"
             textFieldEditable = false
             productDetailNote.isEditable = false
+            
             
         }
     }
