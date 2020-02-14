@@ -371,7 +371,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="e56-sI-xbs">
                                 <rect key="frame" x="0.0" y="44" width="414" height="768"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" red="0.96408897638320923" green="0.92569011449813843" blue="0.90980154275894165" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell" rowHeight="180" id="Rph-lP-EJP" customClass="ListTableViewCell" customModule="Daily_Makeup" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="180"/>
@@ -498,7 +498,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.8901960784313725" green="0.73725490196078436" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="JIL-pC-Aqh" firstAttribute="top" secondItem="e56-sI-xbs" secondAttribute="bottom" id="9dT-yK-XeX"/>
                             <constraint firstItem="JIL-pC-Aqh" firstAttribute="leading" secondItem="MFp-Hq-0at" secondAttribute="leading" id="EKu-sg-RYe"/>
@@ -536,7 +536,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TKi-MF-1Vl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-226.08695652173915" y="1496.6517857142856"/>
+            <point key="canvasLocation" x="-368" y="1497"/>
         </scene>
         <!--Makeup-->
         <scene sceneID="xwh-vA-9ku">
@@ -563,7 +563,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="1Bt-xo-48L">
-                                <rect key="frame" x="0.0" y="194" width="414" height="619"/>
+                                <rect key="frame" x="0.0" y="150" width="414" height="663"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="scrollIndicatorInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="q0A-3B-ucr">
@@ -689,34 +689,27 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
-                            <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="vjz-A9-Smu">
-                                <rect key="frame" x="16" y="138" width="382" height="56"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.79425722360610962" green="0.52434319257736206" blue="0.61961346864700317" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="1Bt-xo-48L" firstAttribute="bottom" secondItem="5tn-eu-OxV" secondAttribute="bottom" id="15n-HS-A2p"/>
                             <constraint firstItem="2Ig-6P-s7T" firstAttribute="top" secondItem="kD6-16-T5u" secondAttribute="bottom" constant="14" id="3G8-Pe-E14"/>
                             <constraint firstItem="2Ig-6P-s7T" firstAttribute="leading" secondItem="1UV-vW-6Cc" secondAttribute="leading" id="3IC-Jk-gCe"/>
                             <constraint firstItem="5tn-eu-OxV" firstAttribute="trailing" secondItem="or6-sa-OQL" secondAttribute="trailing" constant="20" id="7QS-o2-dvZ"/>
                             <constraint firstAttribute="trailing" secondItem="2Ig-6P-s7T" secondAttribute="trailing" id="8SD-x8-HSu"/>
-                            <constraint firstItem="5tn-eu-OxV" firstAttribute="trailing" secondItem="vjz-A9-Smu" secondAttribute="trailing" constant="16" id="9w8-Je-iIK"/>
                             <constraint firstItem="1Bt-xo-48L" firstAttribute="trailing" secondItem="5tn-eu-OxV" secondAttribute="trailing" id="AYs-rb-beG"/>
                             <constraint firstItem="Qar-nd-ZHO" firstAttribute="centerY" secondItem="kD6-16-T5u" secondAttribute="centerY" id="G5i-eJ-VKv"/>
                             <constraint firstItem="Qar-nd-ZHO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kD6-16-T5u" secondAttribute="trailing" constant="8" symbolic="YES" id="I37-Ps-oXF"/>
-                            <constraint firstItem="1Bt-xo-48L" firstAttribute="top" secondItem="vjz-A9-Smu" secondAttribute="bottom" id="NkL-Bj-jat"/>
                             <constraint firstItem="or6-sa-OQL" firstAttribute="centerY" secondItem="Qar-nd-ZHO" secondAttribute="centerY" id="Peb-Vx-Z1D"/>
                             <constraint firstItem="1Bt-xo-48L" firstAttribute="leading" secondItem="5tn-eu-OxV" secondAttribute="leading" id="Vzt-yG-prQ"/>
                             <constraint firstItem="kD6-16-T5u" firstAttribute="leading" secondItem="5tn-eu-OxV" secondAttribute="leading" constant="20" id="Y3o-ql-PHp"/>
                             <constraint firstItem="kD6-16-T5u" firstAttribute="top" secondItem="5tn-eu-OxV" secondAttribute="top" constant="14" id="cMf-B1-Mhm"/>
+                            <constraint firstItem="1Bt-xo-48L" firstAttribute="top" secondItem="2Ig-6P-s7T" secondAttribute="bottom" constant="12" id="dLp-jK-H1T"/>
                             <constraint firstItem="or6-sa-OQL" firstAttribute="leading" secondItem="Qar-nd-ZHO" secondAttribute="trailing" constant="15" id="kJf-9p-CpG"/>
-                            <constraint firstItem="vjz-A9-Smu" firstAttribute="leading" secondItem="5tn-eu-OxV" secondAttribute="leading" constant="16" id="mJJ-VT-dmA"/>
-                            <constraint firstItem="vjz-A9-Smu" firstAttribute="top" secondItem="2Ig-6P-s7T" secondAttribute="bottom" id="s4J-8m-dj4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5tn-eu-OxV"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Makeup" largeTitleDisplayMode="always" id="RuV-9V-K2c"/>
+                    <navigationItem key="navigationItem" title="Makeup" largeTitleDisplayMode="never" id="RuV-9V-K2c"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="article" destination="1Bt-xo-48L" id="q2b-le-a0s"/>
@@ -724,7 +717,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZN7-Vv-bJW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1536.2318840579712" y="1463.8392857142856"/>
+            <point key="canvasLocation" x="-1184" y="1487"/>
         </scene>
         <!--Tab View Controller-->
         <scene sceneID="Wqx-4H-HfU">
@@ -1715,9 +1708,10 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Hoj-HW-TZm" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="008-home" selectedImage="020-sydney-opera-house-1" id="eGv-7j-gx8"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hWe-r5-Zui">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="hWe-r5-Zui">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.87118339538574219" green="0.48642587661743164" blue="0.49802714586257935" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <color key="barTintColor" red="0.87058823529999996" green="0.48627450979999998" blue="0.49803921569999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>

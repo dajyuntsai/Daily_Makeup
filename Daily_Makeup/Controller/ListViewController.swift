@@ -111,8 +111,8 @@ class ListViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add))
         navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
         
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.963026464, green: 0.9243792892, blue: 0.9118029475, alpha: 1)
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.8901960784, green: 0.737254902, blue: 0.7411764706, alpha: 1)
         navigationItem.searchController = search
         search.searchBar.placeholder = "搜尋品牌..."
         search.searchBar.tintColor = .white

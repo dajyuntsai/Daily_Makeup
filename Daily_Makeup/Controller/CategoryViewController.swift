@@ -12,7 +12,7 @@ class CategoryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        navigationController?.navigationBar.barTintColor = UIColor(red: 227.0/255.0, green: 188.0/255.0, blue: 189.0/255.0, alpha: 1.0)
         // Do any additional setup after loading the view.
     }
     

@@ -17,17 +17,24 @@ class HomePageViewController: UIViewController {
         
         article.delegate = self
         article.dataSource = self
-        self.view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//        self.view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
-//        navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.9200562835, green: 0.7299407125, blue: 0.7380668521, alpha: 1)
-//        navigationItem.searchController = search
-//        search.searchBar.placeholder = "搜尋文章..."
-//        search.searchBar.tintColor = .white        
-//        search.searchBar.searchTextField.backgroundColor = .white
+            
+        navigationItem.title = "Makeup"
+        navigationItem.searchController = search
+        navigationItem.largeTitleDisplayMode = .never
+        search.searchBar.placeholder = "搜尋品牌..."
+        search.searchBar.tintColor = .white
+        navigationController?.navigationBar.barTintColor = .green
+//        search.searchResultsUpdater = self
+//        search.searchBar.delegate = self
+//        search.searchBar.sizeToFit()
+        search.obscuresBackgroundDuringPresentation = false
+        
     }
     
     
-    @IBOutlet var searchBar: UISearchBar!
+  
     @IBOutlet var article: UICollectionView!
 
 }
