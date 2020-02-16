@@ -50,8 +50,8 @@ class ListViewController: UIViewController {
         }
     }
     var swtichDisplay = false
-  
-
+    
+    
     @IBOutlet var serchBar: UISearchBar!
     @IBOutlet var searchTextField: UITextField!
     @IBOutlet var totalNumber: UILabel!
@@ -95,7 +95,7 @@ class ListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        loadData()
+        
         self.totalNumber.isHidden = true
         listTableView.delegate = self
         listTableView.dataSource = self
@@ -128,12 +128,11 @@ class ListViewController: UIViewController {
     }
     
     @objc func add() {
-        guard let listVC = storyboard?.instantiateViewController(withIdentifier: "addProduct") as? ProductDetailViewController else {
+        guard let addProductVC = storyboard?.instantiateViewController(withIdentifier: "addProduct") as? ProductDetailViewController else {
             
             return
         }
-        
-        self.show(listVC, sender: nil)
+        self.show(addProductVC, sender: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -157,14 +156,12 @@ class ListViewController: UIViewController {
 
 extension ListViewController: UITableViewDelegate,UITableViewDataSource {
     
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if isFilter {
             return filterArray.count
         } else {
-             return listArray.count
+            return listArray.count
         }
         
     }
@@ -172,23 +169,24 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListTableViewCell else {
             return UITableViewCell()
-
+            
         }
-            var container: [Product] = []
+        
+        var container: [Product] = []
         if isFilter {
             container = filterArray
         } else {
             container = listArray
         }
-
-            cell.productTitle.text = container [indexPath.row].title
-            cell.productColorTone.text = container [indexPath.row].colortone
-            cell.productBrand.text = container[indexPath.row].brand
-
-
+        
+        cell.productTitle.text = container [indexPath.row].title
+        cell.productColorTone.text = container [indexPath.row].colortone
+        cell.productBrand.text = container[indexPath.row].brand
+        
+        
         
         return cell
-//        return UITableViewCell()
+        //        return UITableViewCell()
     }
     
     
@@ -220,17 +218,18 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
         
         productDetailVC.productDocumentID = listArray[indexPath.row].id
         self.show(productDetailVC, sender: nil)
-    
+        
     }
 }
 
 extension ListViewController: UISearchResultsUpdating {
     
+    //搜尋欄
     func updateSearchResults(for searchController: UISearchController) {
         
         guard let search = search.searchBar.text  else {
             
-           isFilter = false
+            isFilter = false
             return }
         
         if search.isEmpty {
@@ -269,10 +268,10 @@ extension ListViewController: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-      
-      if !isFilter {
-        isFilter = true
-      }
-      search.searchBar.resignFirstResponder()
+        
+        if !isFilter {
+            isFilter = true
+        }
+        search.searchBar.resignFirstResponder()
     }
 }

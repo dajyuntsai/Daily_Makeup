@@ -10,4 +10,10 @@ import UIKit
 
 class EditArticleCollectionViewCell: UICollectionViewCell {
     
+ 
+    
+    @IBOutlet var articleImage: UIImageView!
+    
+    
+    
 }

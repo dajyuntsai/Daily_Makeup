@@ -1,0 +1,20 @@
+//
+//  article.swift
+//  Daily_Makeup
+//
+//  Created by Hueijyun  on 2020/2/15.
+//  Copyright © 2020 Hueijyun . All rights reserved.
+//
+
+import Foundation
+
+struct  Article: Codable {
+    
+    let title : String
+    
+    let content : String
+    
+    let uid: String
+    
+    let name: String
+}

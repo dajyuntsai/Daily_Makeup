@@ -18,9 +18,9 @@ class CategoryViewController: UIViewController {
     
     
     @IBAction func lipCategoryButton(_ sender: UIButton) {
-        guard let categoryVC = storyboard?.instantiateViewController(withIdentifier: "litspage") as?  ListViewController else { return }
+        guard let ListVC = storyboard?.instantiateViewController(withIdentifier: "litspage") as?  ListViewController else { return }
         
-        self.show(categoryVC, sender: nil)
+        self.show(ListVC, sender: nil)
         
     }
     

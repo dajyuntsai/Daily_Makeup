@@ -43,7 +43,7 @@ class PostViewController: UIViewController {
         imageScrollView.delegate = self
         postTableView.rowHeight = UITableView.automaticDimension
         postTableView.separatorStyle = .none
-        
+//        navigationItem.backBarButtonItem =
         
         for number in 0 ..< data.count {
             
@@ -89,7 +89,7 @@ extension PostViewController:UITableViewDelegate,UITableViewDataSource{
             
         else if indexPath.row == 0 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? PostTitleTableViewCell {
-                cell.articalTitle.text = "眼尾加重法"
+                cell.articleTitle.text = "眼尾加重法"
                 return cell
             } else {
                 return UITableViewCell()
@@ -98,7 +98,7 @@ extension PostViewController:UITableViewDelegate,UITableViewDataSource{
             
         else if indexPath.row == 1 {
             if let cell1 = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) as? PostContentTableViewCell {
-                cell1.articalContentLabel.text = "眼尾加重法想要明顯拉長與放大雙眼，那就一定要試試眼尾加首先一樣先用淺啞光色打底，然後在位於雙眼皮折線處小範圍放上珠光色，最後再用深色眼影眼尾三角區域，以及下眼尾處，也可以在用一些珠光色提亮眼頭就完成了。眼尾加重法想要明顯拉長與放大雙眼，那就一定要試試眼尾加首先一樣先用淺啞光色打底，然後在位於雙眼皮折線處小範圍放上珠光色，最後再用深色眼影眼尾三角區域，以及下眼尾處，也可以在用一些珠光色提亮眼頭就完成了。眼尾加重法想要明顯拉長與放大雙眼，那就一定要試試眼尾加首先一樣先用淺啞光色打底，然後在位於雙眼皮折線處小範圍放上珠光色，最後再用深色眼影眼尾三角區域，以及下眼尾處，也可以在用一些珠光色提亮眼頭就完成了。眼尾加重法想要明顯拉長與放大雙眼，那就一定要試試眼尾加首先一樣先用淺啞光色打底，然後在位於雙眼皮折線處小範圍放上珠光色，最後再用深色眼影眼尾三角區域，以及下眼尾處，也可以在用一些珠光色提亮眼頭就完成了。眼尾加重法想要明顯拉長與放大雙眼，那就一定要試試眼尾加首先一樣先用淺啞光色打底，然後在位於雙眼皮折線處小範圍放上珠光色，最後再用深色眼影眼尾三角區域，以及下眼尾處，也可以在用一些珠光色提亮眼頭就完成了。"
+                cell1.articleContent.text = "眼尾加重法想要明顯拉長與放大雙眼，那就一定要試試眼尾加首先一樣先用淺啞光色打底，然後在位於雙眼皮折線處小範圍放上珠光色，最後再用深色眼影眼尾三角區域，以及下眼尾處，也可以在用一些珠光色提亮眼頭就完成了。眼尾加重法想要明顯拉長與放大雙眼，那就一定要試試眼尾加首先一樣先用淺啞光色打底，然後在位於雙眼皮折線處小範圍放上珠光色，最後再用深色眼影眼尾三角區域，以及下眼尾處，也可以在用一些珠光色提亮眼頭就完成了。眼尾加重法想要明顯拉長與放大雙眼，那就一定要試試眼尾加首先一樣先用淺啞光色打底，然後在位於雙眼皮折線處小範圍放上珠光色，最後再用深色眼影眼尾三角區域，以及下眼尾處，也可以在用一些珠光色提亮眼頭就完成了。眼尾加重法想要明顯拉長與放大雙眼，那就一定要試試眼尾加首先一樣先用淺啞光色打底，然後在位於雙眼皮折線處小範圍放上珠光色，最後再用深色眼影眼尾三角區域，以及下眼尾處，也可以在用一些珠光色提亮眼頭就完成了。眼尾加重法想要明顯拉長與放大雙眼，那就一定要試試眼尾加首先一樣先用淺啞光色打底，然後在位於雙眼皮折線處小範圍放上珠光色，最後再用深色眼影眼尾三角區域，以及下眼尾處，也可以在用一些珠光色提亮眼頭就完成了。"
                 return cell1
             } else {
                 return UITableViewCell()

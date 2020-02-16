@@ -14,8 +14,9 @@ class PostTitleTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
-    @IBOutlet var articalTitle: UILabel!
+    
+    @IBOutlet var articleTitle: UILabel!
+    
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

@@ -46,7 +46,14 @@ class TabViewController: UITabBarController, UITabBarControllerDelegate {
                     }
                 }
                 
+                let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (Void) in
+                           
+                    imagePickerAlertController.dismiss(animated: true, completion: nil)
+                }
+                       
+                
                 imagePickerAlertController.addAction(imageFromLibAction)
+                imagePickerAlertController.addAction(cancelAction)
                 
                 imagePickerAlertController.addAction(imageFromCameraAction)
                 
@@ -76,27 +83,29 @@ extension TabViewController: UIImagePickerControllerDelegate,UINavigationControl
         }
         
         // 可以自動產生一組獨一無二的 ID 號碼，方便等一下上傳圖片的命名
-        let uniqueString = NSUUID().uuidString
-        
+//        let uniqueString = NSUUID().uuidString
+
         // 當判斷有 selectedImage 時，我們會在 if 判斷式裡將圖片上傳
         if let selectedImage = selectedImageFromPicker {
             
             //            profileImage.image = selectedImage
             dismiss(animated: true, completion: {
                 
-                guard let editArticleVC = self.storyboard?.instantiateViewController(withIdentifier: "editArticle") as? EditArticleViewController else {
+                guard let showArticleVC = self.storyboard?.instantiateViewController(withIdentifier: "showArticle") as? UINavigationController, let vc = showArticleVC.viewControllers.first as? EditArticleViewController else {
                     
                     return
                 }
+            
                 
-                editArticleVC.modalPresentationStyle = .overFullScreen
-//                let navi = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 50))
-//                self.view.addSubview(navi)
-                self.show(editArticleVC, sender: nil)
+                guard let selectedImageFromPicker = selectedImageFromPicker else { return }
+                vc.imageStore.append(selectedImageFromPicker)
+                showArticleVC.modalPresentationStyle = .overFullScreen
+
+                self.show(showArticleVC, sender: nil)
             })
             
             
-            print("\(uniqueString), \(selectedImage)")
+            print("\(selectedImage)")
         }
         
         

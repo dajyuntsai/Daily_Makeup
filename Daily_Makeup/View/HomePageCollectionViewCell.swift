@@ -10,6 +10,11 @@ import UIKit
 
 class HomePageCollectionViewCell: UICollectionViewCell {
     
+    var btnState = false
+    
+    var btnSelected = false
+   
+    
     @IBOutlet var articleImage: UIImageView!
 
     @IBOutlet var articleTitle: UILabel!
@@ -21,5 +26,30 @@ class HomePageCollectionViewCell: UICollectionViewCell {
     @IBOutlet var littleView: UIView!
     
     @IBOutlet var likeNumber: UILabel!
+    
+    @IBOutlet var likeBtn: UIButton!
+    
+    var likeStateBtn:((Bool) -> Void)?
+    
+    
+    
+    @IBAction func articleLikeBtn(_ sender: UIButton) {
+        
+        if btnState {
+            
+            likeStateBtn?(false)
+            
+            likeBtn.setImage(UIImage(named: "heart (3)"),for: .normal)
+            
+        } else {
+            
+            likeBtn.setImage(UIImage(named: "heart (2)"), for: .normal)
+            
+            likeStateBtn?(true)
+        }
+        
+        btnState = !btnState
+     
+    }
     
 }

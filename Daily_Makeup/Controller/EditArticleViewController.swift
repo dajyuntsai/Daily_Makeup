@@ -7,43 +7,101 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
-class EditArticleViewController: UIViewController {
 
+class EditArticleViewController: UIViewController{
+    
+    var db:Firestore!
+    var imageStore: [UIImage] = []
+    var uid = ""
+    var name = ""
+    let userDefaults = UserDefaults.standard
+    
+    @IBOutlet var articleTextview: UITextView!
+    @IBOutlet var articleTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        articalTextView.delegate = self
-        articalTextView.text = "write a caption"
-        articalTextView.textColor = UIColor.lightGray
+        db =  Firestore.firestore()
+        
+        articleTextview.delegate = self
+        articleTextview.text = "write a caption"
+        articleTextview.textColor = UIColor.lightGray
         
         imageCollectionView.dataSource = self
         imageCollectionView.delegate = self
-    
+     
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title:"share" , style: .plain, target: self
+            , action:#selector(share) )
+       
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
+        
+
       
     }
     
-    var imageStore: [UIImage] = []
+    
+    @objc func share() {
+        
+        guard let uid = userDefaults.string(forKey: "uid") else {
+            return }
+        
+        guard let name = userDefaults.string(forKey: "name") else {
+            return }
+        
+        let document = db.collection("article").document()
+        
+        guard let articleTextField = articleTextField.text else { return }
+        
+            let article = Article(
+                title: articleTextField,
+                content: articleTextview.text,
+                uid: uid,
+                name: name)
+        
+        do {
+            try document.setData(from: article)
+        } catch {
+            print(error)
+        }
+        
+        dismiss(animated: false, completion: nil)
+        
+    }
+    
+    @objc func cancel() {
+        
+        dismiss(animated: false, completion: nil)
+    }
     
    
+
     @IBOutlet var imageCollectionView: UICollectionView!
-    
-    @IBOutlet var articalTextView: UITextView!
+
+  
+
 }
+
+
 
 extension EditArticleViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-            if  articalTextView.textColor == UIColor.lightGray {
-                articalTextView.text = nil
-                articalTextView.textColor = UIColor.black
+            if  articleTextview.textColor == UIColor.lightGray {
+                articleTextview.text = nil
+                articleTextview.textColor = UIColor.black
             }
         }
         
         func textViewDidEndEditing(_ textView: UITextView) {
-            if  articalTextView.text.isEmpty {
-                articalTextView.text = "write a caption"
-                articalTextView.textColor = UIColor.lightGray
+            if  articleTextview.text.isEmpty {
+                articleTextview.text = "write a caption"
+                articleTextview.textColor = UIColor.lightGray
             }
         }
 }
@@ -58,7 +116,15 @@ extension EditArticleViewController:UICollectionViewDataSource,UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? EditArticleCollectionViewCell else { return UICollectionViewCell() }
-    
+        if indexPath.row == imageStore.count{
+            return cell
+        } else {
+             cell.articleImage.image = imageStore[indexPath.row]
+        }
+        
+        
+//
+       
     return cell
     
     }

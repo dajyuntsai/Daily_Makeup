@@ -7,36 +7,88 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class HomePageViewController: UIViewController {
     
+    var db: Firestore!
+    var articleArray: [Article] = []{
+        didSet{
+            
+            self.article.reloadData()
+        }
+            
+    }
+    
+ 
+    
     let search = UISearchController(searchResultsController: nil)
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        db = Firestore.firestore()
+       
+        
         article.delegate = self
         article.dataSource = self
-//        self.view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
-            
         navigationItem.title = "Makeup"
         navigationItem.searchController = search
         navigationItem.largeTitleDisplayMode = .never
         search.searchBar.placeholder = "搜尋品牌..."
         search.searchBar.tintColor = .white
-        navigationController?.navigationBar.barTintColor = .green
-//        search.searchResultsUpdater = self
-//        search.searchBar.delegate = self
-//        search.searchBar.sizeToFit()
+        
+        //        search.searchResultsUpdater = self
+        //        search.searchBar.delegate = self
+        //        search.searchBar.sizeToFit()
         search.obscuresBackgroundDuringPresentation = false
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        loadData()
+    }
     
-  
+    
+    
     @IBOutlet var article: UICollectionView!
-
+    
+    
+    
+    func loadData(){
+        
+    
+        db.collection("article").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                self.articleArray = []
+                for document in querySnapshot!.documents {
+                    
+                    do {
+                        
+                        guard let result = try document.data(as: Article.self, decoder: Firestore.Decoder()) else { return }
+                        print(result)
+                        
+                        self.articleArray.append(result)
+                        
+                        self.article.reloadData()
+                        
+                    } catch {
+                        print(error)
+                    }
+                    
+                }
+            }
+        }
+        
+        
+    }
+    
 }
 
 
@@ -44,25 +96,27 @@ class HomePageViewController: UIViewController {
 extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return articleArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "cell1", for: indexPath) as? HomePageCollectionViewCell else { return UICollectionViewCell()
-    }
-        cell1.articleTitle.text = "眼尾加重法"
-        cell1.personalAccount.text = "QAQ77777"
+        }
+        cell1.articleTitle.text = articleArray[indexPath.row].title
+        cell1.personalAccount.text = articleArray[indexPath.row].name
+    
         cell1.likeNumber.text = "1200"
         cell1.littleView.layer.borderWidth = 0.5
         cell1.littleView.layer.borderColor = #colorLiteral(red: 0.7867800593, green: 0.6210635304, blue: 0.620044291, alpha: 1)
         cell1.littleView.backgroundColor = #colorLiteral(red: 0.9294117647, green: 0.8784313725, blue: 0.862745098, alpha: 1)
         cell1.layer.cornerRadius = 10
-//        cell1.layer.cornerRadius = UIScreen.main.bounds.width / 60
+        cell1.articleImage.layer.cornerRadius = UIScreen.main.bounds.width / 60
+        cell1.articleImage.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         //底下的view右下跟左下角的框框改成圓弧
         cell1.littleView.layer.cornerRadius = UIScreen.main.bounds.width / 60
         cell1.littleView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-       
-
+        
+        
         return cell1
     }
     
@@ -85,5 +139,13 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
     }
-
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let postVC = storyboard?.instantiateViewController(withIdentifier: "postVC") as? PostViewController else { return }
+        self.show(postVC, sender: nil)
+        
+        
+    }
+    
 }

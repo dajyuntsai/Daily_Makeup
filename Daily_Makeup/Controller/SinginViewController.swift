@@ -67,7 +67,7 @@ class SinginViewController: UIViewController {
                     return
                 }
                 
-                //                user?.user.refreshToken
+              
                 guard let uid = user?.user.uid, let name = user?.user.displayName, let email = user?.user.email else { return }
     
                 self.userDefaults.setValue(name, forKey: "name")
