@@ -18,6 +18,7 @@ target 'Daily_Makeup' do
   pod 'FirebaseFirestoreSwift'
   pod 'IQKeyboardManagerSwift'
   pod 'GoogleSignIn'
-  	
+  pod 'JGProgressHUD'
+  pod 'ESPullToRefresh'
 
 end

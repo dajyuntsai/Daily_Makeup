@@ -12,6 +12,10 @@ import Kingfisher
 
 class PostViewController: UIViewController {
     
+    var article = [Article]()
+    
+    var nameLabel = ""
+    
     
     @IBOutlet var imageScrollView: UIScrollView!
     
@@ -22,6 +26,7 @@ class PostViewController: UIViewController {
     
     @IBOutlet var pageControl: UIPageControl!
   
+    @IBOutlet var authorLabel: UILabel!
     
     
     let data = [
@@ -43,6 +48,9 @@ class PostViewController: UIViewController {
         imageScrollView.delegate = self
         postTableView.rowHeight = UITableView.automaticDimension
         postTableView.separatorStyle = .none
+        
+        //這裡的
+        authorLabel.text = nameLabel
 //        navigationItem.backBarButtonItem =
         
         for number in 0 ..< data.count {
@@ -65,6 +73,8 @@ class PostViewController: UIViewController {
         imageScrollView.contentSize = CGSize(width: view.frame.width * CGFloat(data.count), height: 376)
         
     }
+    
+ 
 
     @IBOutlet var postTableView: UITableView!
 }
@@ -72,15 +82,20 @@ class PostViewController: UIViewController {
 extension PostViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        
+        return article.count * 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let number = indexPath.row % 3
+        
         if indexPath.row == 2 {
             if let timecell = tableView.dequeueReusableCell(withIdentifier: "timecell", for: indexPath) as? PostTimeTableViewCell {
-                timecell.postTimeLabel.text = "2020-02-03"
+              
                 timecell.postTimeLabel.textColor = .systemGray
+                let result = self.timeConverter(time: article[number - 2].time)
+                timecell.postTimeLabel.text = result
                 return timecell
             } else {
                 return UITableViewCell()
@@ -89,7 +104,8 @@ extension PostViewController:UITableViewDelegate,UITableViewDataSource{
             
         else if indexPath.row == 0 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? PostTitleTableViewCell {
-                cell.articleTitle.text = "眼尾加重法"
+                
+                cell.articleTitle.text = article[number].title
                 return cell
             } else {
                 return UITableViewCell()
@@ -98,7 +114,9 @@ extension PostViewController:UITableViewDelegate,UITableViewDataSource{
             
         else if indexPath.row == 1 {
             if let cell1 = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) as? PostContentTableViewCell {
-                cell1.articleContent.text = "眼尾加重法想要明顯拉長與放大雙眼，那就一定要試試眼尾加首先一樣先用淺啞光色打底，然後在位於雙眼皮折線處小範圍放上珠光色，最後再用深色眼影眼尾三角區域，以及下眼尾處，也可以在用一些珠光色提亮眼頭就完成了。眼尾加重法想要明顯拉長與放大雙眼，那就一定要試試眼尾加首先一樣先用淺啞光色打底，然後在位於雙眼皮折線處小範圍放上珠光色，最後再用深色眼影眼尾三角區域，以及下眼尾處，也可以在用一些珠光色提亮眼頭就完成了。眼尾加重法想要明顯拉長與放大雙眼，那就一定要試試眼尾加首先一樣先用淺啞光色打底，然後在位於雙眼皮折線處小範圍放上珠光色，最後再用深色眼影眼尾三角區域，以及下眼尾處，也可以在用一些珠光色提亮眼頭就完成了。眼尾加重法想要明顯拉長與放大雙眼，那就一定要試試眼尾加首先一樣先用淺啞光色打底，然後在位於雙眼皮折線處小範圍放上珠光色，最後再用深色眼影眼尾三角區域，以及下眼尾處，也可以在用一些珠光色提亮眼頭就完成了。眼尾加重法想要明顯拉長與放大雙眼，那就一定要試試眼尾加首先一樣先用淺啞光色打底，然後在位於雙眼皮折線處小範圍放上珠光色，最後再用深色眼影眼尾三角區域，以及下眼尾處，也可以在用一些珠光色提亮眼頭就完成了。"
+                
+                cell1.articleContent.text = article[number - 1].content
+                
                 return cell1
             } else {
                 return UITableViewCell()
@@ -122,4 +140,12 @@ extension PostViewController:UITableViewDelegate,UITableViewDataSource{
         
     }
     
+
+    func timeConverter(time: Int) -> String {
+        let time = Date.init(timeIntervalSince1970: TimeInterval(time))
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm"
+        let timeConvert = dateFormatter.string(from: time)
+        return timeConvert
+     }
 }

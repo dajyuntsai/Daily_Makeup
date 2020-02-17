@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 
 struct  Article: Codable {
     
@@ -17,4 +18,10 @@ struct  Article: Codable {
     let uid: String
     
     let name: String
+    
+    let id: String
+    
+    let time: Int
+    
+
 }

@@ -19,6 +19,7 @@ class PersonalPageViewController: UIViewController {
     @IBOutlet var test: UIView!
     var db: Firestore!
     var profileArray : [Profile] = []
+    var articleArray: [Article] = []
     
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var bioLabel: UILabel!
@@ -27,8 +28,8 @@ class PersonalPageViewController: UIViewController {
         super.viewDidLoad()
         
         //        userDefaults.value(forKey: "name")
-        userDefaults.value(forKey: "email")
-        userDefaults.value(forKey: "uid")
+//        userDefaults.value(forKey: "email")
+//        userDefaults.value(forKey: "uid")
         
         nameLabel.text = userDefaults.value(forKey: "name") as? String
         
@@ -88,6 +89,30 @@ class PersonalPageViewController: UIViewController {
         
         
     }
+    
+    func getArticleData(){
+        
+        guard let uid = userDefaults.string(forKey: "uid") else { return }
+        
+        db.collection("article").whereField("uid", isEqualTo: uid)
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        
+                        print("\(document.documentID) => \(document.data())")
+                    }
+                }
+        }
+
+        
+        
+        
+    }
+
+
+
 }
 
 extension PersonalPageViewController:UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
@@ -119,13 +144,20 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
         
         //中間距離
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-            return CGFloat(12)
+            return CGFloat(8)
         }
         
         //最旁邊間距
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
             return UIEdgeInsets(top: 12, left: 12, bottom: 0, right: 12)
         }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let postVC = storyboard?.instantiateViewController(identifier: "postVC") as? PostViewController else { return }
+        
+        self.show(postVC, sender: nil)
+    }
         
         //
         func scrollViewDidScroll(_ scrollView: UIScrollView) {

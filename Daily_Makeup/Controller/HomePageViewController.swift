@@ -11,9 +11,11 @@ import Firebase
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import ESPullToRefresh
 
 class HomePageViewController: UIViewController {
     
+    let userDefaults = UserDefaults.standard
     var db: Firestore!
     var articleArray: [Article] = []{
         didSet{
@@ -47,9 +49,16 @@ class HomePageViewController: UIViewController {
         //        search.searchBar.sizeToFit()
         search.obscuresBackgroundDuringPresentation = false
         
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: Notification.Name("sharePost"), object: nil)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadData()
+    }
+    
+    @objc func reload() {
         loadData()
     }
     
@@ -132,7 +141,7 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
     
     //中間距離
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return CGFloat(12)
+        return CGFloat(8)
     }
     
     //最旁邊間距
@@ -142,10 +151,19 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        
         guard let postVC = storyboard?.instantiateViewController(withIdentifier: "postVC") as? PostViewController else { return }
+        
+        
+        
+        
+        //可以拿到postVC的nameLabel
+        postVC.nameLabel = articleArray[indexPath.row].name
+        postVC.article = [articleArray[indexPath.row]]
         self.show(postVC, sender: nil)
         
         
     }
+    
     
 }

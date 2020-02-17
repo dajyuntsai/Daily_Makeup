@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kYn-lS-rko">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
@@ -132,10 +132,10 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="019-facebook-1" translatesAutoresizingMaskIntoConstraints="NO" id="k6r-s6-esO">
-                                <rect key="frame" x="85" y="687.5" width="32" height="32"/>
+                                <rect key="frame" x="85" y="671.5" width="64" height="64"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-google-48" translatesAutoresizingMaskIntoConstraints="NO" id="0dj-HI-JQQ">
-                                <rect key="frame" x="85" y="752.5" width="32" height="32"/>
+                                <rect key="frame" x="85" y="736.5" width="64" height="64"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                         </subviews>
@@ -464,7 +464,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NoB-ns-wmO">
-                                <rect key="frame" x="358" y="716" width="36" height="36"/>
+                                <rect key="frame" x="322" y="680" width="72" height="72"/>
                                 <state key="normal" image="001-up"/>
                                 <connections>
                                     <action selector="backtoTop:" destination="xjj-EY-lZ5" eventType="touchUpInside" id="z7y-8A-FZh"/>
@@ -1216,6 +1216,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="authorLabel" destination="Xvt-RB-eEP" id="x19-IO-cil"/>
                         <outlet property="imageScrollView" destination="yNZ-md-gKg" id="YyB-Jh-31w"/>
                         <outlet property="pageControl" destination="MsC-RT-LBh" id="wmN-g1-cUv"/>
                         <outlet property="postTableView" destination="V8m-CM-jHO" id="z4K-33-b7U"/>

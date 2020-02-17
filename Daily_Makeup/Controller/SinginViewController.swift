@@ -19,6 +19,8 @@ import FirebaseFirestoreSwift
 class SinginViewController: UIViewController {
     
     var db: Firestore!
+    var uid = ""
+    var name = ""
     
     let userDefaults = UserDefaults.standard
     
@@ -36,7 +38,7 @@ class SinginViewController: UIViewController {
         
         self.view.window?.rootViewController = home
         
-//        self.present(home, animated: true, completion: nil)
+        //        self.present(home, animated: true, completion: nil)
     }
     
     @IBAction func fbsigninButton(_ sender: UIButton) {
@@ -67,33 +69,94 @@ class SinginViewController: UIViewController {
                     return
                 }
                 
-              
                 guard let uid = user?.user.uid, let name = user?.user.displayName, let email = user?.user.email else { return }
-    
-                self.userDefaults.setValue(name, forKey: "name")
-                self.userDefaults.setValue(email, forKey: "email")
-                self.userDefaults.setValue(uid, forKey: "uid")
+//                
                 
                 
-                let signInID = SignID (
-                    name: name,
-                    email: email,
-                    uid: uid
-                    )
-                
-                do {
-                    try self.db.collection("user").document(uid).setData(from: signInID, merge: true)
-                } catch {
-                    print(error)
+                self.db.collection("user").whereField("uid", isEqualTo: uid)
+                    .getDocuments() { (querySnapshot, err) in
+                        if let err = err {
+                            print("Error getting documents: \(err)")
+                        } else {
+                            if querySnapshot!.documents.count > 0 {
+                                
+                                for document in querySnapshot!.documents {
+                                    
+                                    do {
+                                        
+                                        guard let result = try document.data(as: Profile.self, decoder: Firestore.Decoder()) else { return }
+//                                        guard let uid = self.userDefaults.string(forKey: "uid") else { return }
+//                                        guard let email = self.userDefaults.string(forKey: "email") else { return }
+//                                        guard let name = self.userDefaults.string(forKey: "name") else { return }
+//
+                                        self.userDefaults.value(forKey: "uid")
+                                        self.userDefaults.value(forKey: "name")
+                                        self.userDefaults.value(forKey: "email")
+                                        print(result)
+                                        
+                                    } catch {
+                                        print(error)
+                                    }
+                                    
+                                }
+                                
+                                if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "tabBarController") {
+                                    
+                                    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                                    appDelegate.window?.rootViewController = viewController
+                                    self.dismiss(animated: true, completion: nil)
+                                }
+                                
+                            } else {
+                                
+                                self.userDefaults.set(name, forKey: "name")
+                                self.userDefaults.set(email, forKey: "email")
+                                self.userDefaults.set(uid, forKey: "uid")
+                                
+                                let signInID = SignID (
+                                    name: name,
+                                    email: email,
+                                    uid: uid
+                                )
+                                
+                                do {
+                                    try self.db.collection("user").document(uid).setData(from: signInID, merge: true)
+                                } catch {
+                                    print(error)
+                                }
+                                
+                                // Present the main view
+                                if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "tabBarController") {
+                                    
+                                    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                                    appDelegate.window?.rootViewController = viewController
+                                    self.dismiss(animated: true, completion: nil)
+                                }
+                                
+                            }
+                        }
                 }
                 
-                // Present the main view
-                if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "tabBarController") {
-                    
-                    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-                    appDelegate.window?.rootViewController = viewController
-                    self.dismiss(animated: true, completion: nil)
-                }
+                
+                //                let signInID = SignID (
+                //                    name: name,
+                //                    email: email,
+                //                    uid: uid
+                //                )
+                //
+                //                do {
+                //                    try self.db.collection("user").document(uid).setData(from: signInID, merge: true)
+                //                } catch {
+                //                    print(error)
+                //                }
+                //
+                //                // Present the main view
+                //                if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "tabBarController") {
+                //
+                //                    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                //                    appDelegate.window?.rootViewController = viewController
+                //                    self.dismiss(animated: true, completion: nil)
+                //                }
                 
             })
             
@@ -104,12 +167,12 @@ class SinginViewController: UIViewController {
     @IBAction func googleSignin(_ sender: Any) {
         
         GIDSignIn.sharedInstance().signIn()
-//                if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "tabBarController") {
-//
-//                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-//                appDelegate.window?.rootViewController = viewController
-//                self.dismiss(animated: true, completion: nil)
-//                }
+        //                if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "tabBarController") {
+        //
+        //                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        //                appDelegate.window?.rootViewController = viewController
+        //                self.dismiss(animated: true, completion: nil)
+        //                }
     }
     
 }

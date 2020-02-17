@@ -19,6 +19,7 @@ class EditArticleViewController: UIViewController{
     var imageStore: [UIImage] = []
     var uid = ""
     var name = ""
+    let now = NSDate()
     let userDefaults = UserDefaults.standard
     
     @IBOutlet var articleTextview: UITextView!
@@ -35,14 +36,12 @@ class EditArticleViewController: UIViewController{
         
         imageCollectionView.dataSource = self
         imageCollectionView.delegate = self
-     
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title:"share" , style: .plain, target: self
-            , action:#selector(share) )
-       
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title:"share" , style: .plain, target: self, action:#selector(share) )
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
         
-
-      
+        
     }
     
     
@@ -54,15 +53,23 @@ class EditArticleViewController: UIViewController{
         guard let name = userDefaults.string(forKey: "name") else {
             return }
         
-        let document = db.collection("article").document()
+        let id = UUID().uuidString
+        
+        let document = db.collection("article").document(id)
+        
+     
+        
+        let currentTimes = Int(now.timeIntervalSince1970)
         
         guard let articleTextField = articleTextField.text else { return }
         
-            let article = Article(
-                title: articleTextField,
-                content: articleTextview.text,
-                uid: uid,
-                name: name)
+        let article = Article(
+            title: articleTextField,
+            content: articleTextview.text,
+            uid: uid,
+            name: name,
+            id: id,
+            time: currentTimes)
         
         do {
             try document.setData(from: article)
@@ -70,6 +77,7 @@ class EditArticleViewController: UIViewController{
             print(error)
         }
         
+        NotificationCenter.default.post(name: Notification.Name("sharePost"), object: nil)
         dismiss(animated: false, completion: nil)
         
     }
@@ -79,12 +87,12 @@ class EditArticleViewController: UIViewController{
         dismiss(animated: false, completion: nil)
     }
     
-   
-
+    
+    
     @IBOutlet var imageCollectionView: UICollectionView!
-
-  
-
+    
+    
+    
 }
 
 
@@ -92,47 +100,44 @@ class EditArticleViewController: UIViewController{
 extension EditArticleViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-            if  articleTextview.textColor == UIColor.lightGray {
-                articleTextview.text = nil
-                articleTextview.textColor = UIColor.black
-            }
+        if  articleTextview.textColor == UIColor.lightGray {
+            articleTextview.text = nil
+            articleTextview.textColor = UIColor.black
         }
-        
-        func textViewDidEndEditing(_ textView: UITextView) {
-            if  articleTextview.text.isEmpty {
-                articleTextview.text = "write a caption"
-                articleTextview.textColor = UIColor.lightGray
-            }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if  articleTextview.text.isEmpty {
+            articleTextview.text = "write a caption"
+            articleTextview.textColor = UIColor.lightGray
         }
+    }
 }
 
 extension EditArticleViewController:UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imageStore.count + 1
     }
-
+    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? EditArticleCollectionViewCell else { return UICollectionViewCell() }
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? EditArticleCollectionViewCell else { return UICollectionViewCell() }
         if indexPath.row == imageStore.count{
             return cell
         } else {
-             cell.articleImage.image = imageStore[indexPath.row]
+            cell.articleImage.image = imageStore[indexPath.row]
         }
         
+        return cell
         
-//
-       
-    return cell
-    
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return CGFloat(12)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 12  )
     }
