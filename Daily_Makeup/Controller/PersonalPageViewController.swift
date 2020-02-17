@@ -28,18 +28,18 @@ class PersonalPageViewController: UIViewController {
         super.viewDidLoad()
         
         //        userDefaults.value(forKey: "name")
-//        userDefaults.value(forKey: "email")
-//        userDefaults.value(forKey: "uid")
+        //        userDefaults.value(forKey: "email")
+        //        userDefaults.value(forKey: "uid")
         
         nameLabel.text = userDefaults.value(forKey: "name") as? String
         
-        articalCollectionView.delegate = self
-        articalCollectionView.dataSource = self
-        articalCollectionView.contentInset = UIEdgeInsets(top: test.frame.size.height, left: 0, bottom: 0, right: 0)
+        articleCollectionView.delegate = self
+        articleCollectionView.dataSource = self
+        articleCollectionView.contentInset = UIEdgeInsets(top: test.frame.size.height, left: 0, bottom: 0, right: 0)
         
         db = Firestore.firestore()
         
-        
+        getArticleData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,7 +57,7 @@ class PersonalPageViewController: UIViewController {
     }
     
     
-    @IBOutlet var articalCollectionView: UICollectionView!
+    @IBOutlet var articleCollectionView: UICollectionView!
     @IBOutlet var topConstraint: NSLayoutConstraint!
     
     
@@ -76,7 +76,7 @@ class PersonalPageViewController: UIViewController {
             switch result {
             case .success(let profile):
                 if let profile = profile {
-                   print("Profile: \(profile)")
+                    print("Profile: \(profile)")
                     self.bioLabel.text = profile.bio
                     self.nameLabel.text = profile.name
                 } else {
@@ -101,56 +101,71 @@ class PersonalPageViewController: UIViewController {
                 } else {
                     for document in querySnapshot!.documents {
                         
+                        do {
+                            
+                            guard let result = try document.data(as: Article.self, decoder: Firestore.Decoder()) else { return }
+                            
+                            self.articleArray.append(result)
+                            
+                        } catch {
+                            
+                            print(error)
+                            
+                        }
+                       
                         print("\(document.documentID) => \(document.data())")
                     }
+                    
+                     self.articleCollectionView.reloadData()
                 }
         }
-
+        
         
         
         
     }
-
-
-
+    
+    
+    
 }
 
 extension PersonalPageViewController:UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
-        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return 10
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return articleArray.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? PersonalPageCollectionViewCell else {
+            return UICollectionViewCell()
         }
         
-        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? PersonalPageCollectionViewCell else {
-                return UICollectionViewCell()
-            }
-            cell.articalTitle.text = "眼尾加重法"
-            cell.littleView.layer.borderWidth = 0.5
-            cell.littleView.layer.borderColor = #colorLiteral(red: 0.8821310401, green: 0.6988527775, blue: 0.7068136334, alpha: 1)
-            cell.littleView.backgroundColor = #colorLiteral(red: 0.9215686275, green: 0.8784313725, blue: 0.8666666667, alpha: 1)
-            cell.layer.cornerRadius = UIScreen.main.bounds.width / 60
-            cell.littleView.layer.cornerRadius = UIScreen.main.bounds.width / 60
-            cell.littleView.layer.maskedCorners = [.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
-            
-            return cell
-            
-        }
+        cell.articalTitle.text = articleArray[indexPath.row].title
+        cell.littleView.layer.borderWidth = 0.5
+        cell.littleView.layer.borderColor = #colorLiteral(red: 0.8821310401, green: 0.6988527775, blue: 0.7068136334, alpha: 1)
+        cell.littleView.backgroundColor = #colorLiteral(red: 0.9215686275, green: 0.8784313725, blue: 0.8666666667, alpha: 1)
+        cell.layer.cornerRadius = UIScreen.main.bounds.width / 60
+        cell.littleView.layer.cornerRadius = UIScreen.main.bounds.width / 60
+        cell.littleView.layer.maskedCorners = [.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
         
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            let width = (UIScreen.main.bounds.width - 36)/2
-            let size = CGSize(width: width, height: UIScreen.main.bounds.height / 2.8)
-            return size
-        }
+        return cell
         
-        //中間距離
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-            return CGFloat(8)
-        }
-        
-        //最旁邊間距
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-            return UIEdgeInsets(top: 12, left: 12, bottom: 0, right: 12)
-        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (UIScreen.main.bounds.width - 36)/2
+        let size = CGSize(width: width, height: UIScreen.main.bounds.height / 2.8)
+        return size
+    }
+    
+    //中間距離
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat(8)
+    }
+    
+    //最旁邊間距
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 12, left: 12, bottom: 0, right: 12)
+    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
@@ -158,14 +173,14 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
         
         self.show(postVC, sender: nil)
     }
+    
+    //
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        //
-        func scrollViewDidScroll(_ scrollView: UIScrollView) {
-            
-            let yPosition = -(test.frame.size.height + scrollView.contentOffset.y)
-            
-            topConstraint.constant = yPosition
-        }
-
+        let yPosition = -(test.frame.size.height + scrollView.contentOffset.y)
+        
+        topConstraint.constant = yPosition
+    }
+    
 }
 

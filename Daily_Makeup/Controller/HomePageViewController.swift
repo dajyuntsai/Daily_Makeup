@@ -87,6 +87,7 @@ class HomePageViewController: UIViewController {
                         
                         self.article.reloadData()
                         
+                        
                     } catch {
                         print(error)
                     }
@@ -111,6 +112,7 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "cell1", for: indexPath) as? HomePageCollectionViewCell else { return UICollectionViewCell()
         }
+        
         cell1.articleTitle.text = articleArray[indexPath.row].title
         cell1.personalAccount.text = articleArray[indexPath.row].name
     

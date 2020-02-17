@@ -1549,7 +1549,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="articalCollectionView" destination="oj5-KQ-mYE" id="Bhm-3x-g6f"/>
+                        <outlet property="articleCollectionView" destination="oj5-KQ-mYE" id="Bhm-3x-g6f"/>
                         <outlet property="bioLabel" destination="J8b-8f-0cp" id="Z1p-hZ-Pb6"/>
                         <outlet property="nameLabel" destination="gwx-mi-m6F" id="xB2-X3-W3c"/>
                         <outlet property="test" destination="Db4-Ts-iys" id="UEh-tB-3Ic"/>
