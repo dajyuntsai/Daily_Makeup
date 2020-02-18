@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
         
         Auth.auth().signIn(with: credential) { (authResult, error) in
             if let error = error {
-                // ...
+                
                 return
             }
             

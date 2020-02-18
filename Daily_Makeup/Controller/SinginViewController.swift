@@ -69,94 +69,43 @@ class SinginViewController: UIViewController {
                     return
                 }
                 
-                guard let uid = user?.user.uid, let name = user?.user.displayName, let email = user?.user.email else { return }
-//                
+                guard let uid = user?.user.uid,
+                    let name = user?.user.displayName,
+                    let email = user?.user.email,
+                    let image = user?.user.photoURL?.absoluteString else { return }
+                //
+                
+                let size = "?width=400&height=400"
+                let picture = "\(image + size)"
                 
                 
-                self.db.collection("user").whereField("uid", isEqualTo: uid)
-                    .getDocuments() { (querySnapshot, err) in
-                        if let err = err {
-                            print("Error getting documents: \(err)")
-                        } else {
-                            if querySnapshot!.documents.count > 0 {
-                                
-                                for document in querySnapshot!.documents {
-                                    
-                                    do {
-                                        
-                                        guard let result = try document.data(as: Profile.self, decoder: Firestore.Decoder()) else { return }
-//                                        guard let uid = self.userDefaults.string(forKey: "uid") else { return }
-//                                        guard let email = self.userDefaults.string(forKey: "email") else { return }
-//                                        guard let name = self.userDefaults.string(forKey: "name") else { return }
-//
-                                        self.userDefaults.value(forKey: "uid")
-                                        self.userDefaults.value(forKey: "name")
-                                        self.userDefaults.value(forKey: "email")
-                                        print(result)
-                                        
-                                    } catch {
-                                        print(error)
-                                    }
-                                    
-                                }
-                                
-                                if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "tabBarController") {
-                                    
-                                    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-                                    appDelegate.window?.rootViewController = viewController
-                                    self.dismiss(animated: true, completion: nil)
-                                }
-                                
-                            } else {
-                                
-                                self.userDefaults.set(name, forKey: "name")
-                                self.userDefaults.set(email, forKey: "email")
-                                self.userDefaults.set(uid, forKey: "uid")
-                                
-                                let signInID = SignID (
-                                    name: name,
-                                    email: email,
-                                    uid: uid
-                                )
-                                
-                                do {
-                                    try self.db.collection("user").document(uid).setData(from: signInID, merge: true)
-                                } catch {
-                                    print(error)
-                                }
-                                
-                                // Present the main view
-                                if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "tabBarController") {
-                                    
-                                    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-                                    appDelegate.window?.rootViewController = viewController
-                                    self.dismiss(animated: true, completion: nil)
-                                }
-                                
-                            }
-                        }
+                
+                
+                let signInID = SignID (
+                    name: name,
+                    email: email,
+                    uid: uid,
+                    image: image
+                )
+                
+                self.userDefaults.set(name, forKey: "name")
+                self.userDefaults.set(email, forKey: "email")
+                self.userDefaults.set(uid, forKey: "uid")
+                self.userDefaults.set(picture, forKey: "image")
+                
+                do {
+                    try self.db.collection("user").document(uid).setData(from: signInID, merge: true)
+                } catch {
+                    print(error)
                 }
                 
-                
-                //                let signInID = SignID (
-                //                    name: name,
-                //                    email: email,
-                //                    uid: uid
-                //                )
-                //
-                //                do {
-                //                    try self.db.collection("user").document(uid).setData(from: signInID, merge: true)
-                //                } catch {
-                //                    print(error)
-                //                }
-                //
-                //                // Present the main view
-                //                if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "tabBarController") {
-                //
-                //                    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-                //                    appDelegate.window?.rootViewController = viewController
-                //                    self.dismiss(animated: true, completion: nil)
-                //                }
+                // Present the main view
+                if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "tabBarController") {
+                    
+                    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                    appDelegate.window?.rootViewController = viewController
+                    self.dismiss(animated: true, completion: nil)
+                }
                 
             })
             

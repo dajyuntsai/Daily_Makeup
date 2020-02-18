@@ -20,6 +20,7 @@ class EditProfileViewController: UIViewController {
     var editProfileEmail = ""
     var editProfileBio = ""
     var uid = ""
+    var editImage = ""
     var editProfileArray: [Profile] = []
     
     let userDefaults = UserDefaults.standard
@@ -50,7 +51,7 @@ class EditProfileViewController: UIViewController {
         imagePickerController.delegate = self
         let imagePickerAlertController = UIAlertController(title: "上傳圖片", message: "請選擇要上傳的圖片", preferredStyle: .actionSheet)
         
-        let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (Void) in
+        let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (void) in
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                 imagePickerController.sourceType = .photoLibrary
                 self.present(imagePickerController, animated: true, completion: nil)
@@ -123,7 +124,8 @@ class EditProfileViewController: UIViewController {
             name: editProfileName,
             email: editProfileEmail,
             bio: editProfileBio,
-            uid: uid)
+            uid: uid,
+            image: editImage)
         
         do {
             try document.setData(from: profile, merge: true)
@@ -156,6 +158,8 @@ class EditProfileViewController: UIViewController {
                     self.editProfileName = editProfile.name
                     self.editProfileEmail = editProfile.email
                     self.editProfileBio = editProfile.bio ?? ""
+                    self.editImage = editProfile.image
+                    
                     self.profileTableView.reloadData()
                 } else {
                     print("Document does not exist")

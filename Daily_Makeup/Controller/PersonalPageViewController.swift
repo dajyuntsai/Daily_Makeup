@@ -11,6 +11,7 @@ import Firebase
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FBSDKLoginKit
 
 class PersonalPageViewController: UIViewController {
     
@@ -24,12 +25,10 @@ class PersonalPageViewController: UIViewController {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var bioLabel: UILabel!
     
+    @IBOutlet var userImage: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //        userDefaults.value(forKey: "name")
-        //        userDefaults.value(forKey: "email")
-        //        userDefaults.value(forKey: "uid")
         
         nameLabel.text = userDefaults.value(forKey: "name") as? String
         
@@ -39,28 +38,73 @@ class PersonalPageViewController: UIViewController {
         
         db = Firestore.firestore()
         
-        getArticleData()
+        NotificationCenter.default.addObserver(self, selector: #selector(getdata), name: Notification.Name("sharePost"), object: nil)
+        
+        
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadData()
         
+        getArticleData()
+        
     }
     
-    @IBAction func editProfileBtn(_ sender: Any) {
-        
-        guard let editProfileVC = storyboard?.instantiateViewController(withIdentifier: "editProfile") as? EditProfileViewController else { return }
-        //        editProfileVC.editProfile = profileArray
-        
-        self.show(editProfileVC, sender: nil)
+    @objc func getdata(){
+        getArticleData()
     }
     
     
     @IBOutlet var articleCollectionView: UICollectionView!
     @IBOutlet var topConstraint: NSLayoutConstraint!
     
+    @IBOutlet var editBtn: UIButton! {
+        didSet {
+            editBtn.layer.cornerRadius = 6
+        }
+    }
     
+    
+    @IBAction func settingBtn(_ sender: UIButton
+    ) {
+        
+        let alertcontroller = UIAlertController(title: "Settings", message: "Loings", preferredStyle: .actionSheet)
+        
+        let pickerAction = UIAlertAction(title: "Log out", style: .default) { (void) in
+            
+            let manager = LoginManager()
+            manager.logOut()
+            
+            guard let home = self.storyboard?.instantiateViewController(withIdentifier: "singinVC") as? SinginViewController else { return }
+        
+        self.view.window?.rootViewController = home
+                   
+                   
+                   
+            
+        }
+        
+        alertcontroller.addAction(pickerAction)
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
+        alertcontroller.addAction(cancelAction)
+        
+        present(alertcontroller, animated: true, completion: nil)
+        
+    }
+    
+    
+    @IBAction func editBtn(_ sender: Any) {
+        guard let editProfileVC = storyboard?.instantiateViewController(withIdentifier: "editProfile") as? EditProfileViewController else { return }
+        
+        
+        self.show(editProfileVC, sender: nil)
+        
+        
+    }
     func loadData() {
         
         guard let uid =  userDefaults.string(forKey: "uid") else { return }
@@ -79,6 +123,12 @@ class PersonalPageViewController: UIViewController {
                     print("Profile: \(profile)")
                     self.bioLabel.text = profile.bio
                     self.nameLabel.text = profile.name
+                    
+                    let size = "?width=400&height=400"
+                    let picture = "\(profile.image + size)"
+                    
+                    let url = URL(string: picture)
+                    self.userImage.kf.setImage(with: url)
                 } else {
                     print("Document does not exist")
                 }
@@ -99,6 +149,7 @@ class PersonalPageViewController: UIViewController {
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
+                    self.articleArray = []
                     for document in querySnapshot!.documents {
                         
                         do {
@@ -112,11 +163,11 @@ class PersonalPageViewController: UIViewController {
                             print(error)
                             
                         }
-                       
+                        
                         print("\(document.documentID) => \(document.data())")
                     }
                     
-                     self.articleCollectionView.reloadData()
+                    self.articleCollectionView.reloadData()
                 }
         }
         
@@ -142,7 +193,7 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
         cell.articalTitle.text = articleArray[indexPath.row].title
         cell.littleView.layer.borderWidth = 0.5
         cell.littleView.layer.borderColor = #colorLiteral(red: 0.8821310401, green: 0.6988527775, blue: 0.7068136334, alpha: 1)
-        cell.littleView.backgroundColor = #colorLiteral(red: 0.9215686275, green: 0.8784313725, blue: 0.8666666667, alpha: 1)
+        cell.littleView.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9137254902, blue: 0.8941176471, alpha: 1)
         cell.layer.cornerRadius = UIScreen.main.bounds.width / 60
         cell.littleView.layer.cornerRadius = UIScreen.main.bounds.width / 60
         cell.littleView.layer.maskedCorners = [.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
@@ -170,6 +221,9 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard let postVC = storyboard?.instantiateViewController(identifier: "postVC") as? PostViewController else { return }
+        
+        postVC.nameLabel = articleArray[indexPath.row].name
+        postVC.article = [articleArray[indexPath.row]]
         
         self.show(postVC, sender: nil)
     }

@@ -174,8 +174,10 @@ class ProductDetailViewController: UIViewController {
                 productDetailNote.isEditable = true
                 textFieldEditable = true
                 productDetailTableView.reloadData()
+                 
             } else {
                 //改成edit
+                
                 navigationItem.rightBarButtonItem?.title = "Edit"
                 productDetailNote.isEditable = false
                 textFieldEditable = false
@@ -196,8 +198,10 @@ class ProductDetailViewController: UIViewController {
                 } catch {
                     print(error)
                 }
-                
+                 dismiss(animated: false, completion: nil)
             }
+           
+            
             
             
         }

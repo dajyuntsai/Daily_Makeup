@@ -17,5 +17,7 @@ struct Profile: Codable {
     let bio: String?
     
     let uid: String
+    
+    let image: String
 }
 

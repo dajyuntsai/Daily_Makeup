@@ -32,7 +32,6 @@ class HomePageCollectionViewCell: UICollectionViewCell {
     var likeStateBtn:((Bool) -> Void)?
     
     
-    
     @IBAction func articleLikeBtn(_ sender: UIButton) {
         
         if btnState {
@@ -41,11 +40,17 @@ class HomePageCollectionViewCell: UICollectionViewCell {
             
             likeBtn.setImage(UIImage(named: "heart (3)"),for: .normal)
             
+            
+            likeNumber.text =  String(Int(likeNumber.text!)! - 1)
+        
         } else {
             
             likeBtn.setImage(UIImage(named: "heart (2)"), for: .normal)
             
             likeStateBtn?(true)
+            
+            likeNumber.text =  String(Int(likeNumber.text!)! + 1)
+            
         }
         
         btnState = !btnState

@@ -19,6 +19,7 @@ class EditArticleViewController: UIViewController{
     var imageStore: [UIImage] = []
     var uid = ""
     var name = ""
+    var number = 0
     let now = NSDate()
     let userDefaults = UserDefaults.standard
     
@@ -69,7 +70,9 @@ class EditArticleViewController: UIViewController{
             uid: uid,
             name: name,
             id: id,
-            time: currentTimes)
+            time: currentTimes,
+            likeNumber: number
+            )
         
         do {
             try document.setData(from: article)
@@ -79,6 +82,8 @@ class EditArticleViewController: UIViewController{
         
         NotificationCenter.default.post(name: Notification.Name("sharePost"), object: nil)
         dismiss(animated: false, completion: nil)
+        
+        
         
     }
     

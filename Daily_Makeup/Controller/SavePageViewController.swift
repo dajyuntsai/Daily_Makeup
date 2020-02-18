@@ -39,7 +39,7 @@ extension SavePageViewController:UICollectionViewDataSource,UICollectionViewDele
         cell.saveLittleView.layer.borderWidth = 0.5
         
         cell.saveLittleView.layer.borderColor = #colorLiteral(red: 0.8375313282, green: 0.6639861465, blue: 0.667365849, alpha: 1)
-        cell.saveLittleView.backgroundColor = #colorLiteral(red: 0.9294117647, green: 0.8784313725, blue: 0.862745098, alpha: 1)
+        cell.saveLittleView.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9137254902, blue: 0.8941176471, alpha: 1)
         cell.layer.cornerRadius = UIScreen.main.bounds.width / 60
         
         //底下的view右下跟左下角的框框改成圓弧

@@ -25,12 +25,12 @@ class PostViewController: UIViewController {
     }
     
     @IBOutlet var pageControl: UIPageControl!
-  
+    
     @IBOutlet var authorLabel: UILabel!
     
     
     let data = [
-    "https://dvblobcdnjp.azureedge.net//Content/Upload/Popular/Images/2017-06/e99e6b5e-ca6c-4c19-87b7-dfd63db6381a_m.jpg",
+        "https://dvblobcdnjp.azureedge.net//Content/Upload/Popular/Images/2017-06/e99e6b5e-ca6c-4c19-87b7-dfd63db6381a_m.jpg",
         "https://cdn.clickme.net/gallery/32eae8a8ba9194b37d25049bee776db1.jpg",
         "https://img.tw.observer/images/4sAWBrE.jpg"
     ]
@@ -48,10 +48,14 @@ class PostViewController: UIViewController {
         imageScrollView.delegate = self
         postTableView.rowHeight = UITableView.automaticDimension
         postTableView.separatorStyle = .none
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(back))
         
-        //這裡的
+        navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        
+        
+        
         authorLabel.text = nameLabel
-//        navigationItem.backBarButtonItem =
+        
         
         for number in 0 ..< data.count {
             
@@ -74,9 +78,12 @@ class PostViewController: UIViewController {
         
     }
     
- 
-
+    @objc func back() {
+        navigationController?.popViewController(animated: true)
+        
+    }
     @IBOutlet var postTableView: UITableView!
+    
 }
 
 extension PostViewController:UITableViewDelegate,UITableViewDataSource{
@@ -92,7 +99,7 @@ extension PostViewController:UITableViewDelegate,UITableViewDataSource{
         
         if indexPath.row == 2 {
             if let timecell = tableView.dequeueReusableCell(withIdentifier: "timecell", for: indexPath) as? PostTimeTableViewCell {
-              
+                
                 timecell.postTimeLabel.textColor = .systemGray
                 let result = self.timeConverter(time: article[number - 2].time)
                 timecell.postTimeLabel.text = result
@@ -124,13 +131,13 @@ extension PostViewController:UITableViewDelegate,UITableViewDataSource{
         }
         
         
-    
+        
         return UITableViewCell()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    
-
+        
+        
         
         let frameWidth = Int(imageScrollView.frame.size.width)
         let contentOffsetX = Int(imageScrollView.contentOffset.x) + frameWidth / 3
@@ -140,12 +147,12 @@ extension PostViewController:UITableViewDelegate,UITableViewDataSource{
         
     }
     
-
+    
     func timeConverter(time: Int) -> String {
         let time = Date.init(timeIntervalSince1970: TimeInterval(time))
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd hh:mm"
         let timeConvert = dateFormatter.string(from: time)
         return timeConvert
-     }
+    }
 }

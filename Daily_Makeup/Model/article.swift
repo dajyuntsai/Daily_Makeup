@@ -23,5 +23,7 @@ struct  Article: Codable {
     
     let time: Int
     
+    let likeNumber: Int
+    
 
 }

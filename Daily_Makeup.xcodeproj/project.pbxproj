@@ -39,6 +39,7 @@
 		5CF684D123E2D04B00F3C363 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF684D023E2D04B00F3C363 /* CategoryViewController.swift */; };
 		5CF684D323E2D07C00F3C363 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF684D223E2D07C00F3C363 /* CategoryTableViewCell.swift */; };
 		5CF684D523E2D0A100F3C363 /* EditProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF684D423E2D0A100F3C363 /* EditProfileTableViewCell.swift */; };
+		5CF6AA1C23FBB92A000CB692 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF6AA1B23FBB92A000CB692 /* SettingViewController.swift */; };
 		711B1CD1D06D4396E339318B /* Pods_Daily_Makeup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46D412BBAA3942BCAA376106 /* Pods_Daily_Makeup.framework */; };
 		CF858371A96B62576E13F55C /* Pods_Daily_Makeup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA4D39A30E24CBD550FCE89B /* Pods_Daily_Makeup.framework */; };
 /* End PBXBuildFile section */
@@ -80,6 +81,7 @@
 		5CF684D023E2D04B00F3C363 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		5CF684D223E2D07C00F3C363 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		5CF684D423E2D0A100F3C363 /* EditProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewCell.swift; sourceTree = "<group>"; };
+		5CF6AA1B23FBB92A000CB692 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		ADEE0E7F3CACC3135BD337BF /* Pods-Daily_Makeup.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Daily_Makeup.release.xcconfig"; sourceTree = "<group>"; };
 		DC77E76445C0FAE26012616B /* Pods-Daily_Makeup.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Daily_Makeup.release.xcconfig"; path = "Target Support Files/Pods-Daily_Makeup/Pods-Daily_Makeup.release.xcconfig"; sourceTree = "<group>"; };
 		FA4D39A30E24CBD550FCE89B /* Pods_Daily_Makeup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Daily_Makeup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,6 +185,7 @@
 				5C78699423E1B9B9007A94A1 /* HomePageViewController.swift */,
 				5C78699C23E1F8E2007A94A1 /* SavePageViewController.swift */,
 				5CF684D023E2D04B00F3C363 /* CategoryViewController.swift */,
+				5CF6AA1B23FBB92A000CB692 /* SettingViewController.swift */,
 				ADEE0E7F3CACC3135BD337BF /* Pods-Daily_Makeup.release.xcconfig */,
 				5C57F34F23DC46E20010A672 /* Assets.xcassets */,
 				FA4D39A30E24CBD550FCE89B /* Pods_Daily_Makeup.framework */,
@@ -333,6 +336,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CF6AA1C23FBB92A000CB692 /* SettingViewController.swift in Sources */,
 				5CC4651223E84C2F00424243 /* SinginViewController.swift in Sources */,
 				5C52A37823E7C63400969BDE /* PostTitleTableViewCell.swift in Sources */,
 				5CF684D123E2D04B00F3C363 /* CategoryViewController.swift in Sources */,

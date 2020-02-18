@@ -119,7 +119,7 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         cell1.likeNumber.text = "1200"
         cell1.littleView.layer.borderWidth = 0.5
         cell1.littleView.layer.borderColor = #colorLiteral(red: 0.7867800593, green: 0.6210635304, blue: 0.620044291, alpha: 1)
-        cell1.littleView.backgroundColor = #colorLiteral(red: 0.9294117647, green: 0.8784313725, blue: 0.862745098, alpha: 1)
+        cell1.littleView.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9137254902, blue: 0.8941176471, alpha: 1)
         cell1.layer.cornerRadius = 10
         cell1.articleImage.layer.cornerRadius = UIScreen.main.bounds.width / 60
         cell1.articleImage.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
