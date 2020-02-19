@@ -32,6 +32,8 @@ class HomePageCollectionViewCell: UICollectionViewCell {
     var likeStateBtn:((Bool) -> Void)?
     
     
+    
+    
     @IBAction func articleLikeBtn(_ sender: UIButton) {
         
         if btnState {

@@ -70,13 +70,17 @@ class PersonalPageViewController: UIViewController {
     @IBAction func settingBtn(_ sender: UIButton
     ) {
         
-        let alertcontroller = UIAlertController(title: "Settings", message: "Loings", preferredStyle: .actionSheet)
+        let alertcontroller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+       
         
         let pickerAction = UIAlertAction(title: "Log out", style: .default) { (void) in
             
-            let manager = LoginManager()
-            manager.logOut()
-            
+            do {
+                try Auth.auth().signOut()
+            } catch {
+                
+            }
             guard let home = self.storyboard?.instantiateViewController(withIdentifier: "singinVC") as? SinginViewController else { return }
         
         self.view.window?.rootViewController = home

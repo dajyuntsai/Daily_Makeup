@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Privacy – Camera Usage Description</key>
-	<string></string>
-	<key>Privacy – Photo Library Usage Description</key>
-	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -49,6 +45,23 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>Privacy – Camera Usage Description</key>
+	<string></string>
+	<key>Privacy – Photo Library Usage Description</key>
+	<string></string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>TaipeiSansTCBeta-Bold.ttf</string>
+		<string>TaipeiSansTCBeta-Regular.ttf</string>
+		<string>TaipeiSansTCBeta-Light.ttf</string>
+		<string>NotoSerifCJKtc-Black.otf</string>
+		<string>NotoSerifCJKtc-Bold.otf</string>
+		<string>NotoSerifCJKtc-ExtraLight.otf</string>
+		<string>NotoSerifCJKtc-Light.otf</string>
+		<string>NotoSerifCJKtc-Medium.otf</string>
+		<string>NotoSerifCJKtc-Regular.otf</string>
+		<string>NotoSerifCJKtc-SemiBold.otf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

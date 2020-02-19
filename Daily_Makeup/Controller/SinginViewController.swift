@@ -116,12 +116,8 @@ class SinginViewController: UIViewController {
     @IBAction func googleSignin(_ sender: Any) {
         
         GIDSignIn.sharedInstance().signIn()
-        //                if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "tabBarController") {
-        //
-        //                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        //                appDelegate.window?.rootViewController = viewController
-        //                self.dismiss(animated: true, completion: nil)
-        //                }
+        
+        
     }
     
 }

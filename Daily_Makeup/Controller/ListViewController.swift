@@ -250,8 +250,9 @@ extension ListViewController: UISearchResultsUpdating {
             if brandMatch || titleMatch {
                 
                 return true
+            } else {
+                return false
             }
-            return false
         }
         listTableView.reloadData()
     }

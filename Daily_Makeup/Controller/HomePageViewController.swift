@@ -22,10 +22,22 @@ class HomePageViewController: UIViewController {
             
             self.article.reloadData()
         }
-            
+        
     }
     
- 
+    var filterArray : [Article] = []{
+        didSet{
+            
+            self.article.reloadData()
+        }
+    }
+    
+    var isFilter = false {
+        
+        didSet {
+           self.article.reloadData()
+        }
+    }
     
     let search = UISearchController(searchResultsController: nil)
     
@@ -33,16 +45,19 @@ class HomePageViewController: UIViewController {
         super.viewDidLoad()
         
         db = Firestore.firestore()
-       
+        
         
         article.delegate = self
         article.dataSource = self
+        
         
         navigationItem.title = "Makeup"
         navigationItem.searchController = search
         navigationItem.largeTitleDisplayMode = .never
         search.searchBar.placeholder = "搜尋品牌..."
         search.searchBar.tintColor = .white
+        search.searchBar.delegate = self
+        search.searchResultsUpdater = self
         
         //        search.searchResultsUpdater = self
         //        search.searchBar.delegate = self
@@ -70,7 +85,7 @@ class HomePageViewController: UIViewController {
     
     func loadData(){
         
-    
+        
         db.collection("article").getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
@@ -106,16 +121,28 @@ class HomePageViewController: UIViewController {
 extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return articleArray.count
+        
+        if isFilter {
+            return filterArray.count
+        } else {
+            return articleArray.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "cell1", for: indexPath) as? HomePageCollectionViewCell else { return UICollectionViewCell()
         }
         
-        cell1.articleTitle.text = articleArray[indexPath.row].title
-        cell1.personalAccount.text = articleArray[indexPath.row].name
-    
+        var container : [Article] = []
+        if isFilter {
+            container = filterArray
+        } else {
+            container = articleArray
+        }
+        
+        cell1.articleTitle.text = container[indexPath.row].title
+        cell1.personalAccount.text = container[indexPath.row].name
+        
         cell1.likeNumber.text = "1200"
         cell1.littleView.layer.borderWidth = 0.5
         cell1.littleView.layer.borderColor = #colorLiteral(red: 0.7867800593, green: 0.6210635304, blue: 0.620044291, alpha: 1)
@@ -156,14 +183,73 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         
         guard let postVC = storyboard?.instantiateViewController(withIdentifier: "postVC") as? PostViewController else { return }
         
-        
-        
-        
         //可以拿到postVC的nameLabel
         postVC.nameLabel = articleArray[indexPath.row].name
         postVC.article = [articleArray[indexPath.row]]
         self.show(postVC, sender: nil)
         
+        
+    }
+    
+    
+}
+
+extension HomePageViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        guard let search = search.searchBar.text else {
+            
+            isFilter = false
+            return }
+        
+        if search.isEmpty {
+            isFilter = false
+            return
+        }
+        
+        isFilter = true
+        
+        filterArray = articleArray.filter { article in
+            
+            let title = article.title
+            let name = article.name
+            
+            let titleMatch = title.localizedCaseInsensitiveContains(search)
+            
+            let nameMatch = name.localizedCaseInsensitiveContains(search)
+            
+            if titleMatch || nameMatch {
+                print(article)
+                return true
+            } else {
+                 return false
+            }
+        }
+        
+        article.reloadData()
+    }
+    
+}
+
+extension HomePageViewController: UISearchBarDelegate {
+    
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        isFilter = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        isFilter = false
+        
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        if !isFilter {
+            isFilter = true
+        }
+        search.searchBar.resignFirstResponder()
         
     }
     

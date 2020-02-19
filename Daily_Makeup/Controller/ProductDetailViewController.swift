@@ -99,11 +99,14 @@ class ProductDetailViewController: UIViewController {
 
         productDetailNote.text = productTextFieldNote
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Cancel))
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Cancel))
+       
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(Cancel))
         navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
-        navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
+        
+        navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.7064394355, green: 0.5390405059, blue: 0.4982455373, alpha: 1)
         
         
         showDateFormatter.dateFormat = "yyyy-MM-dd"
@@ -120,6 +123,7 @@ class ProductDetailViewController: UIViewController {
         
         if productDocumentID != "" {
             navigationItem.rightBarButtonItem?.title = "Edit"
+            navigationItem.leftBarButtonItem?.title = "Back"
             textFieldEditable = false
             productDetailNote.isEditable = false
             
@@ -140,6 +144,7 @@ class ProductDetailViewController: UIViewController {
     
     @objc func Cancel() {
         navigationController?.popViewController(animated: true)
+        
     }
     
     //若沒有Id表示要新增資料，若有Id表示是編輯
@@ -171,6 +176,7 @@ class ProductDetailViewController: UIViewController {
             if title == "Edit" {
                 //改成save
                 navigationItem.rightBarButtonItem?.title = "Save"
+                navigationItem.leftBarButtonItem?.title = "Cancel"
                 productDetailNote.isEditable = true
                 textFieldEditable = true
                 productDetailTableView.reloadData()
@@ -179,6 +185,7 @@ class ProductDetailViewController: UIViewController {
                 //改成edit
                 
                 navigationItem.rightBarButtonItem?.title = "Edit"
+                navigationItem.leftBarButtonItem?.title = "Back"
                 productDetailNote.isEditable = false
                 textFieldEditable = false
                 productDetailTableView.reloadData()
@@ -198,7 +205,7 @@ class ProductDetailViewController: UIViewController {
                 } catch {
                     print(error)
                 }
-                 dismiss(animated: false, completion: nil)
+//                 dismiss(animated: false, completion: nil)
             }
            
             

@@ -38,6 +38,11 @@ class PostViewController: UIViewController {
     //返回上一頁
     @IBAction func backToImages(_ sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
+    
+        
+        
+        
+        
         
     }
     override func viewDidLoad() {
@@ -84,6 +89,37 @@ class PostViewController: UIViewController {
     }
     @IBOutlet var postTableView: UITableView!
     
+    @IBAction func settingsBtn(_ sender: Any) {
+        
+        let alertcontroller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+               
+        let pickerEdit = UIAlertAction(title: "編輯", style: .default) { (void) in
+                  print(123) }
+        
+        let pickerdelete = UIAlertAction(title: "刪除", style: .default) { (void) in
+        print(123) }
+        
+        
+        
+        
+        alertcontroller.addAction(pickerEdit)
+        alertcontroller.addAction(pickerdelete)
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
+        alertcontroller.addAction(cancelAction)
+        
+        present(alertcontroller, animated: true, completion: nil)
+        
+        
+        
+        
+        
+        
+    }
+        
+        
+ 
 }
 
 extension PostViewController:UITableViewDelegate,UITableViewDataSource{
