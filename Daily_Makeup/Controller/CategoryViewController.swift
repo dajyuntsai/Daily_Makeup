@@ -26,12 +26,22 @@ class CategoryViewController: UIViewController {
     
     
     @IBAction func paletteCategoryButton(_ sender: Any) {
+        guard let ListVC = storyboard?.instantiateViewController(withIdentifier: "litspage") as?  ListViewController else { return }
+        
+        self.show(ListVC, sender: nil)
+        
     }
     
     @IBAction func brushCategoryButton(_ sender: Any) {
+        guard let ListVC = storyboard?.instantiateViewController(withIdentifier: "litspage") as?  ListViewController else { return }
+        
+        self.show(ListVC, sender: nil)
     }
     
     @IBAction func othersCategoryButton(_ sender: Any) {
+        guard let ListVC = storyboard?.instantiateViewController(withIdentifier: "litspage") as?  ListViewController else { return }
+        
+        self.show(ListVC, sender: nil)
     }
     
 }

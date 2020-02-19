@@ -69,4 +69,11 @@ extension SavePageViewController:UICollectionViewDataSource,UICollectionViewDele
     }
     
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let postVC = storyboard?.instantiateViewController(withIdentifier: "postVC") as? PostViewController else { return }
+        
+        self.show(postVC, sender: nil)
+        
+    }
+    
 }
