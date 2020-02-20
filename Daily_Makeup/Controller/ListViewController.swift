@@ -213,7 +213,7 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let productDetailVC = storyboard?.instantiateViewController(withIdentifier: "addProduct") as? ProductDetailViewController else   { return }
-        
+        productDetailVC.productDetailCategory = listArray[indexPath.row].category
         productDetailVC.productDetailTitle = listArray[indexPath.row].title
         productDetailVC.productDetailBrand = listArray[indexPath.row].brand
         productDetailVC.productDetailColor = listArray[indexPath.row].colortone

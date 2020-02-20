@@ -13,7 +13,24 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseStorage
 
-class ProductDetailViewController: UIViewController {
+class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return category.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return category[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        productTextField?.text = category[row]
+    }
+    
     var db: Firestore!
     
     var productDetailTitle = ""
@@ -34,8 +51,15 @@ class ProductDetailViewController: UIViewController {
     
     var expTextField:UITextField?
     var expDatePicker = UIDatePicker()
+    
+    var productTextField:UITextField?
+    var productListPicker = UIPickerView()
+    
+    
     var date = ""
     var date1 = ""
+    var productcategory = ""
+    let category = ["口紅","眼影","腮紅","其他"]
     
     var textFieldEditable = true
     
@@ -98,7 +122,8 @@ class ProductDetailViewController: UIViewController {
         productDetailTableView.delegate = self
         productDetailTableView.dataSource = self
         productDetailTableView.separatorStyle = .none
-        
+        productListPicker.delegate = self
+        productListPicker.dataSource = self
         
         
 
@@ -120,10 +145,14 @@ class ProductDetailViewController: UIViewController {
         expDatePicker.datePickerMode = .date
         expDatePicker.locale = Locale(identifier: "zh_TW")
         
+        
+    
+        
         //picker選擇完後要做的事
         openDatepicker.addTarget(self, action: #selector(selectedOpenDate), for: .valueChanged)
         
         expDatePicker.addTarget(self, action: #selector(selectedExpOpenDate), for: .valueChanged)
+        
         
         
         if productDocumentID != "" {
@@ -134,6 +163,8 @@ class ProductDetailViewController: UIViewController {
             
             
         }
+        
+        
     }
     
     
@@ -146,6 +177,8 @@ class ProductDetailViewController: UIViewController {
     @objc func selectedExpOpenDate(){
         expTextField?.text = showDateFormatter.string(from: expDatePicker.date)
     }
+    
+  
     
     @objc func Cancel() {
         navigationController?.popViewController(animated: true)
@@ -168,7 +201,7 @@ class ProductDetailViewController: UIViewController {
                     expirydate: productExpirydate,
                     note: productDetailNote.text,
                     id:  document.documentID,
-                    category: "123")
+                    category: productDetailCategory)
 
                 try document.setData(from: product)
             } catch {
@@ -205,7 +238,7 @@ class ProductDetailViewController: UIViewController {
                     expirydate: productExpirydate,
                     note: productDetailNote.text,
                     id:  document.documentID,
-                    category: "123")
+                    category: productDetailCategory)
                 
                 do {
                     try document.setData(from: product, merge: true)
@@ -275,6 +308,10 @@ extension ProductDetailViewController:UITableViewDelegate,UITableViewDataSource 
         case 0:
             cell.productDetailTextField.text = productDetailCategory
             cell.passText = { [weak self] text in self? .productDetailCategory = text }
+            
+            cell.productDetailTextField.inputView = productListPicker
+            
+            self.productTextField = cell.productDetailTextField
             
         default:
             print(123)
