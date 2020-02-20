@@ -73,13 +73,10 @@ class SinginViewController: UIViewController {
                     let name = user?.user.displayName,
                     let email = user?.user.email,
                     let image = user?.user.photoURL?.absoluteString else { return }
-                //
+         
                 
                 let size = "?width=400&height=400"
                 let picture = "\(image + size)"
-                
-                
-                
                 
                 let signInID = SignID (
                     name: name,

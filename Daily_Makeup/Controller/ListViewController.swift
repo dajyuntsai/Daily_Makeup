@@ -15,9 +15,10 @@ import FirebaseFirestoreSwift
 
 class ListViewController: UIViewController {
     
-    
-    
     var db: Firestore!
+    
+    var list = ""
+   
     var listArray = [Product]() {
         didSet{
             if listArray.isEmpty {
@@ -169,7 +170,11 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListTableViewCell else {
             return UITableViewCell()
-            
+        }
+        if indexPath.row % 2 == 0 {
+            cell.contentView.backgroundColor = #colorLiteral(red: 0.9559974074, green: 0.9367571473, blue: 0.9282063842, alpha: 1)
+        } else {
+            cell.contentView.backgroundColor = #colorLiteral(red: 0.9529411765, green: 0.9019607843, blue: 0.8901960784, alpha: 1)
         }
         
         var container: [Product] = []
@@ -208,6 +213,7 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let productDetailVC = storyboard?.instantiateViewController(withIdentifier: "addProduct") as? ProductDetailViewController else   { return }
+        
         productDetailVC.productDetailTitle = listArray[indexPath.row].title
         productDetailVC.productDetailBrand = listArray[indexPath.row].brand
         productDetailVC.productDetailColor = listArray[indexPath.row].colortone

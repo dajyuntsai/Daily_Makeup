@@ -19,6 +19,8 @@
 		5C2A735223FC34F900F57F31 /* NotoSerifCJKtc-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5C2A734B23FC34F600F57F31 /* NotoSerifCJKtc-SemiBold.otf */; };
 		5C2A735323FC34F900F57F31 /* NotoSerifCJKtc-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5C2A734C23FC34F700F57F31 /* NotoSerifCJKtc-Regular.otf */; };
 		5C2A735423FC34F900F57F31 /* NotoSerifCJKtc-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5C2A734D23FC34F900F57F31 /* NotoSerifCJKtc-Light.otf */; };
+		5C2A735623FE331D00F57F31 /* PlantagenetCherokee.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C2A735523FE331D00F57F31 /* PlantagenetCherokee.ttf */; };
+		5C2A735823FE332B00F57F31 /* STIXGeneral.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5C2A735723FE332B00F57F31 /* STIXGeneral.otf */; };
 		5C3D6AAE23E97F5D00257991 /* productDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3D6AAD23E97F5D00257991 /* productDetail.swift */; };
 		5C3D6AB023EA90F700257991 /* editProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3D6AAF23EA90F700257991 /* editProfile.swift */; };
 		5C4CF8E123F550D800AB65B6 /* EditArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4CF8E023F550D700AB65B6 /* EditArticleViewController.swift */; };
@@ -69,6 +71,8 @@
 		5C2A734B23FC34F600F57F31 /* NotoSerifCJKtc-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSerifCJKtc-SemiBold.otf"; sourceTree = "<group>"; };
 		5C2A734C23FC34F700F57F31 /* NotoSerifCJKtc-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSerifCJKtc-Regular.otf"; sourceTree = "<group>"; };
 		5C2A734D23FC34F900F57F31 /* NotoSerifCJKtc-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSerifCJKtc-Light.otf"; sourceTree = "<group>"; };
+		5C2A735523FE331D00F57F31 /* PlantagenetCherokee.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = PlantagenetCherokee.ttf; sourceTree = "<group>"; };
+		5C2A735723FE332B00F57F31 /* STIXGeneral.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = STIXGeneral.otf; sourceTree = "<group>"; };
 		5C3D6AAD23E97F5D00257991 /* productDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = productDetail.swift; sourceTree = "<group>"; };
 		5C3D6AAF23EA90F700257991 /* editProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editProfile.swift; sourceTree = "<group>"; };
 		5C4CF8E023F550D700AB65B6 /* EditArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditArticleViewController.swift; sourceTree = "<group>"; };
@@ -209,6 +213,8 @@
 				ADEE0E7F3CACC3135BD337BF /* Pods-Daily_Makeup.release.xcconfig */,
 				5C57F34F23DC46E20010A672 /* Assets.xcassets */,
 				FA4D39A30E24CBD550FCE89B /* Pods_Daily_Makeup.framework */,
+				5C2A735723FE332B00F57F31 /* STIXGeneral.otf */,
+				5C2A735523FE331D00F57F31 /* PlantagenetCherokee.ttf */,
 				5C2A734323FC265400F57F31 /* TaipeiSansTCBeta-Bold.ttf */,
 				5C2A734223FC265300F57F31 /* TaipeiSansTCBeta-Light.ttf */,
 				5C2A734123FC265200F57F31 /* TaipeiSansTCBeta-Regular.ttf */,
@@ -300,10 +306,12 @@
 				5C2A734E23FC34F900F57F31 /* NotoSerifCJKtc-Bold.otf in Resources */,
 				5C2A734F23FC34F900F57F31 /* NotoSerifCJKtc-Medium.otf in Resources */,
 				5C57F34E23DC46E00010A672 /* Main.storyboard in Resources */,
+				5C2A735623FE331D00F57F31 /* PlantagenetCherokee.ttf in Resources */,
 				5C2A735023FC34F900F57F31 /* NotoSerifCJKtc-ExtraLight.otf in Resources */,
 				5C2A735323FC34F900F57F31 /* NotoSerifCJKtc-Regular.otf in Resources */,
 				5C2A735123FC34F900F57F31 /* NotoSerifCJKtc-Black.otf in Resources */,
 				5C2A735423FC34F900F57F31 /* NotoSerifCJKtc-Light.otf in Resources */,
+				5C2A735823FE332B00F57F31 /* STIXGeneral.otf in Resources */,
 				5C2A734623FC265400F57F31 /* TaipeiSansTCBeta-Bold.ttf in Resources */,
 				5C2A735223FC34F900F57F31 /* NotoSerifCJKtc-SemiBold.otf in Resources */,
 				5C2A734423FC265400F57F31 /* TaipeiSansTCBeta-Regular.ttf in Resources */,

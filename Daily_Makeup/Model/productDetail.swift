@@ -24,6 +24,8 @@ struct Product: Codable {
     
     let id: String
     
+    let category: String
+    
 //    let image: String
 //
 }

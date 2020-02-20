@@ -65,7 +65,7 @@ class EditProfileViewController: UIViewController {
             }
         }
         
-
+        
         let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (Void) in
             
             imagePickerAlertController.dismiss(animated: true, completion: nil)
@@ -98,7 +98,7 @@ class EditProfileViewController: UIViewController {
             }
         }
         
-
+        
         let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (Void) in
             
             imagePickerAlertController.dismiss(animated: true, completion: nil)
@@ -114,6 +114,14 @@ class EditProfileViewController: UIViewController {
     }
     
     @objc func save() {
+        
+        //        let uniqueString = NSUUID().uuidString
+        //        let storageReference = Storage.storage().reference()
+        //        let fileReference = storageReference.child(uniqueString)
+        //
+        //        if let uploadData =
+        
+        
         
         guard let uid = userDefaults.string(forKey: "uid") else { return }
         
@@ -235,15 +243,28 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
         // 當判斷有 selectedImage 時，我們會在 if 判斷式裡將圖片上傳
         if let selectedImage = selectedImageFromPicker {
             
-            profileImage.image = selectedImage
+            let storage = Storage.storage()
+            let storageRef = storage.reference()
+            let path = "Image/\(uniqueString).jpeg"
+            let imageRef = storageRef.child(path)
             
-            print("\(uniqueString), \(selectedImage)")
-        }
-        
-        dismiss(animated: true, completion: nil)
-    }
-    
+            guard let data = selectedImage.jpegData(compressionQuality: 0.5) else { return }
+            
+            let task = imageRef.putData(data, metadata: nil) { (metadata, error) in
+                imageRef.downloadURL { (url, error) in
+                    print(url)
+                }
+            }
+            
+            task.resume()
+            
+            
 
+//                    dismiss(animated: true, completion: nil)
+        
+        }
+
+    }
 }
 
 

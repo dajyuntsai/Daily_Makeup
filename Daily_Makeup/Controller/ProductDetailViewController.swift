@@ -11,6 +11,7 @@ import Firebase
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseStorage
 
 class ProductDetailViewController: UIViewController {
     var db: Firestore!
@@ -22,6 +23,10 @@ class ProductDetailViewController: UIViewController {
     var productExpirydate = ""
     var productTextFieldNote = ""
     var productDocumentID = ""
+    var productDetailCategory = ""
+    
+    
+    
     
     var openDatepicker = UIDatePicker()
     var openTextField: UITextField?
@@ -162,7 +167,8 @@ class ProductDetailViewController: UIViewController {
                     opened: productdetailOpened,
                     expirydate: productExpirydate,
                     note: productDetailNote.text,
-                    id:  document.documentID)
+                    id:  document.documentID,
+                    category: "123")
 
                 try document.setData(from: product)
             } catch {
@@ -198,7 +204,8 @@ class ProductDetailViewController: UIViewController {
                     opened: productdetailOpened,
                     expirydate: productExpirydate,
                     note: productDetailNote.text,
-                    id:  document.documentID)
+                    id:  document.documentID,
+                    category: "123")
                 
                 do {
                     try document.setData(from: product, merge: true)
@@ -215,7 +222,7 @@ class ProductDetailViewController: UIViewController {
         
     }
     
-    let productDetail = ["Title","Colortone","Brand","Opened","EXP"]
+    let productDetail = ["Category","Title","Colortone","Brand","Opened","EXP"]
 }
 
 extension ProductDetailViewController:UITableViewDelegate,UITableViewDataSource {
@@ -237,18 +244,18 @@ extension ProductDetailViewController:UITableViewDelegate,UITableViewDataSource 
     
         
         switch indexPath.row {
-        case 0:
+        case 1:
             
             cell.productDetailTextField.text = productDetailTitle
             cell.passText = { [weak self] text in self?.productDetailTitle = text }
-        case 1:
+        case 2:
             cell.productDetailTextField.text = productDetailColor
             cell.passText = { [weak self] text in self?.productDetailColor = text
             }
-        case 2:
+        case 3:
             cell.productDetailTextField.text = productDetailBrand
             cell.passText = { [weak self] text in self?.productDetailBrand = text }
-        case 3:
+        case 4:
             cell.productDetailTextField.text = productdetailOpened
             cell.passText = { [weak self] text in self?.productdetailOpened = text }
             
@@ -257,14 +264,17 @@ extension ProductDetailViewController:UITableViewDelegate,UITableViewDataSource 
             self.openTextField = cell.productDetailTextField
             
             
-        case 4:
+        case 5:
             cell.productDetailTextField.text = productExpirydate
             cell.passText = { [weak self] text in self? .productExpirydate = text }
             
             cell.productDetailTextField.inputView = expDatePicker
             
             self.expTextField = cell.productDetailTextField
-            
+        
+        case 0:
+            cell.productDetailTextField.text = productDetailCategory
+            cell.passText = { [weak self] text in self? .productDetailCategory = text }
             
         default:
             print(123)

@@ -7,42 +7,65 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
+import FBSDKLoginKit
 
 class CategoryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.barTintColor = UIColor(red: 227.0/255.0, green: 188.0/255.0, blue: 189.0/255.0, alpha: 1.0)
-        // Do any additional setup after loading the view.
+   
+    }
+    
+    var db:Firestore!
+    
+    func productList() {
+        
+        
+        
+//        db.collection("article").whereField("id", isEqualTo: : id)
+    }
+    
+    @IBAction func lipsBtn(_ sender: Any) {
+        
+        guard let listVC = storyboard?.instantiateViewController(withIdentifier: "litspage") as?  ListViewController else { return }
+        listVC.list = "lips"
+        self.show(listVC, sender: nil)
+    }
+    
+    @IBAction func paletteBtn(_ sender: Any) {
+        
+        guard let listVC = storyboard?.instantiateViewController(withIdentifier: "litspage") as?  ListViewController else { return }
+        listVC.list = "palette"
+        self.show(listVC, sender: nil)
     }
     
     
-    @IBAction func lipCategoryButton(_ sender: UIButton) {
-        guard let ListVC = storyboard?.instantiateViewController(withIdentifier: "litspage") as?  ListViewController else { return }
+    @IBAction func blusherBtn(_ sender: Any) {
         
-        self.show(ListVC, sender: nil)
-        
+        guard let listVC = storyboard?.instantiateViewController(withIdentifier: "litspage") as?  ListViewController else { return }
+        listVC.list = "blusher"
+        self.show(listVC, sender: nil)
     }
     
     
-    @IBAction func paletteCategoryButton(_ sender: Any) {
-        guard let ListVC = storyboard?.instantiateViewController(withIdentifier: "litspage") as?  ListViewController else { return }
+    @IBAction func othersBtn(_ sender: Any) {
         
-        self.show(ListVC, sender: nil)
-        
+        guard let listVC = storyboard?.instantiateViewController(withIdentifier: "litspage") as?  ListViewController else { return }
+        listVC.list = "others"
+        self.show(listVC, sender: nil)
     }
     
-    @IBAction func brushCategoryButton(_ sender: Any) {
-        guard let ListVC = storyboard?.instantiateViewController(withIdentifier: "litspage") as?  ListViewController else { return }
-        
-        self.show(ListVC, sender: nil)
-    }
+
+
     
-    @IBAction func othersCategoryButton(_ sender: Any) {
-        guard let ListVC = storyboard?.instantiateViewController(withIdentifier: "litspage") as?  ListViewController else { return }
-        
-        self.show(ListVC, sender: nil)
-    }
+    
+    
+    
     
 }
 
