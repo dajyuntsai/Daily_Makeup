@@ -12,6 +12,7 @@ import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseStorage
+import Kingfisher
 
 class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -41,7 +42,7 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
     var productTextFieldNote = ""
     var productDocumentID = ""
     var productDetailCategory = ""
-    
+    var addProductImage = ""
     
     
     
@@ -64,12 +65,14 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
     var textFieldEditable = true
     
     var imageStore: [UIImage] = []
-//    var preVC: ListViewController?
+    //    var preVC: ListViewController?
     @IBOutlet var imageOutlet: UIButton!
     @IBOutlet var imageView: UIImageView!
     @IBAction func addImageBtn(_ sender: UIButton) {
         
         let imagePickerController = UIImagePickerController()
+        
+        
         
         imagePickerController.delegate = self
         let imagePickerAlertController = UIAlertController(title: "上傳圖片", message: "請選擇要上傳的圖片", preferredStyle: .actionSheet)
@@ -124,19 +127,19 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
         productDetailTableView.separatorStyle = .none
         productListPicker.delegate = self
         productListPicker.dataSource = self
-        
-        
-
         productDetailNote.text = productTextFieldNote
         
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Cancel))
-       
+        //        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Cancel))
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(Cancel))
         navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
         
         navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.7064394355, green: 0.5390405059, blue: 0.4982455373, alpha: 1)
+        
+        
+    
         
         
         showDateFormatter.dateFormat = "yyyy-MM-dd"
@@ -146,7 +149,7 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
         expDatePicker.locale = Locale(identifier: "zh_TW")
         
         
-    
+        
         
         //picker選擇完後要做的事
         openDatepicker.addTarget(self, action: #selector(selectedOpenDate), for: .valueChanged)
@@ -160,19 +163,21 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
             navigationItem.leftBarButtonItem?.title = "Back"
             textFieldEditable = false
             productDetailNote.isEditable = false
-            
-            
+            imageOutlet.isEnabled = false
         }
+        
+        guard let url = URL(string: addProductImage) else { return }
+        productImage.kf.setImage(with: url)
         
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
-        super.viewWillAppear(animated)
-        
-        imageOutlet.isEnabled = false
-        
+//        super.viewWillAppear(animated)
+//
+//        imageOutlet.isEnabled = false
+//
     }
     
     
@@ -185,7 +190,7 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
         expTextField?.text = showDateFormatter.string(from: expDatePicker.date)
     }
     
-  
+    
     
     @objc func Cancel() {
         navigationController?.popViewController(animated: true)
@@ -199,7 +204,7 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
             do {
                 
                 let document = db.collection("ProductDetail").document()
-
+                
                 let product = Product (
                     title: productDetailTitle,
                     colortone: productDetailColor,
@@ -208,8 +213,9 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
                     expirydate: productExpirydate,
                     note: productDetailNote.text,
                     id:  document.documentID,
-                    category: productDetailCategory)
-
+                    category: productDetailCategory,
+                    image: [addProductImage])
+                
                 try document.setData(from: product)
             } catch {
                 print(error)
@@ -227,8 +233,8 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
                 imageOutlet.isEnabled = true
                 textFieldEditable = true
                 productDetailTableView.reloadData()
-               
-                 
+                
+                
             } else {
                 //改成edit
                 
@@ -248,16 +254,17 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
                     expirydate: productExpirydate,
                     note: productDetailNote.text,
                     id:  document.documentID,
-                    category: productDetailCategory)
+                    category: productDetailCategory,
+                    image: [addProductImage])
                 
                 do {
                     try document.setData(from: product, merge: true)
                 } catch {
                     print(error)
                 }
-                 dismiss(animated: false, completion: nil)
+                dismiss(animated: false, completion: nil)
             }
-           
+            
             
             
             
@@ -284,7 +291,7 @@ extension ProductDetailViewController:UITableViewDelegate,UITableViewDataSource 
         productImage.layer.maskedCorners = [.layerMinXMaxYCorner]
         
         cell.productDetailTextField.isEnabled = textFieldEditable
-    
+        
         
         switch indexPath.row {
         case 1:
@@ -314,7 +321,7 @@ extension ProductDetailViewController:UITableViewDelegate,UITableViewDataSource 
             cell.productDetailTextField.inputView = expDatePicker
             
             self.expTextField = cell.productDetailTextField
-        
+            
         case 0:
             cell.productDetailTextField.text = productDetailCategory
             cell.passText = { [weak self] text in self? .productDetailCategory = text }
@@ -352,31 +359,34 @@ extension ProductDetailViewController : UIImagePickerControllerDelegate, UINavig
         let uniqueString = NSUUID().uuidString
         
         // 當判斷有 selectedImage 時，我們會在 if 判斷式裡將圖片上傳
-//        if let selectedImage = selectedImageFromPicker {
-//
-//            let storage = Storage.storage()
-//            let storageRef = storage.reference()
-//            let path = "Image/\(uniqueString).jpeg"
-//            let imageRef = storageRef.child(path)
-//            imageView.image = selectedImage
-//
-//            guard let data = selectedImage.jpegData(compressionQuality: 0.5) else { return }
-//
-//            let task = imageRef.putData(data, metadata: nil) {
-//
-//            imageOutlet.setTitleColor(UIColor.clear, for: .normal)
-//
-//            imageStore.append(selectedImage)
-//
-//
-//            print("\(uniqueString), \(selectedImage)")
-//            }
-//
-//        }
-        dismiss(animated: true, completion: nil)
+        if let selectedImage = selectedImageFromPicker {
+            
+            let storage = Storage.storage()
+            let storageRef = storage.reference()
+            let path = "Image/\(uniqueString).jpeg"
+            let imageRef = storageRef.child(path)
+            imageView.image = selectedImage
+            
+            guard let data = selectedImage.jpegData(compressionQuality: 0.5) else { return }
+            
+            let task = imageRef.putData(data, metadata: nil){
+                (metadata, error) in
+                imageRef.downloadURL { (url, error) in
+                    print(url)
+                    
+                    guard let imageUrl = url else { return }
+                    self.addProductImage = "\(imageUrl)"
+                    self.productImage.image = selectedImage
+                }
+            }
+            
+            task.resume()
+            dismiss(animated: true, completion: nil)
+            
+        }
+        
     }
     
-
 }
 
 

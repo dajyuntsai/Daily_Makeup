@@ -11,13 +11,14 @@ import Firebase
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
-
+import Kingfisher
 
 class ListViewController: UIViewController {
     
     var db: Firestore!
     
     var list = ""
+    var listImage = ""
    
     var listArray = [Product]() {
         didSet{
@@ -110,7 +111,7 @@ class ListViewController: UIViewController {
                             guard let result = try document.data(as: Product.self, decoder: Firestore.Decoder()) else { return }
                             
                             self.listArray.append(result)
-                            
+                           
                         } catch {
                             
                             print(error)
@@ -222,6 +223,8 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
         cell.productColorTone.text = container [indexPath.row].colortone
         cell.productBrand.text = container[indexPath.row].brand
         
+        let url = URL(string: listArray[indexPath.row].image[0])
+        cell.productImage.kf.setImage(with: url)
         
         
         return cell
@@ -246,7 +249,15 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         guard let productDetailVC = storyboard?.instantiateViewController(withIdentifier: "addProduct") as? ProductDetailViewController else   { return }
+
+        productDetailVC.productDocumentID = listArray[indexPath.row].id
+        productDetailVC.loadViewIfNeeded()
+       
+        let url = URL(string: listArray[indexPath.row].image[0])
+        
+        productDetailVC.productImage.kf.setImage(with: url)
         productDetailVC.productDetailCategory = listArray[indexPath.row].category
         productDetailVC.productDetailTitle = listArray[indexPath.row].title
         productDetailVC.productDetailBrand = listArray[indexPath.row].brand
@@ -256,7 +267,7 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
         
         productDetailVC.productTextFieldNote = listArray[indexPath.row].note
         
-        productDetailVC.productDocumentID = listArray[indexPath.row].id
+        
         self.show(productDetailVC, sender: nil)
         
     }

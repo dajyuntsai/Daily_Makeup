@@ -8,10 +8,10 @@
 
 import UIKit
 import Firebase
-import Kingfisher
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import Kingfisher
 
 class EditProfileViewController: UIViewController {
     
@@ -50,6 +50,7 @@ class EditProfileViewController: UIViewController {
     
     @IBAction func cPPButton(_ sender: Any) {
         let imagePickerController = UIImagePickerController()
+        
         
         imagePickerController.delegate = self
         let imagePickerAlertController = UIAlertController(title: "上傳圖片", message: "請選擇要上傳的圖片", preferredStyle: .actionSheet)
@@ -268,7 +269,7 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
             
             
 
-                    dismiss(animated: true, completion: nil)
+            dismiss(animated: true, completion: nil)
         
         }
 

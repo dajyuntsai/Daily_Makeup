@@ -232,6 +232,7 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
         
         guard let postVC = storyboard?.instantiateViewController(identifier: "postVC") as? PostViewController else { return }
         
+        print(postVC.imageScrollView)
         postVC.nameLabel = articleArray[indexPath.row].name
         postVC.article = [articleArray[indexPath.row]]
         
