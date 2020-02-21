@@ -72,26 +72,59 @@ class ListViewController: UIViewController {
     
     let search = UISearchController(searchResultsController: nil )
     
-    func loadData() {
-        db.collection("ProductDetail").getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                self.listArray = []
-                for document in querySnapshot!.documents {
-                    
-                    do {
-                        guard let result = try document.data(as: Product.self, decoder: Firestore.Decoder()) else { return }
-                        print(result)
+//    func loadData() {
+//        db.collection("ProductDetail").getDocuments() { (querySnapshot, err) in
+//            if let err = err {
+//                print("Error getting documents: \(err)")
+//            } else {
+//                self.listArray = []
+//                for document in querySnapshot!.documents {
+//
+//                    do {
+//                        guard let result = try document.data(as: Product.self, decoder: Firestore.Decoder()) else { return }
+//                        print(result)
+//
+//                        self.listArray.append(result)
+//                    } catch {
+//                        print(error)
+//                    }
+//
+//                }
+//            }
+//        }
+//    }
+    
+    
+    func productList() {
+        
+        db.collection("ProductDetail").whereField("category", isEqualTo: list)
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    self.listArray = []
+                    for document in querySnapshot!.documents {
                         
-                        self.listArray.append(result)
-                    } catch {
-                        print(error)
+                        do{
+                            
+                            guard let result = try document.data(as: Product.self, decoder: Firestore.Decoder()) else { return }
+                            
+                            self.listArray.append(result)
+                            
+                        } catch {
+                            
+                            print(error)
+                        }
+                        
+                        print("\(document.documentID) => \(document.data())")
                     }
-                    
+                    self.listTableView.reloadData()
                 }
-            }
         }
+        
+        
+        
+        
     }
     
     override func viewDidLoad() {
@@ -138,7 +171,8 @@ class ListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadData()
+//        loadData()
+        productList()
     }
     
     func deletDocument(a:Int) {

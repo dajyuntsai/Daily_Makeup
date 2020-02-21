@@ -167,6 +167,13 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
+        imageOutlet.isEnabled = false
+        
+    }
     
     
     //日期picker
@@ -217,8 +224,10 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
                 navigationItem.rightBarButtonItem?.title = "Save"
                 navigationItem.leftBarButtonItem?.title = "Cancel"
                 productDetailNote.isEditable = true
+                imageOutlet.isEnabled = true
                 textFieldEditable = true
                 productDetailTableView.reloadData()
+               
                  
             } else {
                 //改成edit
@@ -227,6 +236,7 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
                 navigationItem.leftBarButtonItem?.title = "Back"
                 productDetailNote.isEditable = false
                 textFieldEditable = false
+                imageOutlet.isEnabled = false
                 productDetailTableView.reloadData()
                 let document = db.collection("ProductDetail").document(productDocumentID)
                 
@@ -245,7 +255,7 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
                 } catch {
                     print(error)
                 }
-//                 dismiss(animated: false, completion: nil)
+                 dismiss(animated: false, completion: nil)
             }
            
             
@@ -342,18 +352,27 @@ extension ProductDetailViewController : UIImagePickerControllerDelegate, UINavig
         let uniqueString = NSUUID().uuidString
         
         // 當判斷有 selectedImage 時，我們會在 if 判斷式裡將圖片上傳
-        if let selectedImage = selectedImageFromPicker {
-            
-            imageView.image = selectedImage
-
-            imageOutlet.setTitleColor(UIColor.clear, for: .normal)
-            
-            imageStore.append(selectedImage)
-    
-            
-            print("\(uniqueString), \(selectedImage)")
-        }
-        
+//        if let selectedImage = selectedImageFromPicker {
+//
+//            let storage = Storage.storage()
+//            let storageRef = storage.reference()
+//            let path = "Image/\(uniqueString).jpeg"
+//            let imageRef = storageRef.child(path)
+//            imageView.image = selectedImage
+//
+//            guard let data = selectedImage.jpegData(compressionQuality: 0.5) else { return }
+//
+//            let task = imageRef.putData(data, metadata: nil) {
+//
+//            imageOutlet.setTitleColor(UIColor.clear, for: .normal)
+//
+//            imageStore.append(selectedImage)
+//
+//
+//            print("\(uniqueString), \(selectedImage)")
+//            }
+//
+//        }
         dismiss(animated: true, completion: nil)
     }
     

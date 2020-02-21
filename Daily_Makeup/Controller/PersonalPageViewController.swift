@@ -21,7 +21,7 @@ class PersonalPageViewController: UIViewController {
     var db: Firestore!
     var profileArray : [Profile] = []
     var articleArray: [Article] = []
-    
+    var image = ""
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var bioLabel: UILabel!
     
@@ -108,6 +108,7 @@ class PersonalPageViewController: UIViewController {
     @IBAction func editBtn(_ sender: Any) {
         guard let editProfileVC = storyboard?.instantiateViewController(withIdentifier: "editProfile") as? EditProfileViewController else { return }
         
+        editProfileVC.editImage = image
         
         self.show(editProfileVC, sender: nil)
         
@@ -136,6 +137,7 @@ class PersonalPageViewController: UIViewController {
                     let picture = "\(profile.image + size)"
                     
                     let url = URL(string: picture)
+                    self.image = picture
                     self.userImage.kf.setImage(with: url)
                 } else {
                     print("Document does not exist")
@@ -232,6 +234,7 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
         
         postVC.nameLabel = articleArray[indexPath.row].name
         postVC.article = [articleArray[indexPath.row]]
+        
         
         self.show(postVC, sender: nil)
     }

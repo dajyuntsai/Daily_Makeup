@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import Kingfisher
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
@@ -35,11 +36,13 @@ class EditProfileViewController: UIViewController {
         profileTableView.delegate = self
         profileTableView.dataSource = self
         profileTableView.separatorStyle = .none
-        
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
         
         loadData()
+        
+        guard let url = URL(string: editImage) else { return }
+        profileImage.kf.setImage(with: url)
     }
     
     @IBOutlet var addImageOutlet: UIButton!
@@ -123,7 +126,8 @@ class EditProfileViewController: UIViewController {
         
         
         
-        guard let uid = userDefaults.string(forKey: "uid") else { return }
+//        guard let uid = userDefaults.string(forKey: "uid") else { return }
+        guard let uid = Auth.auth().currentUser?.uid else { return }
         
         
         let document = db.collection("user").document(uid)
@@ -253,6 +257,10 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
             let task = imageRef.putData(data, metadata: nil) { (metadata, error) in
                 imageRef.downloadURL { (url, error) in
                     print(url)
+                    
+                    guard let imageUrl = url else { return }
+                    self.editImage = "\(imageUrl)"
+                    self.profileImage.image = selectedImage
                 }
             }
             
@@ -260,7 +268,7 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
             
             
 
-//                    dismiss(animated: true, completion: nil)
+                    dismiss(animated: true, completion: nil)
         
         }
 

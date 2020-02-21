@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kYn-lS-rko">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
@@ -7,6 +7,11 @@
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="NotoSerifCJKtc-Medium.otf">
+            <string>NotoSerifCJKtc-Medium</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Singin View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -398,8 +403,8 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tkv-JH-0OP">
-                                                    <rect key="frame" x="130" y="16" width="260" height="16.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <rect key="frame" x="130" y="14" width="260" height="20.5"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -410,7 +415,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Color Tone：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bzf-Qd-tVC">
-                                                    <rect key="frame" x="130" y="76" width="95" height="16"/>
+                                                    <rect key="frame" x="130" y="74" width="95" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -422,7 +427,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BK1-Du-LHt">
-                                                    <rect key="frame" x="229" y="76" width="39.5" height="16"/>
+                                                    <rect key="frame" x="229" y="74" width="39.5" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -437,19 +442,19 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="TBE-Iq-18c" firstAttribute="leading" secondItem="ajc-o1-BAf" secondAttribute="trailing" constant="4" id="7Jb-oA-BAh"/>
-                                                <constraint firstItem="bzf-Qd-tVC" firstAttribute="top" secondItem="ajc-o1-BAf" secondAttribute="bottom" constant="12" id="7Qw-Ld-c40"/>
+                                                <constraint firstItem="bzf-Qd-tVC" firstAttribute="top" secondItem="ajc-o1-BAf" secondAttribute="bottom" constant="10" id="7Qw-Ld-c40"/>
                                                 <constraint firstItem="TBE-Iq-18c" firstAttribute="centerY" secondItem="ajc-o1-BAf" secondAttribute="centerY" id="8Xv-F6-1wi"/>
-                                                <constraint firstItem="wS3-hO-srD" firstAttribute="top" secondItem="bzf-Qd-tVC" secondAttribute="bottom" constant="16" id="DU3-jU-ZNk"/>
+                                                <constraint firstItem="wS3-hO-srD" firstAttribute="top" secondItem="bzf-Qd-tVC" secondAttribute="bottom" constant="14" id="DU3-jU-ZNk"/>
                                                 <constraint firstItem="ajc-o1-BAf" firstAttribute="leading" secondItem="EuN-4e-bFw" secondAttribute="trailing" constant="30" id="DV3-DY-tZn"/>
                                                 <constraint firstItem="wS3-hO-srD" firstAttribute="top" secondItem="EuN-4e-bFw" secondAttribute="bottom" constant="14" id="DW6-mw-Rrn"/>
                                                 <constraint firstItem="ajc-o1-BAf" firstAttribute="baseline" secondItem="TBE-Iq-18c" secondAttribute="baseline" id="Ekk-v3-chT"/>
                                                 <constraint firstItem="BK1-Du-LHt" firstAttribute="centerY" secondItem="bzf-Qd-tVC" secondAttribute="centerY" id="PkZ-wi-Ba7"/>
-                                                <constraint firstItem="tkv-JH-0OP" firstAttribute="top" secondItem="8Kt-ax-uxK" secondAttribute="top" constant="16" id="TwE-vk-eCn"/>
+                                                <constraint firstItem="tkv-JH-0OP" firstAttribute="top" secondItem="8Kt-ax-uxK" secondAttribute="top" constant="14" id="TwE-vk-eCn"/>
                                                 <constraint firstItem="wS3-hO-srD" firstAttribute="leading" secondItem="8Kt-ax-uxK" secondAttribute="leading" id="UmW-JD-CDV"/>
-                                                <constraint firstItem="wS3-hO-srD" firstAttribute="top" secondItem="BK1-Du-LHt" secondAttribute="bottom" constant="16" id="fYK-XW-406"/>
+                                                <constraint firstItem="wS3-hO-srD" firstAttribute="top" secondItem="BK1-Du-LHt" secondAttribute="bottom" constant="14" id="fYK-XW-406"/>
                                                 <constraint firstItem="tkv-JH-0OP" firstAttribute="leading" secondItem="EuN-4e-bFw" secondAttribute="trailing" constant="30" id="fhX-Hg-VN6"/>
                                                 <constraint firstAttribute="trailing" secondItem="tkv-JH-0OP" secondAttribute="trailing" constant="24" id="gbE-bB-cc0"/>
-                                                <constraint firstItem="ajc-o1-BAf" firstAttribute="top" secondItem="tkv-JH-0OP" secondAttribute="bottom" constant="12" id="gfj-dt-eDF"/>
+                                                <constraint firstItem="ajc-o1-BAf" firstAttribute="top" secondItem="tkv-JH-0OP" secondAttribute="bottom" constant="10" id="gfj-dt-eDF"/>
                                                 <constraint firstItem="ajc-o1-BAf" firstAttribute="centerY" secondItem="EuN-4e-bFw" secondAttribute="centerY" id="ihm-SL-Sur"/>
                                                 <constraint firstItem="EuN-4e-bFw" firstAttribute="top" secondItem="8Kt-ax-uxK" secondAttribute="top" constant="14" id="jHv-9y-0cW"/>
                                                 <constraint firstAttribute="trailing" secondItem="wS3-hO-srD" secondAttribute="trailing" id="pBB-WQ-Zk8"/>
@@ -479,19 +484,19 @@
                                 <rect key="frame" x="0.0" y="812" width="414" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a0A-GC-xET">
-                                        <rect key="frame" x="161" y="13" width="62" height="24"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <rect key="frame" x="161" y="13" width="58" height="24"/>
+                                        <fontDescription key="fontDescription" name="NotoSerifCJKtc-Medium" family="Noto Serif CJK TC" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HTI-2A-7ol">
-                                        <rect key="frame" x="224" y="13" width="67" height="24"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <rect key="frame" x="220" y="13" width="67.5" height="24.5"/>
+                                        <fontDescription key="fontDescription" name="NotoSerifCJKtc-Medium" family="Noto Serif CJK TC" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.71651055318364487" green="0.78808263785006172" blue="0.8849717638819351" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.71372549019999998" green="0.66274509800000003" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstItem="HTI-2A-7ol" firstAttribute="leading" secondItem="a0A-GC-xET" secondAttribute="trailing" constant="1" id="Ma3-PR-aQh"/>
                                     <constraint firstAttribute="height" constant="50" id="Pg8-jO-A9c"/>
@@ -583,7 +588,6 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="c1a-76-YRi" firstAttribute="centerY" secondItem="e7j-Aw-ye2" secondAttribute="centerY" id="B8q-R5-Yog"/>
-                                    <constraint firstItem="e7j-Aw-ye2" firstAttribute="leading" secondItem="P2G-mZ-jEK" secondAttribute="trailing" constant="272" id="NhP-B6-hrT"/>
                                     <constraint firstItem="P2G-mZ-jEK" firstAttribute="leading" secondItem="aRY-VS-37V" secondAttribute="leading" constant="22" id="Qeh-87-5Sp"/>
                                     <constraint firstAttribute="bottom" secondItem="sFY-Fi-Aku" secondAttribute="bottom" id="RBS-n8-Fie"/>
                                     <constraint firstAttribute="trailing" secondItem="c1a-76-YRi" secondAttribute="trailing" constant="23" id="VSG-zh-SYk"/>
@@ -591,6 +595,7 @@
                                     <constraint firstItem="sFY-Fi-Aku" firstAttribute="leading" secondItem="aRY-VS-37V" secondAttribute="leading" id="ZR8-H6-DTp"/>
                                     <constraint firstItem="e7j-Aw-ye2" firstAttribute="centerY" secondItem="P2G-mZ-jEK" secondAttribute="centerY" id="cWr-sM-cjQ"/>
                                     <constraint firstAttribute="trailing" secondItem="sFY-Fi-Aku" secondAttribute="trailing" id="idm-c2-MgS"/>
+                                    <constraint firstItem="c1a-76-YRi" firstAttribute="leading" secondItem="e7j-Aw-ye2" secondAttribute="trailing" constant="15" id="jkz-dq-1qv"/>
                                     <constraint firstAttribute="height" constant="50" id="xeM-jK-0qd"/>
                                     <constraint firstAttribute="bottom" secondItem="P2G-mZ-jEK" secondAttribute="bottom" constant="12" id="xpW-yM-3ut"/>
                                 </constraints>
@@ -1188,7 +1193,7 @@
             </objects>
             <point key="canvasLocation" x="2144.927536231884" y="2157.5892857142858"/>
         </scene>
-        <!--Save Page View Controller-->
+        <!--Save-->
         <scene sceneID="Mp8-Ye-SAI">
             <objects>
                 <viewController id="loL-eH-mpa" customClass="SavePageViewController" customModule="Daily_Makeup" customModuleProvider="target" sceneMemberID="viewController">
@@ -1313,20 +1318,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="JSs-xc-mB6"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Daz-rJ-Gmh">
-                        <nil key="title"/>
-                        <view key="titleView" contentMode="scaleToFill" id="k14-LD-LYF">
-                            <rect key="frame" x="107" y="4.5" width="200" height="35"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wCu-BU-uVw">
-                                    <rect key="frame" x="0.0" y="0.0" width="200" height="35"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                </imageView>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </view>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Save" id="Daz-rJ-Gmh"/>
                     <connections>
                         <outlet property="articleSave" destination="VfF-GT-vnY" id="k5E-2b-8bL"/>
                     </connections>
@@ -1716,7 +1708,7 @@
                         <color key="backgroundColor" red="0.8901960784313725" green="0.73725490196078436" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <color key="barTintColor" red="0.8901960784313725" green="0.73725490196078436" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" name="NotoSerifCJKtc-Bold" family="Noto Serif CJK TC" pointSize="22"/>
+                            <fontDescription key="fontDescription" name="NotoSerifCJKtc-Bold" family="Noto Serif CJK TC" pointSize="20"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                     </navigationBar>
@@ -1740,7 +1732,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.8901960784313725" green="0.73725490196078436" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                            <fontDescription key="fontDescription" name="NotoSerifCJKtc-Bold" family="Noto Serif CJK TC" pointSize="20"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                     </navigationBar>
@@ -1765,7 +1757,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="0.8901960784313725" green="0.73725490196078436" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                            <fontDescription key="fontDescription" name="NotoSerifCJKtc-Bold" family="Noto Serif CJK TC" pointSize="20"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                     </navigationBar>
@@ -1789,7 +1781,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.835439412424407" green="0.567560436238567" blue="0.50360861059965945" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                            <fontDescription key="fontDescription" name="NotoSerifCJKtc-Bold" family="Noto Serif CJK TC" pointSize="20"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                     </navigationBar>
@@ -1816,7 +1808,7 @@
                         <color key="tintColor" red="0.70588235290000001" green="0.53725490200000003" blue="0.49803921569999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="barTintColor" red="0.92381924390000003" green="0.76076883080000002" blue="0.7686247826" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                            <fontDescription key="fontDescription" name="NotoSerifCJKtc-Bold" family="Noto Serif CJK TC" pointSize="20"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                     </navigationBar>
