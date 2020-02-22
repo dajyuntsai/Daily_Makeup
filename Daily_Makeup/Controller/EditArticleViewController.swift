@@ -19,6 +19,10 @@ class EditArticleViewController: UIViewController{
     var imageStore: [UIImage] = []
     var uid = ""
     var name = ""
+    var personalPicture = ""
+    var articlePicture: [String] = []
+    var personalImage = ""
+    var articleImage: [String] = []
     var number = 0
     let now = NSDate()
     let userDefaults = UserDefaults.standard
@@ -48,43 +52,70 @@ class EditArticleViewController: UIViewController{
     
     @objc func share() {
         
-        guard let uid = userDefaults.string(forKey: "uid") else {
-            return }
         
-        guard let name = userDefaults.string(forKey: "name") else {
-            return }
+        let uniqueString = NSUUID().uuidString
+        let storage = Storage.storage()
+        let storageRef = storage.reference()
+        let path = "Image/\(uniqueString).jpeg"
+        let imageRef = storageRef.child(path)
+
+         guard let data = imageStore[0].jpegData(compressionQuality: 0.5) else { return }
         
-        let id = UUID().uuidString
-        
-        let document = db.collection("article").document(id)
-        
-     
-        
-        let currentTimes = Int(now.timeIntervalSince1970)
-        
-        guard let articleTextField = articleTextField.text else { return }
-        
-        let article = Article(
-            title: articleTextField,
-            content: articleTextview.text,
-            uid: uid,
-            name: name,
-            id: id,
-            time: currentTimes,
-            likeNumber: number
-            )
-        
-        do {
-            try document.setData(from: article)
-        } catch {
-            print(error)
+        for i in imageStore {
+            let task = imageRef.putData(data, metadata: nil) {
+            (metadata, error) in
+            imageRef.downloadURL { (url, error) in
+                print(url)
+                
+                guard let imageUrl = url else { return }
+                self.personalImage = "\(imageUrl)"
+                self.articleImage = ["\(imageUrl)"]
+                
+
+            }
         }
         
-        NotificationCenter.default.post(name: Notification.Name("sharePost"), object: nil)
-        dismiss(animated: false, completion: nil)
         
+//        guard let uid = userDefaults.string(forKey: "uid") else {
+//            return }
+//
+//        guard let name = userDefaults.string(forKey: "name") else {
+//            return }
+//
+//        let id = UUID().uuidString
+//
+//        let document = db.collection("article").document(id)
+//
+//        let currentTimes = Int(now.timeIntervalSince1970)
+//
+//        guard let articleTextField = articleTextField.text else { return }
+//
+//        let article = Article(
+//            title: articleTextField,
+//            content: articleTextview.text,
+//            uid: uid,
+//            name: name,
+//            id: id,
+//            time: currentTimes,
+//            likeNumber: number,
+//            image: image
+//            )
+//
+//        do {
+//            try document.setData(from: article)
+//        } catch {
+//            print(error)
+//        }
+//
+//        NotificationCenter.default.post(name: Notification.Name("sharePost"), object: nil)
+//        dismiss(animated: false, completion: nil)
         
+        }
         
+    }
+    
+    func apple() {
+      
     }
     
     @objc func cancel() {
@@ -146,4 +177,6 @@ extension EditArticleViewController:UICollectionViewDataSource,UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 12  )
     }
+    
+    
 }

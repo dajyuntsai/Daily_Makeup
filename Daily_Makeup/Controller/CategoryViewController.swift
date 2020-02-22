@@ -17,44 +17,13 @@ class CategoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.barTintColor = UIColor(red: 227.0/255.0, green: 188.0/255.0, blue: 189.0/255.0, alpha: 1.0)
-        
+        navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.8758758903, green: 0.8143615723, blue: 0.7450860143, alpha: 1)
     }
     
     var db:Firestore!
     var productArray: [Product] = []
     
-//    func productList() {
-//        
-//        db.collection("ProductDetail").whereField("category", isEqualTo: )
-//            .getDocuments() { (querySnapshot, err) in
-//                if let err = err {
-//                    print("Error getting documents: \(err)")
-//                } else {
-//                    for document in querySnapshot!.documents {
-//                        
-//                        do{
-//                            
-//                            
-//                            guard let result = try document.data(as: Product.self, decoder: Firestore.Decoder()) else { return }
-//                            
-//                            self.productArray.append(result)
-//                            
-//                        } catch {
-//                            
-//                            print(error)
-//                        }
-//                        
-//                        print("\(document.documentID) => \(document.data())")
-//                    }
-//                    
-//                }
-//        }
-//        
-//        
-//        
-//        
-//    }
+
     
     @IBAction func lipsBtn(_ sender: Any) {
         

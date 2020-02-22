@@ -12,10 +12,12 @@ import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import ESPullToRefresh
+import Kingfisher
 
 class HomePageViewController: UIViewController {
     
     let userDefaults = UserDefaults.standard
+    var imageStore: [String] = []
     var db: Firestore!
     var articleArray: [Article] = []{
         didSet{
@@ -91,6 +93,7 @@ class HomePageViewController: UIViewController {
                 print("Error getting documents: \(err)")
             } else {
                 self.articleArray = []
+                var apple: [Article] = []
                 for document in querySnapshot!.documents {
                     
                     do {
@@ -98,21 +101,45 @@ class HomePageViewController: UIViewController {
                         guard let result = try document.data(as: Article.self, decoder: Firestore.Decoder()) else { return }
                         print(result)
                         
-                        self.articleArray.append(result)
+                        //用uid去firebase的user拿網址
+                        // CRUD( READ )
+                        print(result.uid)
+                        self.db.collection("user").whereField("uid", isEqualTo: result.uid).getDocuments { (querySnapshot, err) in
+                            if let err = err {
+                                print("Error getting documents: \(err)")
+                            } else {
+                                //文章擁有者的個人資料
+                                guard let querySnapshot = querySnapshot else { return }
+                                do {
+                                    guard let userResult = try querySnapshot.documents[0].data(as: Profile.self, decoder: Firestore.Decoder())
+                                     else { return }
+                                    self.imageStore.append(userResult.image)
+                                    self.articleArray.append(result)
+                                    print(result)
+                                } catch {
+                                    (print(error))
+                                }
+
+                            }
+
+                        }
+
                         
-                        self.article.reloadData()
-                        
+                                    
                         
                     } catch {
+                        print("123")
                         print(error)
                     }
                     
                 }
+                //
             }
         }
         
         
     }
+
     
 }
 
@@ -140,9 +167,14 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
             container = articleArray
         }
         
+        guard let url = URL(string: imageStore[0]) else { return UICollectionViewCell() }
+//            let apple =  URL(string: container[indexPath.row].articleImage[0]) else { return UICollectionViewCell()}
+        
+        cell1.personalImage.kf.setImage(with: url)
         cell1.articleTitle.text = container[indexPath.row].title
         cell1.personalAccount.text = container[indexPath.row].name
-        
+//        cell1.articleImage.kf.setImage(with: apple)
+//
         cell1.likeNumber.text = "1200"
         cell1.littleView.layer.borderWidth = 0.5
         cell1.littleView.layer.borderColor = #colorLiteral(red: 0.7867800593, green: 0.6210635304, blue: 0.620044291, alpha: 1)
@@ -186,7 +218,9 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         //可以拿到postVC的nameLabel
         postVC.nameLabel = articleArray[indexPath.row].name
         postVC.article = [articleArray[indexPath.row]]
+    
         self.show(postVC, sender: nil)
+        
         
         
     }

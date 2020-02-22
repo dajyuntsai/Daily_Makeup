@@ -25,5 +25,10 @@ struct  Article: Codable {
     
     let likeNumber: Int
     
+    let image: String
+    
+    let articleImage: [String]
+
+    
 
 }

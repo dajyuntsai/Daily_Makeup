@@ -147,7 +147,7 @@ class ListViewController: UIViewController {
         navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
         
         navigationController?.navigationBar.prefersLargeTitles = false
-        navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.8901960784, green: 0.737254902, blue: 0.7411764706, alpha: 1)
+        navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.8758758903, green: 0.8143615723, blue: 0.7450860143, alpha: 1)
         navigationItem.searchController = search
         search.searchBar.placeholder = "搜尋品牌..."
         search.searchBar.tintColor = .white
@@ -207,9 +207,9 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
             return UITableViewCell()
         }
         if indexPath.row % 2 == 0 {
-            cell.contentView.backgroundColor = #colorLiteral(red: 0.9559974074, green: 0.9367571473, blue: 0.9282063842, alpha: 1)
+            cell.contentView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         } else {
-            cell.contentView.backgroundColor = #colorLiteral(red: 0.9529411765, green: 0.9019607843, blue: 0.8901960784, alpha: 1)
+            cell.contentView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         }
         
         var container: [Product] = []
