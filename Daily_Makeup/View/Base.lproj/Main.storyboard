@@ -620,7 +620,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="185" height="300"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="S__33341463" translatesAutoresizingMaskIntoConstraints="NO" id="qyP-hB-oVP">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qyP-hB-oVP">
                                                     <rect key="frame" x="0.0" y="15" width="185" height="195"/>
                                                     <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </imageView>
@@ -1869,7 +1869,6 @@
         <image name="021-plus-2" width="32" height="32"/>
         <image name="022-user-2" width="32" height="32"/>
         <image name="Image" width="188.5" height="168.5"/>
-        <image name="S__33341463" width="371" height="478"/>
         <image name="bookmark (5)" width="128" height="128"/>
         <image name="bookmark (6)-2" width="26.5" height="26.5"/>
         <image name="chevron.left" catalog="system" width="48" height="64"/>

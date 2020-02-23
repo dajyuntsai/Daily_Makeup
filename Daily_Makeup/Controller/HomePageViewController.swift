@@ -87,6 +87,9 @@ class HomePageViewController: UIViewController {
     
     func loadData(){
         
+        self.imageStore = []
+        
+        self.articleArray = []
         
         db.collection("article").getDocuments() { (querySnapshot, err) in
             if let err = err {
@@ -167,13 +170,13 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
             container = articleArray
         }
         
-        guard let url = URL(string: imageStore[0]) else { return UICollectionViewCell() }
+        guard let url = URL(string: imageStore[indexPath.row]) else { return UICollectionViewCell() }
 //            let apple =  URL(string: container[indexPath.row].articleImage[0]) else { return UICollectionViewCell()}
         
         cell1.personalImage.kf.setImage(with: url)
         cell1.articleTitle.text = container[indexPath.row].title
         cell1.personalAccount.text = container[indexPath.row].name
-//        cell1.articleImage.kf.setImage(with: apple)
+        cell1.articleImage.kf.setImage(with: URL(string: articleArray[indexPath.row].image))
 //
         cell1.likeNumber.text = "1200"
         cell1.littleView.layer.borderWidth = 0.5
