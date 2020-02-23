@@ -27,7 +27,7 @@ struct  Article: Codable {
     
     let image: String
     
-    let articleImage: [String]
+
 
     
 

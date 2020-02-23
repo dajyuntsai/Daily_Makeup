@@ -38,13 +38,26 @@ class PostViewController: UIViewController {
     //返回上一頁
     @IBAction func backToImages(_ sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
+      
+    }
     
-        
-        
-        
-        
+    @IBAction func loveBtn(_ sender: Any) {
         
     }
+    
+    
+    @IBAction func saveBtn(_ sender: Any) {
+        
+    }
+    
+    @IBAction func shareBtn(_ sender: Any) {
+        
+    }
+    
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,13 +68,13 @@ class PostViewController: UIViewController {
         postTableView.separatorStyle = .none
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(back))
         
-        navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
         
         
         
         authorLabel.text = nameLabel
         
-        
+        //照片數量
         for number in 0 ..< data.count {
             
             let imageView = UIImageView(frame: CGRect(x: view.frame.width * CGFloat(number), y: 0, width: 414, height: 376))

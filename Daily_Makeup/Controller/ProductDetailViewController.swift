@@ -130,13 +130,13 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
         productDetailNote.text = productTextFieldNote
         
         //        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Cancel))
-        
+        navigationItem.title = "product detail"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(Cancel))
         navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
         
-        navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.7064394355, green: 0.5390405059, blue: 0.4982455373, alpha: 1)
+        navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
         
         
     
@@ -159,8 +159,8 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
         
         
         if productDocumentID != "" {
-            navigationItem.rightBarButtonItem?.title = "Edit"
-            navigationItem.leftBarButtonItem?.title = "Back"
+            navigationItem.rightBarButtonItem?.title = "edit"
+            navigationItem.leftBarButtonItem?.title = "back"
             textFieldEditable = false
             productDetailNote.isEditable = false
             imageOutlet.isEnabled = false
@@ -225,10 +225,10 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
             
             guard let title = navigationItem.rightBarButtonItem?.title else { return }
             
-            if title == "Edit" {
+            if title == "edit" {
                 //改成save
-                navigationItem.rightBarButtonItem?.title = "Save"
-                navigationItem.leftBarButtonItem?.title = "Cancel"
+                navigationItem.rightBarButtonItem?.title = "save"
+                navigationItem.leftBarButtonItem?.title = "cancel"
                 productDetailNote.isEditable = true
                 imageOutlet.isEnabled = true
                 textFieldEditable = true
@@ -238,8 +238,8 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
             } else {
                 //改成edit
                 
-                navigationItem.rightBarButtonItem?.title = "Edit"
-                navigationItem.leftBarButtonItem?.title = "Back"
+                navigationItem.rightBarButtonItem?.title = "edit"
+                navigationItem.leftBarButtonItem?.title = "back"
                 productDetailNote.isEditable = false
                 textFieldEditable = false
                 imageOutlet.isEnabled = false
@@ -272,7 +272,7 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
         
     }
     
-    let productDetail = ["Category","Title","Colortone","Brand","Opened","EXP"]
+    let productDetail = ["category","title","colortone","brand","opened","exp"]
 }
 
 extension ProductDetailViewController:UITableViewDelegate,UITableViewDataSource {
@@ -287,9 +287,9 @@ extension ProductDetailViewController:UITableViewDelegate,UITableViewDataSource 
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ProductDetailTableViewCell else { return UITableViewCell() }
         
         cell.ProdectDetailLabel.text = productDetail[indexPath.row]
-        productImage.layer.cornerRadius = UIScreen.main.bounds.width / 40
-        productImage.layer.maskedCorners = [.layerMinXMaxYCorner]
-        
+//        productImage.layer.cornerRadius = UIScreen.main.bounds.width / 40
+//        productImage.layer.maskedCorners = [.layerMinXMaxYCorner]
+//
         cell.productDetailTextField.isEnabled = textFieldEditable
         
         

@@ -53,7 +53,7 @@ class HomePageViewController: UIViewController {
         article.dataSource = self
         
         
-        navigationItem.title = "Makeup"
+        navigationItem.title = "makeup"
         navigationItem.searchController = search
         navigationItem.largeTitleDisplayMode = .never
         search.searchBar.placeholder = "搜尋品牌..."

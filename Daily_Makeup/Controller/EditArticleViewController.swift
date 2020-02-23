@@ -44,7 +44,7 @@ class EditArticleViewController: UIViewController{
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title:"share" , style: .plain, target: self, action:#selector(share) )
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "cancel", style: .plain, target: self, action: #selector(cancel))
         
         
     }
@@ -64,18 +64,53 @@ class EditArticleViewController: UIViewController{
         for i in imageStore {
             let task = imageRef.putData(data, metadata: nil) {
             (metadata, error) in
+             
+                print(123)
+                
             imageRef.downloadURL { (url, error) in
+                
+                print(456)
                 print(url)
                 
                 guard let imageUrl = url else { return }
                 self.personalImage = "\(imageUrl)"
-                self.articleImage = ["\(imageUrl)"]
+//                self.articleImage = ["\(imageUrl)"]
                 
+                guard let uid = self.userDefaults.string(forKey: "uid") else {
+                    return }
+
+                guard let name = self.userDefaults.string(forKey: "name") else {
+                    return }
+
+                let id = UUID().uuidString
+
+                let document = self.db.collection("article").document(id)
+
+                let currentTimes = Int(self.now.timeIntervalSince1970)
+
+                guard let articleTextField = self.articleTextField.text else { return }
+
+                let article = Article(
+                    title: articleTextField,
+                    content: self.articleTextview.text,
+                    uid: uid,
+                    name: name,
+                    id: id,
+                    time: currentTimes,
+                    likeNumber: self.number,
+                    image: self.personalImage
+                    )
+
+                do {
+                    try document.setData(from: article)
+                } catch {
+                    print(error)
+                }
 
             }
         }
-        
-        
+//        print(789)
+//
 //        guard let uid = userDefaults.string(forKey: "uid") else {
 //            return }
 //
@@ -98,7 +133,7 @@ class EditArticleViewController: UIViewController{
 //            id: id,
 //            time: currentTimes,
 //            likeNumber: number,
-//            image: image
+//            image: personalPicture
 //            )
 //
 //        do {
@@ -109,9 +144,9 @@ class EditArticleViewController: UIViewController{
 //
 //        NotificationCenter.default.post(name: Notification.Name("sharePost"), object: nil)
 //        dismiss(animated: false, completion: nil)
-        
+//
         }
-        
+//
     }
     
     func apple() {
