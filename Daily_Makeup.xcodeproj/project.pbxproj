@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C11606324027354001A9953 /* buttonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C11606224027354001A9953 /* buttonState.swift */; };
 		5C20982123F125D500BE515D /* signinID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C20982023F125D500BE515D /* signinID.swift */; };
 		5C20982323F5409B00BE515D /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C20982223F5409A00BE515D /* TabViewController.swift */; };
 		5C2A734423FC265400F57F31 /* TaipeiSansTCBeta-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C2A734123FC265200F57F31 /* TaipeiSansTCBeta-Regular.ttf */; };
@@ -59,6 +60,7 @@
 /* Begin PBXFileReference section */
 		1EDBDCB2B2DABF2EAF0B4A64 /* Pods-Daily_Makeup.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Daily_Makeup.debug.xcconfig"; path = "Target Support Files/Pods-Daily_Makeup/Pods-Daily_Makeup.debug.xcconfig"; sourceTree = "<group>"; };
 		46D412BBAA3942BCAA376106 /* Pods_Daily_Makeup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Daily_Makeup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C11606224027354001A9953 /* buttonState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = buttonState.swift; sourceTree = "<group>"; };
 		5C20982023F125D500BE515D /* signinID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signinID.swift; sourceTree = "<group>"; };
 		5C20982223F5409A00BE515D /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		5C2A734123FC265200F57F31 /* TaipeiSansTCBeta-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TaipeiSansTCBeta-Regular.ttf"; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				5C57F34623DC46E00010A672 /* AppDelegate.swift */,
 				5C3D6AAD23E97F5D00257991 /* productDetail.swift */,
 				5C3D6AAF23EA90F700257991 /* editProfile.swift */,
+				5C11606224027354001A9953 /* buttonState.swift */,
 				5C20982023F125D500BE515D /* signinID.swift */,
 				5CBA45B923F7E3B000DC32A8 /* article.swift */,
 			);
@@ -405,6 +408,7 @@
 				5CF684CB23E2B78E00F3C363 /* PersonalPageCollectionViewCell.swift in Sources */,
 				5C52A36C23E4992B00969BDE /* ListViewController.swift in Sources */,
 				5CF684D323E2D07C00F3C363 /* CategoryTableViewCell.swift in Sources */,
+				5C11606324027354001A9953 /* buttonState.swift in Sources */,
 				5C52A37C23E7EC5100969BDE /* PostTimeTableViewCell.swift in Sources */,
 				5CF684D523E2D0A100F3C363 /* EditProfileTableViewCell.swift in Sources */,
 				5C57F34723DC46E00010A672 /* AppDelegate.swift in Sources */,

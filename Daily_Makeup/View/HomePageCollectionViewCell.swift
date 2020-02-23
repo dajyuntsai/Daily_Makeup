@@ -7,13 +7,25 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
+
+
 
 class HomePageCollectionViewCell: UICollectionViewCell {
+    
+    
+    var db = Firestore.firestore()
     
     var btnState = false
     
     var btnSelected = false
-   
+    
+    var articleManager: Article?
+    
+    var articleId: String = ""
     
     @IBOutlet var articleImage: UIImageView!
 
@@ -36,14 +48,28 @@ class HomePageCollectionViewCell: UICollectionViewCell {
     
     @IBAction func articleLikeBtn(_ sender: UIButton) {
         
+        guard let articleManager = articleManager else { return}
+        
         if btnState {
             
             likeStateBtn?(false)
             
             likeBtn.setImage(UIImage(named: "heart (3)"),for: .normal)
             
-            
             likeNumber.text =  String(Int(likeNumber.text!)! - 1)
+            
+            
+
+            db.collection("article").document(articleManager.id).updateData(["likeNumber": articleManager.likeNumber - 1])
+            
+            
+            
+            
+            
+            
+           
+            
+            
         
         } else {
             
@@ -52,6 +78,8 @@ class HomePageCollectionViewCell: UICollectionViewCell {
             likeStateBtn?(true)
             
             likeNumber.text =  String(Int(likeNumber.text!)! + 1)
+            
+            db.collection("article").document(articleManager.id).updateData(["likeNumber": articleManager.likeNumber + 1])
             
         }
         

@@ -16,6 +16,7 @@ import Kingfisher
 
 class HomePageViewController: UIViewController {
     
+    
     let userDefaults = UserDefaults.standard
     var imageStore: [String] = []
     var db: Firestore!
@@ -173,12 +174,20 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         guard let url = URL(string: imageStore[indexPath.row]) else { return UICollectionViewCell() }
 //            let apple =  URL(string: container[indexPath.row].articleImage[0]) else { return UICollectionViewCell()}
         
+        let document = db.collection("article").document()
+
+        
         cell1.personalImage.kf.setImage(with: url)
         cell1.articleTitle.text = container[indexPath.row].title
         cell1.personalAccount.text = container[indexPath.row].name
         cell1.articleImage.kf.setImage(with: URL(string: articleArray[indexPath.row].image))
 //
-        cell1.likeNumber.text = "1200"
+        cell1.likeBtn.setImage(UIImage(named: "heart (3)"),for: .normal)
+        cell1.articleManager = articleArray[indexPath.row]
+        
+        
+        cell1.btnState = false
+        cell1.likeNumber.text = String(articleArray[indexPath.row].likeNumber)
         cell1.littleView.layer.borderWidth = 0.5
         cell1.littleView.layer.borderColor = #colorLiteral(red: 0.7867800593, green: 0.6210635304, blue: 0.620044291, alpha: 1)
         cell1.littleView.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9137254902, blue: 0.8941176471, alpha: 1)

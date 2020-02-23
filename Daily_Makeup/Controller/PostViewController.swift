@@ -85,6 +85,7 @@ class PostViewController: UIViewController {
             imageView.backgroundColor = .white
             imageView.contentMode = .scaleAspectFill
             imageView.clipsToBounds = true
+            
             let url = URL(string: data[number])
             imageView.kf.setImage(with: url)
         }

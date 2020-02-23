@@ -23,12 +23,8 @@ struct  Article: Codable {
     
     let time: Int
     
-    let likeNumber: Int
-    
     let image: String
     
-
-
-    
+    let likeNumber: Int
 
 }

@@ -22,6 +22,7 @@ class EditArticleViewController: UIViewController{
     var personalPicture = ""
     var articlePicture: [String] = []
     var personalImage = ""
+    var editarticleNumber = 0
     var articleImage: [String] = []
     var number = 0
     let now = NSDate()
@@ -97,8 +98,8 @@ class EditArticleViewController: UIViewController{
                     name: name,
                     id: id,
                     time: currentTimes,
-                    likeNumber: self.number,
-                    image: self.personalImage
+                    image: self.personalImage,
+                    likeNumber: self.editarticleNumber
                     )
 
                 do {
