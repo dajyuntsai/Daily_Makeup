@@ -20,6 +20,7 @@ class HomePageViewController: UIViewController {
     let userDefaults = UserDefaults.standard
     var imageStore: [String] = []
     var db: Firestore!
+
     var articleArray: [Article] = []{
         didSet{
             
@@ -38,7 +39,7 @@ class HomePageViewController: UIViewController {
     var isFilter = false {
         
         didSet {
-           self.article.reloadData()
+            self.article.reloadData()
         }
     }
     
@@ -97,7 +98,6 @@ class HomePageViewController: UIViewController {
                 print("Error getting documents: \(err)")
             } else {
                 self.articleArray = []
-                var apple: [Article] = []
                 for document in querySnapshot!.documents {
                     
                     do {
@@ -116,20 +116,20 @@ class HomePageViewController: UIViewController {
                                 guard let querySnapshot = querySnapshot else { return }
                                 do {
                                     guard let userResult = try querySnapshot.documents[0].data(as: Profile.self, decoder: Firestore.Decoder())
-                                     else { return }
+                                        else { return }
                                     self.imageStore.append(userResult.image)
                                     self.articleArray.append(result)
                                     print(result)
                                 } catch {
                                     (print(error))
                                 }
-
+                                
                             }
-
+                            
                         }
-
                         
-                                    
+                        
+                        
                         
                     } catch {
                         print("123")
@@ -143,7 +143,7 @@ class HomePageViewController: UIViewController {
         
         
     }
-
+    
     
 }
 
@@ -172,16 +172,16 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         }
         
         guard let url = URL(string: imageStore[indexPath.row]) else { return UICollectionViewCell() }
-//            let apple =  URL(string: container[indexPath.row].articleImage[0]) else { return UICollectionViewCell()}
+        //            let apple =  URL(string: container[indexPath.row].articleImage[0]) else { return UICollectionViewCell()}
         
         let document = db.collection("article").document()
-
+        
         
         cell1.personalImage.kf.setImage(with: url)
         cell1.articleTitle.text = container[indexPath.row].title
         cell1.personalAccount.text = container[indexPath.row].name
         cell1.articleImage.kf.setImage(with: URL(string: articleArray[indexPath.row].image))
-//
+        //
         cell1.likeBtn.setImage(UIImage(named: "heart (3)"),for: .normal)
         cell1.articleManager = articleArray[indexPath.row]
         
@@ -230,7 +230,7 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         //可以拿到postVC的nameLabel
         postVC.nameLabel = articleArray[indexPath.row].name
         postVC.article = [articleArray[indexPath.row]]
-    
+        postVC.urlArray = [articleArray[indexPath.row].image]
         self.show(postVC, sender: nil)
         
         
@@ -269,7 +269,7 @@ extension HomePageViewController: UISearchResultsUpdating {
                 print(article)
                 return true
             } else {
-                 return false
+                return false
             }
         }
         

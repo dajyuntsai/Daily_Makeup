@@ -135,7 +135,6 @@ class PersonalPageViewController: UIViewController {
                     
                     let size = "?width=400&height=400"
                     let picture = "\(profile.image + size)"
-                    
                     let url = URL(string: picture)
                     self.image = picture
                     self.userImage.kf.setImage(with: url)
@@ -208,6 +207,8 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
         cell.littleView.layer.cornerRadius = UIScreen.main.bounds.width / 60
         cell.littleView.layer.maskedCorners = [.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
         
+        cell.articalImage.kf.setImage(with: URL(string: articleArray[indexPath.row].image))
+        
         return cell
         
     }
@@ -235,6 +236,7 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
         print(postVC.imageScrollView)
         postVC.nameLabel = articleArray[indexPath.row].name
         postVC.article = [articleArray[indexPath.row]]
+        postVC.urlArray = [articleArray[indexPath.row].image]
         
         
         self.show(postVC, sender: nil)

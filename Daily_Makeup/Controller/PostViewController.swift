@@ -16,12 +16,14 @@ class PostViewController: UIViewController {
     
     var nameLabel = ""
     
+    var urlArray: [String] = []
+
     
     @IBOutlet var imageScrollView: UIScrollView!
     
     @IBAction func postPageControl(_ sender: UIPageControl) {
         
-        imageScrollView.contentOffset.x = CGFloat(sender.currentPage * data.count)
+        imageScrollView.contentOffset.x = CGFloat(sender.currentPage * urlArray.count)
     }
     
     @IBOutlet var pageControl: UIPageControl!
@@ -29,11 +31,6 @@ class PostViewController: UIViewController {
     @IBOutlet var authorLabel: UILabel!
     
     
-    let data = [
-    "https://dvblobcdnjp.azureedge.net//Content/Upload/Popular/Images/2017-06/e99e6b5e-ca6c-4c19-87b7-dfd63db6381a_m.jpg",
-        "https://cdn.clickme.net/gallery/32eae8a8ba9194b37d25049bee776db1.jpg",
-        "https://img.tw.observer/images/4sAWBrE.jpg"
-    ]
     
     //返回上一頁
     @IBAction func backToImages(_ sender: UIBarButtonItem) {
@@ -47,6 +44,8 @@ class PostViewController: UIViewController {
     
     
     @IBAction func saveBtn(_ sender: Any) {
+        
+        
         
     }
     
@@ -72,10 +71,11 @@ class PostViewController: UIViewController {
         
         
         
+        
         authorLabel.text = nameLabel
         
         //照片數量
-        for number in 0 ..< data.count {
+        for number in 0 ..< urlArray.count {
             
             let imageView = UIImageView(frame: CGRect(x: view.frame.width * CGFloat(number), y: 0, width: 414, height: 376))
             
@@ -86,14 +86,16 @@ class PostViewController: UIViewController {
             imageView.contentMode = .scaleAspectFill
             imageView.clipsToBounds = true
             
-            let url = URL(string: data[number])
+//            let url = urlArray[number]
+            let url = URL(string: urlArray[number])
             imageView.kf.setImage(with: url)
+            
         }
         
-        pageControl.numberOfPages = data.count
+        pageControl.numberOfPages = urlArray.count
         
         print(imageScrollView.contentSize)
-        imageScrollView.contentSize = CGSize(width: view.frame.width * CGFloat(data.count), height: 376)
+        imageScrollView.contentSize = CGSize(width: view.frame.width * CGFloat(urlArray.count), height: 376)
         
     }
     

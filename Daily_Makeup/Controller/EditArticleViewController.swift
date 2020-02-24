@@ -19,8 +19,6 @@ class EditArticleViewController: UIViewController{
     var imageStore: [UIImage] = []
     var uid = ""
     var name = ""
-    var personalPicture = ""
-    var articlePicture: [String] = []
     var personalImage = ""
     var editarticleNumber = 0
     var articleImage: [String] = []
@@ -44,9 +42,9 @@ class EditArticleViewController: UIViewController{
         imageCollectionView.delegate = self
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title:"share" , style: .plain, target: self, action:#selector(share) )
-        
+        navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "cancel", style: .plain, target: self, action: #selector(cancel))
-        
+        navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
         
     }
     
@@ -59,99 +57,63 @@ class EditArticleViewController: UIViewController{
         let storageRef = storage.reference()
         let path = "Image/\(uniqueString).jpeg"
         let imageRef = storageRef.child(path)
-
-         guard let data = imageStore[0].jpegData(compressionQuality: 0.5) else { return }
+        
+        guard let data = imageStore[0].jpegData(compressionQuality: 0.5) else { return }
         
         for i in imageStore {
             let task = imageRef.putData(data, metadata: nil) {
-            (metadata, error) in
-             
-                print(123)
+                (metadata, error) in
                 
-            imageRef.downloadURL { (url, error) in
-                
-                print(456)
-                print(url)
-                
-                guard let imageUrl = url else { return }
-                self.personalImage = "\(imageUrl)"
-//                self.articleImage = ["\(imageUrl)"]
-                
-                guard let uid = self.userDefaults.string(forKey: "uid") else {
-                    return }
-
-                guard let name = self.userDefaults.string(forKey: "name") else {
-                    return }
-
-                let id = UUID().uuidString
-
-                let document = self.db.collection("article").document(id)
-
-                let currentTimes = Int(self.now.timeIntervalSince1970)
-
-                guard let articleTextField = self.articleTextField.text else { return }
-
-                let article = Article(
-                    title: articleTextField,
-                    content: self.articleTextview.text,
-                    uid: uid,
-                    name: name,
-                    id: id,
-                    time: currentTimes,
-                    image: self.personalImage,
-                    likeNumber: self.editarticleNumber
+                imageRef.downloadURL { (url, error) in
+                    print(url)
+                    
+                    guard let imageUrl = url else { return }
+                    self.personalImage = "\(imageUrl)"
+            
+                    
+                    guard let uid = self.userDefaults.string(forKey: "uid") else {
+                        return }
+                    
+                    guard let name = self.userDefaults.string(forKey: "name") else {
+                        return }
+                    
+                    let id = UUID().uuidString
+                    
+                    let document = self.db.collection("article").document(id)
+                    
+                    let currentTimes = Int(self.now.timeIntervalSince1970)
+                    
+                    guard let articleTextField = self.articleTextField.text else { return }
+                    
+                    let article = Article(
+                        title: articleTextField,
+                        content: self.articleTextview.text,
+                        uid: uid,
+                        name: name,
+                        id: id,
+                        time: currentTimes,
+                        image: self.personalImage,
+                        likeNumber: self.editarticleNumber
                     )
-
-                do {
-                    try document.setData(from: article)
-                } catch {
-                    print(error)
+                    
+                    do {
+                        try document.setData(from: article)
+                    } catch {
+                        print(error)
+                    }
+                    
+                    NotificationCenter.default.post(name:Notification.Name("sharePost"), object: nil)
+                    self.dismiss(animated: false, completion: nil)
+                    
                 }
-
             }
+            
         }
-//        print(789)
-//
-//        guard let uid = userDefaults.string(forKey: "uid") else {
-//            return }
-//
-//        guard let name = userDefaults.string(forKey: "name") else {
-//            return }
-//
-//        let id = UUID().uuidString
-//
-//        let document = db.collection("article").document(id)
-//
-//        let currentTimes = Int(now.timeIntervalSince1970)
-//
-//        guard let articleTextField = articleTextField.text else { return }
-//
-//        let article = Article(
-//            title: articleTextField,
-//            content: articleTextview.text,
-//            uid: uid,
-//            name: name,
-//            id: id,
-//            time: currentTimes,
-//            likeNumber: number,
-//            image: personalPicture
-//            )
-//
-//        do {
-//            try document.setData(from: article)
-//        } catch {
-//            print(error)
-//        }
-//
-//        NotificationCenter.default.post(name: Notification.Name("sharePost"), object: nil)
-//        dismiss(animated: false, completion: nil)
-//
-        }
-//
+        
     }
     
     func apple() {
-      
+        
     }
     
     @objc func cancel() {
