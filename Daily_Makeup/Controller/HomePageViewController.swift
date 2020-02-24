@@ -181,10 +181,9 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         cell1.articleTitle.text = container[indexPath.row].title
         cell1.personalAccount.text = container[indexPath.row].name
         cell1.articleImage.kf.setImage(with: URL(string: articleArray[indexPath.row].image))
-        //
+        
         cell1.likeBtn.setImage(UIImage(named: "heart (3)"),for: .normal)
         cell1.articleManager = articleArray[indexPath.row]
-        
         
         cell1.btnState = false
         cell1.likeNumber.text = String(articleArray[indexPath.row].likeNumber)
@@ -231,6 +230,7 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         postVC.nameLabel = articleArray[indexPath.row].name
         postVC.article = [articleArray[indexPath.row]]
         postVC.urlArray = [articleArray[indexPath.row].image]
+        postVC.personalImage = imageStore[indexPath.row]
         self.show(postVC, sender: nil)
         
         

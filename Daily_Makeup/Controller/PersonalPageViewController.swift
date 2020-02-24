@@ -132,7 +132,7 @@ class PersonalPageViewController: UIViewController {
                     print("Profile: \(profile)")
                     self.bioLabel.text = profile.bio
                     self.nameLabel.text = profile.name
-                    
+                 
                     let size = "?width=400&height=400"
                     let picture = "\(profile.image + size)"
                     let url = URL(string: picture)
@@ -237,6 +237,10 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
         postVC.nameLabel = articleArray[indexPath.row].name
         postVC.article = [articleArray[indexPath.row]]
         postVC.urlArray = [articleArray[indexPath.row].image]
+        postVC.personalImage = image
+//        let url = URL(string: profileArray[indexPath.row].image)
+//        postVC.profilePhoto.kf.setImage(with: url)
+        
         
         
         self.show(postVC, sender: nil)

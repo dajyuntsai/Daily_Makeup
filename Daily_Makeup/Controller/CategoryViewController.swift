@@ -25,14 +25,14 @@ class CategoryViewController: UIViewController {
     
 
     
-    @IBAction func lipsBtn(_ sender: Any) {
+    @IBAction func lipsBtn(_ sender: UIButton) {
         
         guard let listVC = storyboard?.instantiateViewController(withIdentifier: "litspage") as?  ListViewController else { return }
         listVC.list = "口紅"
         self.show(listVC, sender: nil)
     }
     
-    @IBAction func paletteBtn(_ sender: Any) {
+    @IBAction func paletteBtn(_ sender: UIButton) {
         
         guard let listVC = storyboard?.instantiateViewController(withIdentifier: "litspage") as?  ListViewController else { return }
         listVC.list = "眼影"

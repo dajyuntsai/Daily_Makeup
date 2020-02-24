@@ -17,7 +17,12 @@ class PostViewController: UIViewController {
     var nameLabel = ""
     
     var urlArray: [String] = []
+    
+    var personalImage = ""
 
+    var saveState = false
+    
+    var likestate = false
     
     @IBOutlet var imageScrollView: UIScrollView!
     
@@ -30,7 +35,11 @@ class PostViewController: UIViewController {
     
     @IBOutlet var authorLabel: UILabel!
     
+    @IBOutlet var profilePhoto: UIImageView!
     
+    @IBOutlet var saveBtn: UIButton!
+    
+    @IBOutlet var likeBtn: UIButton!
     
     //返回上一頁
     @IBAction func backToImages(_ sender: UIBarButtonItem) {
@@ -40,22 +49,38 @@ class PostViewController: UIViewController {
     
     @IBAction func loveBtn(_ sender: Any) {
         
+        if likestate {
+            
+            likeBtn.setImage(UIImage(named: "heart (3)"), for: .normal)
+            
+        } else {
+            
+            likeBtn.setImage(UIImage(named: "heart (2)"), for: .normal)
+        
+        }
+         
+        likestate = !likestate
     }
     
     
     @IBAction func saveBtn(_ sender: Any) {
         
+        if saveState {
+            
+            saveBtn.setImage(UIImage(named:
+                "bookmark (5)"), for: .normal)
+        } else {
+            
+            saveBtn.setImage(UIImage(named:
+            "bookmark (4)"), for: .normal)
+        }
         
-        
+        saveState = !saveState
     }
     
     @IBAction func shareBtn(_ sender: Any) {
         
     }
-    
-    
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,9 +95,12 @@ class PostViewController: UIViewController {
         navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
         
         
+        let url = URL(string: personalImage)
+        profilePhoto.kf.setImage(with: url)
         
         
         authorLabel.text = nameLabel
+        
         
         //照片數量
         for number in 0 ..< urlArray.count {

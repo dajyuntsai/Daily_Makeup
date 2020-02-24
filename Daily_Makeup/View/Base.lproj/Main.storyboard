@@ -215,6 +215,11 @@
                                                 <constraint firstAttribute="height" constant="200" id="2SD-sZ-Umy"/>
                                                 <constraint firstAttribute="width" constant="320" id="aDs-SP-pIL"/>
                                             </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="15"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Hp-j9-WYN">
                                             <rect key="frame" x="30" y="20" width="354" height="200"/>
@@ -770,7 +775,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LB6-mU-dml">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LB6-mU-dml">
                                 <rect key="frame" x="20" y="118" width="374" height="145"/>
                                 <color key="backgroundColor" red="0.83529411760000005" green="0.56862745100000001" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Lips" image="lips 300">
@@ -778,14 +783,14 @@
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="20"/>
+                                        <integer key="value" value="15"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="lipsBtn:" destination="cRH-qb-ZG4" eventType="touchUpInside" id="cw7-TR-VfU"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YX1-dv-YHA">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YX1-dv-YHA">
                                 <rect key="frame" x="20" y="283" width="374" height="145"/>
                                 <color key="backgroundColor" red="0.71372549019999998" green="0.66274509800000003" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" red="0.83529411760000005" green="0.56862745100000001" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -801,7 +806,7 @@
                                     <action selector="paletteBtn:" destination="cRH-qb-ZG4" eventType="touchUpInside" id="64j-Yw-yzZ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ueb-iW-M4Z">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ueb-iW-M4Z">
                                 <rect key="frame" x="20" y="448" width="374" height="145"/>
                                 <color key="backgroundColor" red="0.83529411760000005" green="0.56862745100000001" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Blusher" image="blusher 300">
@@ -816,7 +821,7 @@
                                     <action selector="blusherBtn:" destination="cRH-qb-ZG4" eventType="touchUpInside" id="PHm-w2-T6o"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NWs-2H-RgF">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NWs-2H-RgF">
                                 <rect key="frame" x="20" y="613" width="374" height="145"/>
                                 <color key="backgroundColor" red="0.71372549019999998" green="0.66274509800000003" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" red="0.83529411760000005" green="0.56862745100000001" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -1129,7 +1134,7 @@
                                         </constraints>
                                         <state key="normal" image="heart (3)"/>
                                         <connections>
-                                            <action selector="loveBtn:" destination="tAk-A8-Y2r" eventType="touchUpInside" id="NNH-w6-paX"/>
+                                            <action selector="loveBtn:" destination="tAk-A8-Y2r" eventType="touchUpInside" id="JAZ-si-PGR"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fkT-Lb-u7V">
@@ -1140,7 +1145,7 @@
                                         </constraints>
                                         <state key="normal" image="bookmark (5)"/>
                                         <connections>
-                                            <action selector="saveBtn:" destination="tAk-A8-Y2r" eventType="touchUpInside" id="18p-ai-uZO"/>
+                                            <action selector="saveBtn:" destination="tAk-A8-Y2r" eventType="touchUpInside" id="hRo-bv-3Ky"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ij9-fw-mx4">
@@ -1207,8 +1212,11 @@
                     <connections>
                         <outlet property="authorLabel" destination="Xvt-RB-eEP" id="x19-IO-cil"/>
                         <outlet property="imageScrollView" destination="yNZ-md-gKg" id="YyB-Jh-31w"/>
+                        <outlet property="likeBtn" destination="fy7-rf-YrZ" id="GKV-Yn-HTl"/>
                         <outlet property="pageControl" destination="MsC-RT-LBh" id="wmN-g1-cUv"/>
                         <outlet property="postTableView" destination="V8m-CM-jHO" id="z4K-33-b7U"/>
+                        <outlet property="profilePhoto" destination="QVM-pH-yjc" id="u3e-6H-1WS"/>
+                        <outlet property="saveBtn" destination="fkT-Lb-u7V" id="gvP-rx-ALe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q4D-98-kJy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

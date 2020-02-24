@@ -94,6 +94,7 @@ class EditArticleViewController: UIViewController{
                         time: currentTimes,
                         image: self.personalImage,
                         likeNumber: self.editarticleNumber
+                        
                     )
                     
                     do {
