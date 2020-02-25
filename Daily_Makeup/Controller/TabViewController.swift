@@ -32,6 +32,11 @@ class TabViewController: UITabBarController, UITabBarControllerDelegate {
                 
                 let imagePickerAlertController = UIAlertController(title: "上傳圖片", message: "請選擇要上傳的圖片", preferredStyle: .actionSheet)
                 
+                imagePickerAlertController.view.tintColor = UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1)
+                
+                imagePickerAlertController.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                
+                
                 let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (Void) in
                     if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                         imagePickerController.sourceType = .photoLibrary
@@ -47,11 +52,13 @@ class TabViewController: UITabBarController, UITabBarControllerDelegate {
                 }
                 
                 let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (Void) in
+                    
+                    
                            
                     imagePickerAlertController.dismiss(animated: true, completion: nil)
                 }
                        
-                
+                cancelAction.setValue(UIColor(red: 208/255 , green:129/255 , blue: 129/255, alpha: 1),forKey: "titleTextColor")
                 imagePickerAlertController.addAction(imageFromLibAction)
                 imagePickerAlertController.addAction(cancelAction)
                 

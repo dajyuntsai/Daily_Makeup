@@ -20,5 +20,6 @@ target 'Daily_Makeup' do
   pod 'GoogleSignIn'
   pod 'JGProgressHUD'
   pod 'ESPullToRefresh'
+  pod 'JGProgressHUD'
 
 end

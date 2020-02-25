@@ -11,8 +11,8 @@ import Firebase
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
-import ESPullToRefresh
 import Kingfisher
+import ESPullToRefresh
 
 class HomePageViewController: UIViewController {
     
@@ -20,11 +20,12 @@ class HomePageViewController: UIViewController {
     let userDefaults = UserDefaults.standard
     var imageStore: [String] = []
     var db: Firestore!
-
+//    var refreshControl:UIRefreshControl!
     var articleArray: [Article] = []{
         didSet{
             
             self.article.reloadData()
+            self.article.es.stopPullToRefresh()
         }
         
     }
@@ -33,6 +34,7 @@ class HomePageViewController: UIViewController {
         didSet{
             
             self.article.reloadData()
+            self.article.es.stopPullToRefresh()
         }
     }
     
@@ -40,6 +42,7 @@ class HomePageViewController: UIViewController {
         
         didSet {
             self.article.reloadData()
+            self.article.es.stopPullToRefresh()
         }
     }
     
@@ -54,8 +57,11 @@ class HomePageViewController: UIViewController {
         article.delegate = self
         article.dataSource = self
         
+//        refreshControl = UIRefreshControl()
+//        article.addSubview(refreshControl)
+//        refreshControl.addTarget(self, action: #selector(loadData), for: UIControl.Event.valueChanged)
         
-        navigationItem.title = "makeup"
+        navigationItem.title = "Makeup"
         navigationItem.searchController = search
         navigationItem.largeTitleDisplayMode = .never
         search.searchBar.placeholder = "搜尋品牌..."
@@ -68,26 +74,30 @@ class HomePageViewController: UIViewController {
         //        search.searchBar.sizeToFit()
         search.obscuresBackgroundDuringPresentation = false
         
-        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: Notification.Name("sharePost"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: Notification.Name("sharePost"), object: nil)
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         loadData()
+        
+        self.article.es.addPullToRefresh {
+            [unowned self] in
+            
+            self.loadData()
+        }
     }
     
     @objc func reload() {
         loadData()
     }
     
-    
-    
     @IBOutlet var article: UICollectionView!
     
     
-    
-    func loadData(){
+    @objc func loadData(){
         
         self.imageStore = []
         
@@ -97,6 +107,7 @@ class HomePageViewController: UIViewController {
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
+                
                 self.articleArray = []
                 for document in querySnapshot!.documents {
                     
@@ -137,7 +148,9 @@ class HomePageViewController: UIViewController {
                     }
                     
                 }
-                //
+                
+               
+                
             }
         }
         
@@ -227,10 +240,14 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         guard let postVC = storyboard?.instantiateViewController(withIdentifier: "postVC") as? PostViewController else { return }
         
         //可以拿到postVC的nameLabel
+       
+        
+        
         postVC.nameLabel = articleArray[indexPath.row].name
-        postVC.article = [articleArray[indexPath.row]]
+        postVC.article = articleArray[indexPath.row]
         postVC.urlArray = [articleArray[indexPath.row].image]
         postVC.personalImage = imageStore[indexPath.row]
+
         self.show(postVC, sender: nil)
         
         

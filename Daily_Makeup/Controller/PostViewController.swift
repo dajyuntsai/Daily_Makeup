@@ -8,18 +8,29 @@
 
 import UIKit
 import Kingfisher
+import Firebase
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
+import FirebaseStorage
 
 
 class PostViewController: UIViewController {
     
-    var article = [Article]()
+    var db: Firestore!
+    
+    var article: Article?
+    
+    let userDefaults = UserDefaults.standard
+    
+    
     
     var nameLabel = ""
     
     var urlArray: [String] = []
     
     var personalImage = ""
-
+    
     var saveState = false
     
     var likestate = false
@@ -44,7 +55,7 @@ class PostViewController: UIViewController {
     //返回上一頁
     @IBAction func backToImages(_ sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
-      
+        
     }
     
     @IBAction func loveBtn(_ sender: Any) {
@@ -56,9 +67,9 @@ class PostViewController: UIViewController {
         } else {
             
             likeBtn.setImage(UIImage(named: "heart (2)"), for: .normal)
-        
+            
         }
-         
+        
         likestate = !likestate
     }
     
@@ -66,16 +77,22 @@ class PostViewController: UIViewController {
     @IBAction func saveBtn(_ sender: Any) {
         
         if saveState {
-            
+            //disselecet(button)
             saveBtn.setImage(UIImage(named:
                 "bookmark (5)"), for: .normal)
-        } else {
             
+            
+        } else {
+            //selecet(button)
             saveBtn.setImage(UIImage(named:
-            "bookmark (4)"), for: .normal)
+                "bookmark (4)"), for: .normal)
+            addData()
         }
         
         saveState = !saveState
+        //
+        
+        
     }
     
     @IBAction func shareBtn(_ sender: Any) {
@@ -84,6 +101,8 @@ class PostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        db =  Firestore.firestore()
         
         postTableView.delegate = self
         postTableView.dataSource = self
@@ -114,7 +133,7 @@ class PostViewController: UIViewController {
             imageView.contentMode = .scaleAspectFill
             imageView.clipsToBounds = true
             
-//            let url = urlArray[number]
+            //            let url = urlArray[number]
             let url = URL(string: urlArray[number])
             imageView.kf.setImage(with: url)
             
@@ -136,20 +155,22 @@ class PostViewController: UIViewController {
     @IBAction func settingsBtn(_ sender: Any) {
         
         let alertcontroller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-               
+        
+        alertcontroller.view.tintColor = UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1)
+        alertcontroller.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        
         let pickerEdit = UIAlertAction(title: "編輯", style: .default) { (void) in
-                  print(123) }
+            print(123) }
         
         let pickerdelete = UIAlertAction(title: "刪除", style: .default) { (void) in
-        print(123) }
-        
-        
-        
+            print(123) }
         
         alertcontroller.addAction(pickerEdit)
         alertcontroller.addAction(pickerdelete)
         
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
+        cancelAction.setValue(UIColor(red: 208/255 , green:129/255 , blue: 129/255, alpha: 1),forKey: "titleTextColor")
         
         alertcontroller.addAction(cancelAction)
         
@@ -161,19 +182,33 @@ class PostViewController: UIViewController {
         
         
     }
+    
+    func addData(){
         
+        guard let uid = userDefaults.string(forKey: "uid"),
+            let article = article else { return }
         
- 
+        do {
+            let docRef = db.collection("user").document(uid).collection("article").document()
+            
+            try docRef.setData(from: article)
+        } catch {
+            print(error)
+        }
+    }
+    
+    
 }
 
 extension PostViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return article.count * 3
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let article = article else { return UITableViewCell() }
         
         let number = indexPath.row % 3
         
@@ -181,7 +216,7 @@ extension PostViewController:UITableViewDelegate,UITableViewDataSource{
             if let timecell = tableView.dequeueReusableCell(withIdentifier: "timecell", for: indexPath) as? PostTimeTableViewCell {
                 
                 timecell.postTimeLabel.textColor = .systemGray
-                let result = self.timeConverter(time: article[number - 2].time)
+                let result = self.timeConverter(time: article.time)
                 timecell.postTimeLabel.text = result
                 return timecell
             } else {
@@ -192,7 +227,7 @@ extension PostViewController:UITableViewDelegate,UITableViewDataSource{
         else if indexPath.row == 0 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? PostTitleTableViewCell {
                 
-                cell.articleTitle.text = article[number].title
+                cell.articleTitle.text = article.title
                 return cell
             } else {
                 return UITableViewCell()
@@ -202,7 +237,7 @@ extension PostViewController:UITableViewDelegate,UITableViewDataSource{
         else if indexPath.row == 1 {
             if let cell1 = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) as? PostContentTableViewCell {
                 
-                cell1.articleContent.text = article[number - 1].content
+                cell1.articleContent.text = article.content
                 
                 return cell1
             } else {

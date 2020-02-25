@@ -7,35 +7,85 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
+import Kingfisher
 
 class SavePageViewController: ViewController {
-
+    
+    let userDefaults = UserDefaults.standard
+    
+    var db: Firestore!
+    
+    var userData: [Article] = []{
+        didSet{
+            self.articleSave.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        db = Firestore.firestore()
         articleSave.delegate = self
         articleSave.dataSource = self
-       
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadArticleData()
     }
     
     @IBOutlet var articleSave: UICollectionView!
     
-   
+    func loadArticleData() {
+        
+        guard let uid = userDefaults.string(forKey: "uid") else { return }
+        
+        db.collection("user").document(uid).collection("article").getDocuments() {
+        
+            (querySnapshot, err) in
+
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                self.userData = []
+                for document in querySnapshot!.documents {
+                    do {
+                        guard let result = try document.data(as: Article.self, decoder: Firestore.Decoder())
+                            else { return }
+                        self.userData.append(result)
+                        print(result)
+                    } catch {
+                        print(error)
+                    }
+                }
+            }
+
+        }
+        
+    }
+    
+    
 }
 
 extension SavePageViewController:UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 8
+        return userData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as?  SavePageCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.articleTitle.text = "眼尾加重法"
-        cell.personalAccount.text = "ddd234"
-        cell.likeNumber.text = "3000"
+        cell.articleTitle.text = userData[indexPath.row].title
+        cell.personalAccount.text = userData[indexPath.row].name
+        cell.likeNumber.text = String(userData[indexPath.row].likeNumber)
+        cell.articleImage.kf.setImage(with: URL(string: userData[indexPath.row].image))
+        
         cell.saveLittleView.layer.borderWidth = 0.5
         
         cell.saveLittleView.layer.borderColor = #colorLiteral(red: 0.8375313282, green: 0.6639861465, blue: 0.667365849, alpha: 1)

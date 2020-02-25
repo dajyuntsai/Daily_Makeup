@@ -47,11 +47,24 @@ class PersonalPageViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         loadData()
         
         getArticleData()
         
+//        self.articleCollectionView.es.addPullToRefresh {
+//            [unowned self] in
+//
+//            self.getArticleData()
+//        }
+//
+//        self.articleCollectionView.es.addPullToRefresh {
+//            [unowned self] in
+//
+//            self.loadData()
+//        }
     }
+    
     
     @objc func getdata(){
         getArticleData()
@@ -74,8 +87,9 @@ class PersonalPageViewController: UIViewController {
         
         let alertcontroller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        alertcontroller.view.tintColor = UIColor(red: 255/255, green: 145/255, blue: 125/255, alpha: 1)
+        alertcontroller.view.tintColor = UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1)
         alertcontroller.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        
         let pickerAction = UIAlertAction(title: "Log out", style: .default) { (void) in
             
             do {
@@ -97,7 +111,7 @@ class PersonalPageViewController: UIViewController {
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         
        
-        cancelAction.setValue(UIColor(red: 255/255 , green:141/255 , blue: 125/255, alpha: 1),forKey: "titleTextColor")
+        cancelAction.setValue(UIColor(red: 208/255 , green:141/255 , blue: 125/255, alpha: 1),forKey: "titleTextColor")
         alertcontroller.addAction(cancelAction)
         
         present(alertcontroller, animated: true, completion: nil)
@@ -177,6 +191,7 @@ class PersonalPageViewController: UIViewController {
                     }
                     
                     self.articleCollectionView.reloadData()
+//                    self.articleCollectionView.es.stopPullToRefresh()
                 }
         }
         
@@ -235,7 +250,7 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
         
         print(postVC.imageScrollView)
         postVC.nameLabel = articleArray[indexPath.row].name
-        postVC.article = [articleArray[indexPath.row]]
+        postVC.article = articleArray[indexPath.row]
         postVC.urlArray = [articleArray[indexPath.row].image]
         postVC.personalImage = image
 //        let url = URL(string: profileArray[indexPath.row].image)

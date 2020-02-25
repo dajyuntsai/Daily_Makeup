@@ -13,6 +13,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseStorage
 import Kingfisher
+import JGProgressHUD
 
 class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -161,9 +162,12 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
         if productDocumentID != "" {
             navigationItem.rightBarButtonItem?.title = "edit"
             navigationItem.leftBarButtonItem?.title = "back"
+            
             textFieldEditable = false
             productDetailNote.isEditable = false
             imageOutlet.isEnabled = false
+            
+
         }
         
         guard let url = URL(string: addProductImage) else { return }
@@ -177,7 +181,7 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
 //        super.viewWillAppear(animated)
 //
 //        imageOutlet.isEnabled = false
-//
+//        imageOutlet.isHidden = true
     }
     
     
@@ -199,7 +203,9 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
     
     //若沒有Id表示要新增資料，若有Id表示是編輯
     @objc func save() {
-        
+//        self.productDetailTableView.es.addPullToRefresh { [unowned self] in
+//
+//        }
         if productDocumentID == "" {
             do {
                 
@@ -229,8 +235,9 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
                 //改成save
                 navigationItem.rightBarButtonItem?.title = "save"
                 navigationItem.leftBarButtonItem?.title = "cancel"
-                productDetailNote.isEditable = true
                 imageOutlet.isEnabled = true
+                imageOutlet.isHidden = false
+                productDetailNote.isEditable = true
                 textFieldEditable = true
                 productDetailTableView.reloadData()
                 
@@ -242,7 +249,7 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
                 navigationItem.leftBarButtonItem?.title = "back"
                 productDetailNote.isEditable = false
                 textFieldEditable = false
-                imageOutlet.isEnabled = false
+                imageOutlet.isHidden = true
                 productDetailTableView.reloadData()
                 let document = db.collection("ProductDetail").document(productDocumentID)
                 
@@ -272,7 +279,7 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
         
     }
     
-    let productDetail = ["category","title","colortone","brand","opened","exp"]
+    let productDetail = ["Category","Title","Colortone","Brand","Opened","EXP"]
 }
 
 extension ProductDetailViewController:UITableViewDelegate,UITableViewDataSource {
@@ -377,6 +384,7 @@ extension ProductDetailViewController : UIImagePickerControllerDelegate, UINavig
                     guard let imageUrl = url else { return }
                     self.addProductImage = "\(imageUrl)"
                     self.productImage.image = selectedImage
+                    self.imageOutlet.isHidden = true
                 }
             }
             
@@ -384,7 +392,11 @@ extension ProductDetailViewController : UIImagePickerControllerDelegate, UINavig
             dismiss(animated: true, completion: nil)
             
         }
-        
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Upload Image"
+        hud.show(in: self.view)
+        hud.dismiss(afterDelay: 3.0)
+        imageOutlet.isHidden = true
     }
     
 }

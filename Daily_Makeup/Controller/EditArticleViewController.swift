@@ -11,6 +11,7 @@ import Firebase
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import JGProgressHUD
 
 
 class EditArticleViewController: UIViewController{
@@ -105,11 +106,16 @@ class EditArticleViewController: UIViewController{
                     
                     NotificationCenter.default.post(name:Notification.Name("sharePost"), object: nil)
                     self.dismiss(animated: false, completion: nil)
-                    
+
                 }
             }
             
         }
+        
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Loading"
+        hud.show(in: self.view)
+        hud.dismiss(afterDelay: 3.0)
         
     }
     

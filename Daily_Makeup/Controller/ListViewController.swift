@@ -99,13 +99,14 @@ class ListViewController: UIViewController {
     
     
     func productList() {
-        
+        //category跟list一樣的名字就能找到對應的list
         db.collection("ProductDetail").whereField("category", isEqualTo: list)
             .getDocuments() { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
                     self.listArray = []
+                    
                     for document in querySnapshot!.documents {
                         
                         do{
@@ -141,7 +142,7 @@ class ListViewController: UIViewController {
         db = Firestore.firestore()
         
         //        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(back))
-        navigationItem.title = "list"
+        navigationItem.title = "List"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(back))
         
         navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
