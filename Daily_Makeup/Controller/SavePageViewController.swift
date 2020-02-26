@@ -19,6 +19,8 @@ class SavePageViewController: ViewController {
     
     var db: Firestore!
     
+    var profilePhoto = ""
+    
     var userData: [Article] = []{
         didSet{
             self.articleSave.reloadData()
@@ -84,7 +86,7 @@ extension SavePageViewController:UICollectionViewDataSource,UICollectionViewDele
         cell.articleTitle.text = userData[indexPath.row].title
         cell.personalAccount.text = userData[indexPath.row].name
         cell.likeNumber.text = String(userData[indexPath.row].likeNumber)
-        cell.articleImage.kf.setImage(with: URL(string: userData[indexPath.row].image))
+        cell.articleImage.kf.setImage(with: URL(string: userData[indexPath.row].image[0]))
         
         cell.saveLittleView.layer.borderWidth = 0.5
         
@@ -120,14 +122,27 @@ extension SavePageViewController:UICollectionViewDataSource,UICollectionViewDele
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         guard let postVC = storyboard?.instantiateViewController(withIdentifier: "postVC") as? PostViewController else { return }
+        
+        postVC.nameLabel = userData[indexPath.row].name
+        postVC.article = userData[indexPath.row]
+        postVC.urlArray = userData[indexPath.row].image
+        postVC.personalImage = profilePhoto
         
         self.show(postVC, sender: nil)
         
     }
     
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        guard let postVc = storyboard?.instantiateViewController(withIdentifier: "postVC") as? PostViewController else { return }
-    }
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        guard let postVc = storyboard?.instantiateViewController(withIdentifier: "postVC") as? PostViewController else { return }
+//
+//        postVc.nameLabel = userData[indexPath.row].name
+//        postVc.article = userData[indexPath.row]
+//        postVc.urlArray = [userData[indexPath.row].image]
+//        postVc.personalImage = profilePhoto
+//
+//
+//    }
     
 }

@@ -23,8 +23,6 @@ class PostViewController: UIViewController {
     
     let userDefaults = UserDefaults.standard
     
-    
-    
     var nameLabel = ""
     
     var urlArray: [String] = []
@@ -80,7 +78,7 @@ class PostViewController: UIViewController {
             //disselecet(button)
             saveBtn.setImage(UIImage(named:
                 "bookmark (5)"), for: .normal)
-            
+            deleated()
             
         } else {
             //selecet(button)
@@ -150,6 +148,7 @@ class PostViewController: UIViewController {
         navigationController?.popViewController(animated: true)
         
     }
+   
     @IBOutlet var postTableView: UITableView!
     
     @IBAction func settingsBtn(_ sender: Any) {
@@ -183,18 +182,37 @@ class PostViewController: UIViewController {
         
     }
     
-    func addData(){
+    func addData() {
         
         guard let uid = userDefaults.string(forKey: "uid"),
             let article = article else { return }
         
         do {
-            let docRef = db.collection("user").document(uid).collection("article").document()
+            let docRef = db.collection("user").document(uid).collection("article").document(article.id)
             
             try docRef.setData(from: article)
         } catch {
             print(error)
         }
+    }
+    
+    
+    func deleated() {
+        
+        guard let uid = userDefaults.string(forKey:"uid") else { return }
+        
+        guard let id = article?.id else { return }
+        db.collection("user").document(uid).collection("article").document(id).delete() {
+            err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
+        
+        
+        
     }
     
     
@@ -210,7 +228,7 @@ extension PostViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let article = article else { return UITableViewCell() }
         
-        let number = indexPath.row % 3
+        
         
         if indexPath.row == 2 {
             if let timecell = tableView.dequeueReusableCell(withIdentifier: "timecell", for: indexPath) as? PostTimeTableViewCell {

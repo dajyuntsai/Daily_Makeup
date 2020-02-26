@@ -222,7 +222,7 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
         cell.littleView.layer.cornerRadius = UIScreen.main.bounds.width / 60
         cell.littleView.layer.maskedCorners = [.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
         
-        cell.articalImage.kf.setImage(with: URL(string: articleArray[indexPath.row].image))
+        cell.articalImage.kf.setImage(with: URL(string: articleArray[indexPath.row].image[0]))
         
         return cell
         
@@ -251,14 +251,12 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
         print(postVC.imageScrollView)
         postVC.nameLabel = articleArray[indexPath.row].name
         postVC.article = articleArray[indexPath.row]
-        postVC.urlArray = [articleArray[indexPath.row].image]
+        postVC.urlArray = articleArray[indexPath.row].image
         postVC.personalImage = image
 //        let url = URL(string: profileArray[indexPath.row].image)
 //        postVC.profilePhoto.kf.setImage(with: url)
         
-        
-        
-        self.show(postVC, sender: nil)
+        navigationController?.pushViewController(postVC, animated: true)
     }
     
     //

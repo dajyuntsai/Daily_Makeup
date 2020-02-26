@@ -16,11 +16,22 @@ import ESPullToRefresh
 
 class HomePageViewController: UIViewController {
     
+ 
+    @IBAction func hotBtn(_ sender: Any) {
+    }
+    
+    
+    @IBAction func newestBtn(_ sender: Any) {
+        
+    }
+    
+     var db: Firestore!
     
     let userDefaults = UserDefaults.standard
     var imageStore: [String] = []
-    var db: Firestore!
-//    var refreshControl:UIRefreshControl!
+    
+    var saveArticle: [Article] = []
+    
     var articleArray: [Article] = []{
         didSet{
             
@@ -82,7 +93,7 @@ class HomePageViewController: UIViewController {
         super.viewWillAppear(animated)
         
         loadData()
-        
+        loadArticleData()
         self.article.es.addPullToRefresh {
             [unowned self] in
             
@@ -157,6 +168,35 @@ class HomePageViewController: UIViewController {
         
     }
     
+    func loadArticleData() {
+        
+        guard let uid = userDefaults.string(forKey: "uid") else { return }
+        
+        db.collection("user").document(uid).collection("article").getDocuments() {
+        
+            (querySnapshot, err) in
+
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                self.saveArticle = []
+                for document in querySnapshot!.documents {
+                    do {
+                        guard let result = try document.data(as: Article.self, decoder: Firestore.Decoder())
+                            else { return }
+                        self.saveArticle.append(result)
+                        print(result)
+                    } catch {
+                        print(error)
+                    }
+                }
+            }
+
+        }
+        
+    }
+    
+    
     
 }
 
@@ -184,20 +224,28 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
             container = articleArray
         }
         
+        
+        
+        
         guard let url = URL(string: imageStore[indexPath.row]) else { return UICollectionViewCell() }
-        //            let apple =  URL(string: container[indexPath.row].articleImage[0]) else { return UICollectionViewCell()}
         
-        let document = db.collection("article").document()
         
+//        let article = container[indexPath.item]
+//
+//        cell1..setImage(UIImage(named: "bookmark (4)"), for: .normal)
+//
+//        for post in saveArticle {
+//            if article.id == post.id {
+//                cell1.likeBtn.setImage(UIImage(named: "bookmark (4)"), for: .normal)
+//            }
+//        }
         
         cell1.personalImage.kf.setImage(with: url)
         cell1.articleTitle.text = container[indexPath.row].title
         cell1.personalAccount.text = container[indexPath.row].name
-        cell1.articleImage.kf.setImage(with: URL(string: articleArray[indexPath.row].image))
-        
+        cell1.articleImage.kf.setImage(with: URL(string: articleArray[indexPath.row].image[0]))
         cell1.likeBtn.setImage(UIImage(named: "heart (3)"),for: .normal)
         cell1.articleManager = articleArray[indexPath.row]
-        
         cell1.btnState = false
         cell1.likeNumber.text = String(articleArray[indexPath.row].likeNumber)
         cell1.littleView.layer.borderWidth = 0.5
@@ -209,7 +257,6 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         //底下的view右下跟左下角的框框改成圓弧
         cell1.littleView.layer.cornerRadius = UIScreen.main.bounds.width / 60
         cell1.littleView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-        
         
         return cell1
     }
@@ -239,22 +286,28 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         
         guard let postVC = storyboard?.instantiateViewController(withIdentifier: "postVC") as? PostViewController else { return }
         
+//        let article = articleArray[indexPath.item]
+//
+//        postVC.saveBtn.setImage(UIImage(named: "bookmark (4)"), for: .normal)
+//
+//        for post in saveArticle {
+//            if article.id == post.id {
+//                postVC.saveBtn.setImage(UIImage(named: "bookmark (4)"), for: .normal)
+//            }
+//        }
+        
         //可以拿到postVC的nameLabel
        
-        
-        
         postVC.nameLabel = articleArray[indexPath.row].name
         postVC.article = articleArray[indexPath.row]
-        postVC.urlArray = [articleArray[indexPath.row].image]
+        postVC.urlArray = articleArray[indexPath.row].image
         postVC.personalImage = imageStore[indexPath.row]
+//        postVC.likeBtn
 
         self.show(postVC, sender: nil)
-        
-        
-        
+       
     }
-    
-    
+
 }
 
 extension HomePageViewController: UISearchResultsUpdating {
