@@ -142,6 +142,10 @@ class PostViewController: UIViewController {
         print(imageScrollView.contentSize)
         imageScrollView.contentSize = CGSize(width: view.frame.width * CGFloat(urlArray.count), height: 376)
         
+        if saveState {
+            saveBtn.setImage(UIImage(named:
+            "bookmark (4)"), for: .normal)
+        }
     }
     
     @objc func back() {
@@ -186,10 +190,8 @@ class PostViewController: UIViewController {
         
         guard let uid = userDefaults.string(forKey: "uid"),
             let article = article else { return }
-        
         do {
             let docRef = db.collection("user").document(uid).collection("article").document(article.id)
-            
             try docRef.setData(from: article)
         } catch {
             print(error)

@@ -232,11 +232,9 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         
 //        let article = container[indexPath.item]
 //
-//        cell1..setImage(UIImage(named: "bookmark (4)"), for: .normal)
-//
 //        for post in saveArticle {
 //            if article.id == post.id {
-//                cell1.likeBtn.setImage(UIImage(named: "bookmark (4)"), for: .normal)
+//                cell1.btnState = true
 //            }
 //        }
         
@@ -286,15 +284,14 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         
         guard let postVC = storyboard?.instantiateViewController(withIdentifier: "postVC") as? PostViewController else { return }
         
-//        let article = articleArray[indexPath.item]
-//
-//        postVC.saveBtn.setImage(UIImage(named: "bookmark (4)"), for: .normal)
-//
-//        for post in saveArticle {
-//            if article.id == post.id {
-//                postVC.saveBtn.setImage(UIImage(named: "bookmark (4)"), for: .normal)
-//            }
-//        }
+        let article = articleArray[indexPath.item]
+
+        for post in saveArticle {
+            if article.id == post.id {
+                postVC.saveState = true
+            }
+        }
+            
         
         //可以拿到postVC的nameLabel
        

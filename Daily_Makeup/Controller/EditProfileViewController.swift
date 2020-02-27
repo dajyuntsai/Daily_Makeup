@@ -214,9 +214,11 @@ extension EditProfileViewController:UITableViewDataSource,UITableViewDelegate{
         switch indexPath.row {
         case 0:
             cell.nameTextField.text = editProfileName
+            cell.nameTextField.isEnabled = false
             cell.profileText = { [weak self] text in self?.editProfileName = text }
         case 1:
             cell.nameTextField.text = editProfileEmail
+            cell.nameTextField.isEnabled = false
             cell.profileText = { [weak self] text in self?.editProfileEmail = text }
         case 2:
             cell.nameTextField.text =  editProfileBio

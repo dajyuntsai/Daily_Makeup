@@ -16,7 +16,7 @@ struct SignID: Codable {
     
     let uid: String
     
-    let image: String
+//    let image: String
     
         
 }

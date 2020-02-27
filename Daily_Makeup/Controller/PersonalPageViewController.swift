@@ -21,6 +21,7 @@ class PersonalPageViewController: UIViewController {
     var db: Firestore!
     var profileArray : [Profile] = []
     var articleArray: [Article] = []
+    var personalSave :[Article] = []
     var image = ""
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var bioLabel: UILabel!
@@ -52,17 +53,9 @@ class PersonalPageViewController: UIViewController {
         
         getArticleData()
         
-//        self.articleCollectionView.es.addPullToRefresh {
-//            [unowned self] in
-//
-//            self.getArticleData()
-//        }
-//
-//        self.articleCollectionView.es.addPullToRefresh {
-//            [unowned self] in
-//
-//            self.loadData()
-//        }
+        loadArticleData()
+        
+
     }
     
     
@@ -129,7 +122,7 @@ class PersonalPageViewController: UIViewController {
         
     }
     func loadData() {
-        
+        //拿個人資料
         guard let uid =  userDefaults.string(forKey: "uid") else { return }
         
         let docRef = db.collection("user").document(uid)
@@ -163,8 +156,36 @@ class PersonalPageViewController: UIViewController {
         
     }
     
-    func getArticleData(){
+    func loadArticleData() {
+        //拿save頁的資料
+        guard let uid = userDefaults.string(forKey: "uid") else { return }
         
+        db.collection("user").document(uid).collection("article").getDocuments() {
+        
+            (querySnapshot, err) in
+
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                self.personalSave = []
+                for document in querySnapshot!.documents {
+                    do {
+                        guard let result = try document.data(as: Article.self, decoder: Firestore.Decoder())
+                            else { return }
+                        self.personalSave.append(result)
+                        print(result)
+                    } catch {
+                        print(error)
+                    }
+                }
+            }
+
+        }
+        
+    }
+    
+    func getArticleData(){
+        //拿自己發過的文章
         guard let uid = userDefaults.string(forKey: "uid") else { return }
         
         db.collection("article").whereField("uid", isEqualTo: uid)
@@ -253,13 +274,19 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
         postVC.article = articleArray[indexPath.row]
         postVC.urlArray = articleArray[indexPath.row].image
         postVC.personalImage = image
-//        let url = URL(string: profileArray[indexPath.row].image)
-//        postVC.profilePhoto.kf.setImage(with: url)
-        
+    
         navigationController?.pushViewController(postVC, animated: true)
+        
+        let article = articleArray[indexPath.item]
+        
+        for post in personalSave {
+            if article.id == post.id {
+                postVC.saveState = true
+            }
+        }
     }
     
-    //
+    //scrollview
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         let yPosition = -(test.frame.size.height + scrollView.contentOffset.y)

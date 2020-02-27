@@ -54,8 +54,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
             let signInID = SignID (
                 name: name,
                 email: email,
-                uid: uid,
-                image: picture
+                uid: uid
+//                image: picture
             )
             let userDefaults = UserDefaults.standard
             let db = Firestore.firestore()
@@ -63,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
             userDefaults.set(name, forKey: "name")
             userDefaults.set(email, forKey: "email")
             userDefaults.set(uid, forKey: "uid")
-            userDefaults.set(picture, forKey: "image")
+//            userDefaults.set(picture, forKey: "image")
             
             do {
                 try db.collection("user").document(uid).setData(from: signInID, merge: true)

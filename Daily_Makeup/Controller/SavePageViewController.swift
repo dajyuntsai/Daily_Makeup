@@ -128,8 +128,8 @@ extension SavePageViewController:UICollectionViewDataSource,UICollectionViewDele
         postVC.nameLabel = userData[indexPath.row].name
         postVC.article = userData[indexPath.row]
         postVC.urlArray = userData[indexPath.row].image
-        postVC.personalImage = profilePhoto
-        
+    
+//        postVC.saveBtn = userData[indexPath.row].saveState
         self.show(postVC, sender: nil)
         
     }

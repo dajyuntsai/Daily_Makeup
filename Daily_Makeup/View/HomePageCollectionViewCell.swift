@@ -62,14 +62,6 @@ class HomePageCollectionViewCell: UICollectionViewCell {
 
             db.collection("article").document(articleManager.id).updateData(["likeNumber": articleManager.likeNumber - 1])
             
-            
-            
-            
-            
-            
-           
-            
-            
         
         } else {
             

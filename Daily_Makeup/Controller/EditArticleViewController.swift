@@ -21,6 +21,7 @@ class EditArticleViewController: UIViewController{
     var uid = ""
     var name = ""
     var personalImage = ""
+    var saveState = false
     var editarticleNumber = 0
     var articleImage: [String] = []
     var number = 0
@@ -94,7 +95,8 @@ class EditArticleViewController: UIViewController{
                         id: id,
                         time: currentTimes,
                         image: [self.personalImage],
-                        likeNumber: self.editarticleNumber
+                        likeNumber: self.editarticleNumber,
+                        saveState: self.saveState
                         
                     )
                     

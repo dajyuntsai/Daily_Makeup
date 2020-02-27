@@ -71,25 +71,26 @@ class SinginViewController: UIViewController {
                 
                 guard let uid = user?.user.uid,
                     let name = user?.user.displayName,
-                    let email = user?.user.email,
-                    let image = user?.user.photoURL?.absoluteString else { return }
+                    let email = user?.user.email
+                    else { return }
+//                    let image = user?.user.photoURL?.absoluteString else { return }
          
                 
-                let size = "?width=400&height=400"
-                let picture = "\(image + size)"
-                
+//                let size = "?width=400&height=400"
+//                let picture = "\(image + size)"
+//
                 let signInID = SignID (
                     name: name,
                     email: email,
-                    uid: uid,
-                    image: image
+                    uid: uid
+//                    image: image
                 )
                 
                 self.userDefaults.set(name, forKey: "name")
                 self.userDefaults.set(email, forKey: "email")
                 self.userDefaults.set(uid, forKey: "uid")
-                self.userDefaults.set(picture, forKey: "image")
-                
+//                self.userDefaults.set(picture, forKey: "image")
+
                 do {
                     try self.db.collection("user").document(uid).setData(from: signInID, merge: true)
                 } catch {
