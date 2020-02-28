@@ -16,7 +16,7 @@ import ESPullToRefresh
 
 class HomePageViewController: UIViewController {
     
- 
+    
     @IBAction func hotBtn(_ sender: Any) {
     }
     
@@ -25,12 +25,13 @@ class HomePageViewController: UIViewController {
         
     }
     
-     var db: Firestore!
+    var db: Firestore!
     
     let userDefaults = UserDefaults.standard
     var imageStore: [String] = []
-    
+    var profileDeta: Profile?
     var saveArticle: [Article] = []
+    //    var likeState: [Bool] = []
     
     var articleArray: [Article] = []{
         didSet{
@@ -68,9 +69,9 @@ class HomePageViewController: UIViewController {
         article.delegate = self
         article.dataSource = self
         
-//        refreshControl = UIRefreshControl()
-//        article.addSubview(refreshControl)
-//        refreshControl.addTarget(self, action: #selector(loadData), for: UIControl.Event.valueChanged)
+        //        refreshControl = UIRefreshControl()
+        //        article.addSubview(refreshControl)
+        //        refreshControl.addTarget(self, action: #selector(loadData), for: UIControl.Event.valueChanged)
         
         navigationItem.title = "Makeup"
         navigationItem.searchController = search
@@ -91,8 +92,9 @@ class HomePageViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        //        likeState = []
         loadData()
+        loadPersonalData()
         loadArticleData()
         self.article.es.addPullToRefresh {
             [unowned self] in
@@ -113,13 +115,14 @@ class HomePageViewController: UIViewController {
         self.imageStore = []
         
         self.articleArray = []
-        
-        db.collection("article").getDocuments() { (querySnapshot, err) in
+        //全部人的文章
+        db.collection("article").order(by: "time", descending: true).getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
                 
                 self.articleArray = []
+                
                 for document in querySnapshot!.documents {
                     
                     do {
@@ -136,46 +139,45 @@ class HomePageViewController: UIViewController {
                             } else {
                                 //文章擁有者的個人資料
                                 guard let querySnapshot = querySnapshot else { return }
-                                do {
-                                    guard let userResult = try querySnapshot.documents[0].data(as: Profile.self, decoder: Firestore.Decoder())
-                                        else { return }
-                                    self.imageStore.append(userResult.image)
-                                    self.articleArray.append(result)
-                                    print(result)
-                                } catch {
-                                    (print(error))
-                                }
-                                
+                                querySnapshot.documents.forEach({ document in
+                                    
+                                    do {
+                                        guard let userResult = try document.data(as: Profile.self, decoder: Firestore.Decoder())
+                                            else { return }
+                                        self.imageStore.append(userResult.image)
+                                        self.articleArray.append(result)
+                                        print(result)
+                                    } catch {
+                                        (print(error))
+                                    }
+                                })
                             }
                             
                         }
-                        
-                        
-                        
                         
                     } catch {
                         print("123")
                         print(error)
                     }
-                    
                 }
-                
-               
-                
             }
         }
+    }
+    
+    func apple() {
         
         
     }
     
+    //收藏文章
     func loadArticleData() {
         
         guard let uid = userDefaults.string(forKey: "uid") else { return }
         
         db.collection("user").document(uid).collection("article").getDocuments() {
-        
+            
             (querySnapshot, err) in
-
+            
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
@@ -191,8 +193,40 @@ class HomePageViewController: UIViewController {
                     }
                 }
             }
-
+            
         }
+        
+    }
+    
+    //拿個人資料
+    func loadPersonalData() {
+        
+        guard let uid =  userDefaults.string(forKey: "uid") else { return }
+        
+        let docRef = db.collection("user").document(uid)
+        
+        docRef.getDocument { (document, error) in
+            let result = Result {
+                try document.flatMap {
+                    try $0.data(as: Profile.self)
+                    
+                }
+            }
+            switch result {
+            case .success(let profile):
+                if let profile = profile {
+                    print("Profile: \(profile)")
+                    self.profileDeta = profile
+                    
+                } else {
+                    print("Document does not exist")
+                }
+            case .failure(let error):
+                print("Error decoding profile: \(error)")
+            }
+            
+        }
+        
         
     }
     
@@ -224,27 +258,29 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
             container = articleArray
         }
         
-        
-        
-        
-        guard let url = URL(string: imageStore[indexPath.row]) else { return UICollectionViewCell() }
-        
-        
-//        let article = container[indexPath.item]
-//
-//        for post in saveArticle {
-//            if article.id == post.id {
-//                cell1.btnState = true
-//            }
-//        }
+        guard let url = URL(string: imageStore[indexPath.row])
+            //              let user = profileDeta
+            else { return UICollectionViewCell() }
         
         cell1.personalImage.kf.setImage(with: url)
         cell1.articleTitle.text = container[indexPath.row].title
         cell1.personalAccount.text = container[indexPath.row].name
         cell1.articleImage.kf.setImage(with: URL(string: articleArray[indexPath.row].image[0]))
-        cell1.likeBtn.setImage(UIImage(named: "heart (3)"),for: .normal)
         cell1.articleManager = articleArray[indexPath.row]
-        cell1.btnState = false
+        
+        //        for count in 0 ..< user.articleLike.count {
+        //            if articleArray[indexPath.row].id == user.articleLike[count] {
+        //                print("true")
+        //                cell1.likeBtnState = true
+        //                cell1.likeBtn.setImage(UIImage(named: "heart (2)"),for: .normal)
+        //            } else {
+        //                print("fasle")
+        //                cell1.likeBtnState = false
+        //                cell1.likeBtn.setImage(UIImage(named: "heart (3)"),for: .normal)
+        //            }
+        //        }
+        
+        
         cell1.likeNumber.text = String(articleArray[indexPath.row].likeNumber)
         cell1.littleView.layer.borderWidth = 0.5
         cell1.littleView.layer.borderColor = #colorLiteral(red: 0.7867800593, green: 0.6210635304, blue: 0.620044291, alpha: 1)
@@ -285,26 +321,36 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         guard let postVC = storyboard?.instantiateViewController(withIdentifier: "postVC") as? PostViewController else { return }
         
         let article = articleArray[indexPath.item]
-
+        
+        postVC.nameLabel = articleArray[indexPath.row].name
+        postVC.article = articleArray[indexPath.row]
+        postVC.urlArray = articleArray[indexPath.row].image
+        postVC.personalImage = imageStore[indexPath.row]
+        
+        self.show(postVC, sender: nil)
+        
+        
+        //書籤狀態
         for post in saveArticle {
             if article.id == post.id {
                 postVC.saveState = true
             }
         }
-            
+        
+        //愛心狀態
+        
+        guard let articleLike = profileDeta?.articleLike else {
+            return}
+        for likeState in articleLike {
+            if article.id == likeState {
+                postVC.likestate = true
+            }
+        }
         
         //可以拿到postVC的nameLabel
-       
-        postVC.nameLabel = articleArray[indexPath.row].name
-        postVC.article = articleArray[indexPath.row]
-        postVC.urlArray = articleArray[indexPath.row].image
-        postVC.personalImage = imageStore[indexPath.row]
-//        postVC.likeBtn
-
-        self.show(postVC, sender: nil)
-       
+        
     }
-
+    
 }
 
 extension HomePageViewController: UISearchResultsUpdating {

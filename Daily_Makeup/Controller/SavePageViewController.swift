@@ -21,6 +21,8 @@ class SavePageViewController: ViewController {
     
     var profilePhoto = ""
     
+    var imageStore: [String] = []
+    
     var userData: [Article] = []{
         didSet{
             self.articleSave.reloadData()
@@ -46,10 +48,13 @@ class SavePageViewController: ViewController {
         
         guard let uid = userDefaults.string(forKey: "uid") else { return }
         
-        db.collection("user").document(uid).collection("article").getDocuments() {
+        self.imageStore = []
         
+        self.userData = []
+        db.collection("user").document(uid).collection("article").getDocuments() {
+            
             (querySnapshot, err) in
-
+            
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
@@ -58,14 +63,37 @@ class SavePageViewController: ViewController {
                     do {
                         guard let result = try document.data(as: Article.self, decoder: Firestore.Decoder())
                             else { return }
-                        self.userData.append(result)
+                        
                         print(result)
+                        self.db.collection("user").whereField("uid", isEqualTo: result.uid).getDocuments { (querySnapshot, err) in
+                            if let err = err {
+                                print("Error getting documents: \(err)")
+                            } else {
+                                guard let querySnapshot = querySnapshot else { return }
+                                do {
+                                    guard let userResult = try querySnapshot.documents[0].data(as: Profile.self, decoder: Firestore.Decoder())
+                                        else { return }
+                                        
+                                    self.userData.append(result)
+                                    
+                                    self.imageStore.append(userResult.image)
+                                    
+                                    print(result)
+                                } catch {
+                                    print(error)
+                                }
+                            }
+                        }
+                        
                     } catch {
                         print(error)
                     }
+                    
                 }
+                
+                
             }
-
+            
         }
         
     }
@@ -83,6 +111,9 @@ extension SavePageViewController:UICollectionViewDataSource,UICollectionViewDele
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as?  SavePageCollectionViewCell else {
             return UICollectionViewCell()
         }
+        
+        guard let url = URL(string: imageStore[indexPath.row]) else { return UICollectionViewCell() }
+        cell.personalImage.kf.setImage(with: url)
         cell.articleTitle.text = userData[indexPath.row].title
         cell.personalAccount.text = userData[indexPath.row].name
         cell.likeNumber.text = String(userData[indexPath.row].likeNumber)
@@ -128,21 +159,30 @@ extension SavePageViewController:UICollectionViewDataSource,UICollectionViewDele
         postVC.nameLabel = userData[indexPath.row].name
         postVC.article = userData[indexPath.row]
         postVC.urlArray = userData[indexPath.row].image
-    
-//        postVC.saveBtn = userData[indexPath.row].saveState
+        postVC.personalImage = imageStore[indexPath.row]
+        
+        //        postVC.saveBtn = userData[indexPath.row].saveState
         self.show(postVC, sender: nil)
+        
+        let article = userData[indexPath.row]
+        
+        for post in userData {
+            if article.id == post.id {
+                postVC.saveState = true
+            }
+        }
         
     }
     
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        guard let postVc = storyboard?.instantiateViewController(withIdentifier: "postVC") as? PostViewController else { return }
-//
-//        postVc.nameLabel = userData[indexPath.row].name
-//        postVc.article = userData[indexPath.row]
-//        postVc.urlArray = [userData[indexPath.row].image]
-//        postVc.personalImage = profilePhoto
-//
-//
-//    }
+    //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    //        guard let postVc = storyboard?.instantiateViewController(withIdentifier: "postVC") as? PostViewController else { return }
+    //
+    //        postVc.nameLabel = userData[indexPath.row].name
+    //        postVc.article = userData[indexPath.row]
+    //        postVc.urlArray = [userData[indexPath.row].image]
+    //        postVc.personalImage = profilePhoto
+    //
+    //
+    //    }
     
 }

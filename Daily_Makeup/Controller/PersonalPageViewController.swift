@@ -19,7 +19,7 @@ class PersonalPageViewController: UIViewController {
     
     @IBOutlet var test: UIView!
     var db: Firestore!
-    var profileArray : [Profile] = []
+    var profileData : Profile?
     var articleArray: [Article] = []
     var personalSave :[Article] = []
     var image = ""
@@ -27,6 +27,9 @@ class PersonalPageViewController: UIViewController {
     @IBOutlet var bioLabel: UILabel!
     
     @IBOutlet var userImage: UIImageView!
+
+    
+    @IBOutlet var postNumberLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +44,7 @@ class PersonalPageViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(getdata), name: Notification.Name("sharePost"), object: nil)
         
+//        postNumberLabel.text = String(articleArray.count)
         
         
        
@@ -55,7 +59,6 @@ class PersonalPageViewController: UIViewController {
         
         loadArticleData()
         
-
     }
     
     
@@ -137,9 +140,10 @@ class PersonalPageViewController: UIViewController {
             case .success(let profile):
                 if let profile = profile {
                     print("Profile: \(profile)")
+                    self.profileData = profile
                     self.bioLabel.text = profile.bio
                     self.nameLabel.text = profile.name
-                 
+                    
                     let size = "?width=400&height=400"
                     let picture = "\(profile.image + size)"
                     let url = URL(string: picture)
@@ -210,7 +214,7 @@ class PersonalPageViewController: UIViewController {
                         
                         print("\(document.documentID) => \(document.data())")
                     }
-                    
+                    self.postNumberLabel.text = "\(self.articleArray.count)"
                     self.articleCollectionView.reloadData()
 //                    self.articleCollectionView.es.stopPullToRefresh()
                 }
@@ -279,10 +283,21 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
         
         let article = articleArray[indexPath.item]
         
+        //書籤狀態
         for post in personalSave {
             if article.id == post.id {
                 postVC.saveState = true
             }
+        }
+        
+        //愛心狀態
+        guard let articleLike = profileData?.articleLike else { return }
+        for likeState in articleLike {
+            if article.id == likeState {
+                postVC.likestate = true
+            }
+                
+            
         }
     }
     

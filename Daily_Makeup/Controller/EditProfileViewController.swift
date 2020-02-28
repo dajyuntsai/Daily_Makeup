@@ -22,6 +22,7 @@ class EditProfileViewController: UIViewController {
     var editProfileBio = ""
     var uid = ""
     var editImage = ""
+    var articleLike = [""]
     var editProfileArray: [Profile] = []
     
     let userDefaults = UserDefaults.standard
@@ -87,6 +88,7 @@ class EditProfileViewController: UIViewController {
         present(imagePickerAlertController, animated: true, completion: nil)
         
     }
+    
     @IBAction func addImageBtn(_ sender: Any) {
         let imagePickerController = UIImagePickerController()
         
@@ -123,17 +125,8 @@ class EditProfileViewController: UIViewController {
     }
     
     @objc func save() {
-        
-        //        let uniqueString = NSUUID().uuidString
-        //        let storageReference = Storage.storage().reference()
-        //        let fileReference = storageReference.child(uniqueString)
-        //
-        //        if let uploadData =
-        
-        
-        
-//        guard let uid = userDefaults.string(forKey: "uid") else { return }
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+
+     guard let uid = Auth.auth().currentUser?.uid else { return }
         
         
         let document = db.collection("user").document(uid)
@@ -143,7 +136,8 @@ class EditProfileViewController: UIViewController {
             email: editProfileEmail,
             bio: editProfileBio,
             uid: uid,
-            image: editImage)
+            image: editImage,
+            articleLike: articleLike)
         
         do {
             try document.setData(from: profile, merge: true)

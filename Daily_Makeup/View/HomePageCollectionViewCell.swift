@@ -19,7 +19,7 @@ class HomePageCollectionViewCell: UICollectionViewCell {
     
     var db = Firestore.firestore()
     
-    var btnState = false
+    var likeBtnState = false
     
     var btnSelected = false
     
@@ -50,7 +50,7 @@ class HomePageCollectionViewCell: UICollectionViewCell {
         
         guard let articleManager = articleManager else { return}
         
-        if btnState {
+        if likeBtnState {
             
             likeStateBtn?(false)
             
@@ -75,7 +75,7 @@ class HomePageCollectionViewCell: UICollectionViewCell {
             
         }
         
-        btnState = !btnState
+        likeBtnState = !likeBtnState
      
     }
     

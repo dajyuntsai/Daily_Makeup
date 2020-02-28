@@ -61,11 +61,11 @@ class PostViewController: UIViewController {
         if likestate {
             
             likeBtn.setImage(UIImage(named: "heart (3)"), for: .normal)
-            
+            deleteButtonState()
         } else {
             
             likeBtn.setImage(UIImage(named: "heart (2)"), for: .normal)
-            
+            addBtuuonState()
         }
         
         likestate = !likestate
@@ -146,6 +146,10 @@ class PostViewController: UIViewController {
             saveBtn.setImage(UIImage(named:
             "bookmark (4)"), for: .normal)
         }
+        
+        if likestate {
+            likeBtn.setImage(UIImage(named: "heart (2)" ), for: .normal)
+        }
     }
     
     @objc func back() {
@@ -186,10 +190,38 @@ class PostViewController: UIViewController {
         
     }
     
+    func addBtuuonState() {
+        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        let document = db.collection("user").document(uid)
+        
+        guard let articleId = article?.id else { return }
+        
+        document.updateData(["articleLike" : FieldValue.arrayUnion([articleId])
+        ])
+   
+    }
+    
+    
+    func deleteButtonState() {
+        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        let document = db.collection("user").document(uid)
+        
+        guard let articleId = article?.id else { return }
+               
+         document.updateData(["articleLike" : FieldValue.arrayRemove([articleId])
+        ])
+        
+    }
+    
     func addData() {
         
         guard let uid = userDefaults.string(forKey: "uid"),
             let article = article else { return }
+        
         do {
             let docRef = db.collection("user").document(uid).collection("article").document(article.id)
             try docRef.setData(from: article)
@@ -202,8 +234,8 @@ class PostViewController: UIViewController {
     func deleated() {
         
         guard let uid = userDefaults.string(forKey:"uid") else { return }
-        
         guard let id = article?.id else { return }
+        
         db.collection("user").document(uid).collection("article").document(id).delete() {
             err in
             if let err = err {
