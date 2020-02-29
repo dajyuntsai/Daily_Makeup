@@ -13,6 +13,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Kingfisher
 import ESPullToRefresh
+import JGProgressHUD
 
 class HomePageViewController: UIViewController {
     
@@ -36,7 +37,7 @@ class HomePageViewController: UIViewController {
     var articleArray: [Article] = []{
         didSet{
             
-            self.article.reloadData()
+            // self.article.reloadData()
             self.article.es.stopPullToRefresh()
         }
         
@@ -64,10 +65,9 @@ class HomePageViewController: UIViewController {
         super.viewDidLoad()
         
         db = Firestore.firestore()
-        
-        
         article.delegate = self
         article.dataSource = self
+        loadData()
         
         //        refreshControl = UIRefreshControl()
         //        article.addSubview(refreshControl)
@@ -93,12 +93,12 @@ class HomePageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //        likeState = []
-        loadData()
+//        loadData()
         loadPersonalData()
         loadArticleData()
         self.article.es.addPullToRefresh {
             [unowned self] in
-            
+
             self.loadData()
         }
     }
@@ -112,61 +112,87 @@ class HomePageViewController: UIViewController {
     
     @objc func loadData(){
         
-        self.imageStore = []
-        
         self.articleArray = []
+        
+        self.imageStore = []
         //全部人的文章
+        //        let group = DispatchGroup()
+        //        group.enter()
+        
         db.collection("article").order(by: "time", descending: true).getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
                 
                 self.articleArray = []
-                
+                //                group.leave()
                 for document in querySnapshot!.documents {
                     
                     do {
                         
                         guard let result = try document.data(as: Article.self, decoder: Firestore.Decoder()) else { return }
                         print(result)
+                        self.articleArray.append(result)
                         
                         //用uid去firebase的user拿網址
                         // CRUD( READ )
-                        print(result.uid)
-                        self.db.collection("user").whereField("uid", isEqualTo: result.uid).getDocuments { (querySnapshot, err) in
-                            if let err = err {
-                                print("Error getting documents: \(err)")
-                            } else {
-                                //文章擁有者的個人資料
-                                guard let querySnapshot = querySnapshot else { return }
-                                querySnapshot.documents.forEach({ document in
-                                    
-                                    do {
-                                        guard let userResult = try document.data(as: Profile.self, decoder: Firestore.Decoder())
-                                            else { return }
-                                        self.imageStore.append(userResult.image)
-                                        self.articleArray.append(result)
-                                        print(result)
-                                    } catch {
-                                        (print(error))
-                                    }
-                                })
-                            }
-                            
-                        }
                         
                     } catch {
                         print("123")
                         print(error)
                     }
                 }
+                self.loadPersonalImage()
             }
+            
+            let hud = JGProgressHUD(style: .dark)
+                hud.textLabel.text = "loading"
+                hud.show(in: self.view)
+                hud.dismiss(afterDelay: 3.0)
+                
         }
+       
+        
     }
     
-    func apple() {
+    
+    
+    func loadPersonalImage() {
         
+        imageStore = [String](repeating: "", count: articleArray.count)
         
+        for count in 0 ..< articleArray.count {
+            print(articleArray[count].uid)
+            
+            self.db.collection("user").whereField("uid", isEqualTo: articleArray[count].uid).getDocuments { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    //文章擁有者的個人資料
+                    
+                    guard let querySnapshot = querySnapshot else { return }
+                    querySnapshot.documents.forEach({ document in
+                        
+                        do {
+                            guard let userResult = try document.data(as: Profile.self, decoder: Firestore.Decoder())
+                                else { return }
+                            
+                            
+                            self.imageStore[count] = userResult.image
+                            if count == self.articleArray.count - 1 {
+                                self.article.reloadData()
+                            }
+                            
+                            
+                        } catch {
+                            (print(error))
+                        }
+                    })
+                }
+                
+            }
+            
+        }
     }
     
     //收藏文章

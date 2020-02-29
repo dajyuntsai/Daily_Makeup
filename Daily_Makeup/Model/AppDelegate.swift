@@ -12,7 +12,7 @@ import FBSDKLoginKit
 import IQKeyboardManagerSwift
 import GoogleSignIn
 import FirebaseFirestore
-
+import JGProgressHUD
 
 @UIApplicationMain
 

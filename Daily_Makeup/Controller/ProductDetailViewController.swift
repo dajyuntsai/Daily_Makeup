@@ -67,7 +67,8 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
     
     var imageStore: [UIImage] = []
     //    var preVC: ListViewController?
-    @IBOutlet var imageOutlet: UIButton!
+    @IBOutlet var
+    imageOutlet: UIButton!
     @IBOutlet var imageView: UIImageView!
     @IBAction func addImageBtn(_ sender: UIButton) {
         
