@@ -491,8 +491,8 @@
                                         <color key="textColor" red="0.58431372550000005" green="0.31124237179999997" blue="0.18426963690000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HTI-2A-7ol">
-                                        <rect key="frame" x="222.5" y="12.5" width="70" height="25"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HTI-2A-7ol">
+                                        <rect key="frame" x="222.5" y="12.5" width="10" height="25"/>
                                         <fontDescription key="fontDescription" name="NotoSerifCJKtc-Bold" family="Noto Serif CJK TC" pointSize="17"/>
                                         <color key="textColor" red="0.58431372550000005" green="0.31124237179999997" blue="0.18426963690000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
@@ -1429,7 +1429,7 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Db4-Ts-iys">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Db4-Ts-iys">
                                 <rect key="frame" x="0.0" y="44" width="375" height="195"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sticker" translatesAutoresizingMaskIntoConstraints="NO" id="SSq-aL-4zJ">
@@ -1446,7 +1446,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Liked" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fdb-hZ-pT8">
-                                        <rect key="frame" x="180" y="150" width="44" height="22"/>
+                                        <rect key="frame" x="174.5" y="150" width="44" height="22"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1463,13 +1463,13 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="344" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T33-cd-dV1">
-                                        <rect key="frame" x="186" y="124" width="32" height="20"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T33-cd-dV1">
+                                        <rect key="frame" x="186" y="124" width="21" height="20"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="567" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AKa-Ru-zf1">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AKa-Ru-zf1">
                                         <rect key="frame" x="288" y="124" width="42" height="20"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                         <nil key="textColor"/>

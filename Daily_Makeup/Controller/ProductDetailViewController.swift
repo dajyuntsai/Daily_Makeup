@@ -130,7 +130,7 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
         productListPicker.delegate = self
         productListPicker.dataSource = self
         productDetailNote.text = productTextFieldNote
-        
+       
         //        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Cancel))
         navigationItem.title = "product detail"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(Cancel))

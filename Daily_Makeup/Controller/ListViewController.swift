@@ -270,7 +270,7 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
         productDetailVC.productExpirydate = listArray[indexPath.row].expirydate
         
         productDetailVC.productTextFieldNote = listArray[indexPath.row].note
-        
+        productDetailVC.addProductImage = listArray[indexPath.row].image[0]
         
         self.show(productDetailVC, sender: nil)
         
