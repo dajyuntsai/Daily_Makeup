@@ -64,6 +64,8 @@ class HomePageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//
+        
         db = Firestore.firestore()
         article.delegate = self
         article.dataSource = self
@@ -93,7 +95,7 @@ class HomePageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //        likeState = []
-//        loadData()
+        loadData()
         loadPersonalData()
         loadArticleData()
         self.article.es.addPullToRefresh {
@@ -145,10 +147,11 @@ class HomePageViewController: UIViewController {
                 self.loadPersonalImage()
             }
             
-            let hud = JGProgressHUD(style: .dark)
-                hud.textLabel.text = "loading"
-                hud.show(in: self.view)
-                hud.dismiss(afterDelay: 3.0)
+                
+//            let hud = JGProgressHUD(style: .dark)
+//                hud.textLabel.text = "loading"
+//                hud.show(in: self.view)
+//                hud.dismiss(afterDelay: 1.5)
                 
         }
        
@@ -160,6 +163,7 @@ class HomePageViewController: UIViewController {
     func loadPersonalImage() {
         
         imageStore = [String](repeating: "", count: articleArray.count)
+        var test: [String] = []
         
         for count in 0 ..< articleArray.count {
             print(articleArray[count].uid)
@@ -177,9 +181,9 @@ class HomePageViewController: UIViewController {
                             guard let userResult = try document.data(as: Profile.self, decoder: Firestore.Decoder())
                                 else { return }
                             
-                            
+                            test.append(userResult.image)
                             self.imageStore[count] = userResult.image
-                            if count == self.articleArray.count - 1 {
+                            if test.count == self.articleArray.count {
                                 self.article.reloadData()
                             }
                             

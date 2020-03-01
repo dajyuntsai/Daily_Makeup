@@ -56,7 +56,7 @@ class HomePageCollectionViewCell: UICollectionViewCell {
             
             likeBtn.setImage(UIImage(named: "heart (3)"),for: .normal)
             
-            likeNumber.text =  String(Int(likeNumber.text!)! - 1)
+//            likeNumber.text =  String(Int(likeNumber.text!)! - 1)
             
             
 

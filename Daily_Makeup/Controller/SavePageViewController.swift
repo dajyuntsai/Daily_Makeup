@@ -99,6 +99,9 @@ class SavePageViewController: ViewController {
     }
     
     
+    
+    
+    
 }
 
 extension SavePageViewController:UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
@@ -174,15 +177,5 @@ extension SavePageViewController:UICollectionViewDataSource,UICollectionViewDele
         
     }
     
-    //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    //        guard let postVc = storyboard?.instantiateViewController(withIdentifier: "postVC") as? PostViewController else { return }
-    //
-    //        postVc.nameLabel = userData[indexPath.row].name
-    //        postVc.article = userData[indexPath.row]
-    //        postVc.urlArray = [userData[indexPath.row].image]
-    //        postVc.personalImage = profilePhoto
-    //
-    //
-    //    }
     
 }

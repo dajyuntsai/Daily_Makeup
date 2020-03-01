@@ -178,11 +178,14 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
-//        super.viewWillAppear(animated)
-//
-//        imageOutlet.isEnabled = false
-//        imageOutlet.isHidden = true
+
+        if navigationItem.rightBarButtonItem?.title == "edit" {
+            
+            imageOutlet.isHidden = true
+        } else {
+            
+            imageOutlet.isHidden = false
+        }
     }
     
     
@@ -396,7 +399,7 @@ extension ProductDetailViewController : UIImagePickerControllerDelegate, UINavig
         let hud = JGProgressHUD(style: .dark)
         hud.textLabel.text = "Upload Image"
         hud.show(in: self.view)
-        hud.dismiss(afterDelay: 3.0)
+        hud.dismiss(afterDelay: 1.5)
         imageOutlet.isHidden = true
     }
     

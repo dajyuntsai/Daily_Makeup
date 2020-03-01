@@ -144,7 +144,7 @@ class PostViewController: UIViewController {
         
         if saveState {
             saveBtn.setImage(UIImage(named:
-            "bookmark (4)"), for: .normal)
+                "bookmark (4)"), for: .normal)
         }
         
         if likestate {
@@ -156,7 +156,10 @@ class PostViewController: UIViewController {
         navigationController?.popViewController(animated: true)
         
     }
-   
+    
+    
+    
+    
     @IBOutlet var postTableView: UITableView!
     
     @IBAction func settingsBtn(_ sender: Any) {
@@ -167,9 +170,12 @@ class PostViewController: UIViewController {
         alertcontroller.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
         let pickerEdit = UIAlertAction(title: "編輯", style: .default) { (void) in
-            print(123) }
+           
+        }
         
         let pickerdelete = UIAlertAction(title: "刪除", style: .default) { (void) in
+            
+            self.deleatedArticle()
             print(123) }
         
         alertcontroller.addAction(pickerEdit)
@@ -183,11 +189,33 @@ class PostViewController: UIViewController {
         
         present(alertcontroller, animated: true, completion: nil)
         
-        
-        
-        
-        
-        
+    }
+    
+    
+    func deleatedArticle() {
+
+    guard let articleId = article?.id else { return }
+
+        db.collection("article").document(articleId).delete { err in
+        if let err = err {
+            print("Error removing document: \(err)")
+            
+        } else {
+            print("Document successfully removed!")
+            self.navigationController?.popViewController(animated: true)
+        }
+        }
+//        delete() {
+//            err in
+//            if let err = err {
+//                print("Error removing document: \(err)")
+//            } else {
+//                print("Document successfully removed!")
+//            }
+//        }
+
+
+
     }
     
     func addBtuuonState() {
@@ -200,7 +228,7 @@ class PostViewController: UIViewController {
         
         document.updateData(["articleLike" : FieldValue.arrayUnion([articleId])
         ])
-   
+        
     }
     
     
@@ -211,8 +239,8 @@ class PostViewController: UIViewController {
         let document = db.collection("user").document(uid)
         
         guard let articleId = article?.id else { return }
-               
-         document.updateData(["articleLike" : FieldValue.arrayRemove([articleId])
+        
+        document.updateData(["articleLike" : FieldValue.arrayRemove([articleId])
         ])
         
     }

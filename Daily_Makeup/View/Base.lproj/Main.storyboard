@@ -781,10 +781,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LB6-mU-dml">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LB6-mU-dml">
                                 <rect key="frame" x="16" y="74" width="343" height="115"/>
-                                <color key="backgroundColor" red="0.83529411760000005" green="0.56862745100000001" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="Lips" image="lips 300">
+                                <color key="backgroundColor" red="0.81176668405532837" green="0.76485282182693481" blue="0.69805192947387695" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="lips 300">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -796,11 +796,11 @@
                                     <action selector="lipsBtn:" destination="cRH-qb-ZG4" eventType="touchUpInside" id="cw7-TR-VfU"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YX1-dv-YHA">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YX1-dv-YHA">
                                 <rect key="frame" x="16" y="209" width="343" height="114.5"/>
-                                <color key="backgroundColor" red="0.71372549019999998" green="0.66274509800000003" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.84334802627563477" green="0.72961205244064331" blue="0.65495431423187256" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.83529411760000005" green="0.56862745100000001" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="palette" image="palette 300">
+                                <state key="normal" image="palette 300">
                                     <color key="titleColor" red="0.96792501210000004" green="0.96143740420000001" blue="0.90587490800000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -812,10 +812,10 @@
                                     <action selector="paletteBtn:" destination="cRH-qb-ZG4" eventType="touchUpInside" id="64j-Yw-yzZ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ueb-iW-M4Z">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ueb-iW-M4Z">
                                 <rect key="frame" x="16" y="343.5" width="343" height="115"/>
-                                <color key="backgroundColor" red="0.83529411760000005" green="0.56862745100000001" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="Blusher" image="blusher 300">
+                                <color key="backgroundColor" red="0.67817479372024536" green="0.6825215220451355" blue="0.56871193647384644" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="blusher 300">
                                     <color key="titleColor" red="0.96792501210000004" green="0.96143740420000001" blue="0.90587490800000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -827,11 +827,11 @@
                                     <action selector="blusherBtn:" destination="cRH-qb-ZG4" eventType="touchUpInside" id="PHm-w2-T6o"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NWs-2H-RgF">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NWs-2H-RgF">
                                 <rect key="frame" x="16" y="478.5" width="343" height="114.5"/>
-                                <color key="backgroundColor" red="0.71372549019999998" green="0.66274509800000003" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.16471022367477417" green="0.17252257466316223" blue="0.19210246205329895" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.83529411760000005" green="0.56862745100000001" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="Others" image="others 300">
+                                <state key="normal" image="others 300">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
