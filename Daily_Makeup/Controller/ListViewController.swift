@@ -97,7 +97,7 @@ class ListViewController: UIViewController {
 //        }
 //    }
     
-    
+    //拿產品資訊
     func productList() {
         //category跟list一樣的名字就能找到對應的list
         db.collection("ProductDetail").whereField("category", isEqualTo: list)

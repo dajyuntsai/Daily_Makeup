@@ -145,7 +145,8 @@ class PersonalPageViewController: UIViewController {
                     self.nameLabel.text = profile.name
                     
                     let size = "?width=400&height=400"
-                    let picture = "\(profile.image + size)"
+                    guard let profileImage = profile.image else { return }
+                    let picture = "\(profileImage + size)"
                     let url = URL(string: picture)
                     self.image = picture
                     self.userImage.kf.setImage(with: url)
@@ -266,7 +267,7 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
     
     //最旁邊間距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 12, left: 12, bottom: 0, right: 12)
+        return UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

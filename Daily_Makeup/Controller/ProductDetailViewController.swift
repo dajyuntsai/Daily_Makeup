@@ -44,7 +44,7 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
     var productDocumentID = ""
     var productDetailCategory = ""
     var addProductImage = ""
-    
+    let userDefaults = UserDefaults.standard
     
     
     var openDatepicker = UIDatePicker()
@@ -207,13 +207,15 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
     
     //若沒有Id表示要新增資料，若有Id表示是編輯
     @objc func save() {
-//        self.productDetailTableView.es.addPullToRefresh { [unowned self] in
-//
-//        }
+
         if productDocumentID == "" {
             do {
                 
                 let document = db.collection("ProductDetail").document()
+                
+                guard let uid = self.userDefaults.string(forKey: "uid") else {
+                    return
+                }
                 
                 let product = Product (
                     title: productDetailTitle,
@@ -224,7 +226,9 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
                     note: productDetailNote.text,
                     id:  document.documentID,
                     category: productDetailCategory,
-                    image: [addProductImage])
+                    image: [addProductImage],
+                    uid: uid
+                )
                 
                 try document.setData(from: product)
             } catch {
@@ -255,7 +259,10 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
                 textFieldEditable = false
                 imageOutlet.isHidden = true
                 productDetailTableView.reloadData()
+                
                 let document = db.collection("ProductDetail").document(productDocumentID)
+                
+                guard let uid = self.userDefaults.string(forKey: "uid") else { return }
                 
                 let product = Product (
                     title: productDetailTitle,
@@ -266,7 +273,8 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
                     note: productDetailNote.text,
                     id:  document.documentID,
                     category: productDetailCategory,
-                    image: [addProductImage])
+                    image: [addProductImage],
+                    uid: uid)
                 
                 do {
                     try document.setData(from: product, merge: true)

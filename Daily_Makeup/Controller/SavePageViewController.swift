@@ -75,8 +75,8 @@ class SavePageViewController: ViewController {
                                         else { return }
                                         
                                     self.userData.append(result)
-                                    
-                                    self.imageStore.append(userResult.image)
+                                    guard let userImage = userResult.image else { return }
+                                    self.imageStore.append(userImage)
                                     
                                     print(result)
                                 } catch {
@@ -151,7 +151,7 @@ extension SavePageViewController:UICollectionViewDataSource,UICollectionViewDele
     
     //最旁邊間距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 12, left: 12, bottom: 0, right: 12)
+        return UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
     }
     
     

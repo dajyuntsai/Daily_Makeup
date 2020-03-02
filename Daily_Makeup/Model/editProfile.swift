@@ -18,8 +18,8 @@ struct Profile: Codable {
     
     let uid: String
     
-    let image: String
+    let image: String?
     
-    let articleLike: [String]
+    let articleLike: [String]?
 }
 

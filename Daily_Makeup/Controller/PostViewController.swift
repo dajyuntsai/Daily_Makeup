@@ -153,6 +153,8 @@ class PostViewController: UIViewController {
     }
     
     @objc func back() {
+        let homepage = navigationController?.viewControllers[0] as? HomePageViewController
+        homepage?.getAllArticle()
         navigationController?.popViewController(animated: true)
         
     }
@@ -202,6 +204,8 @@ class PostViewController: UIViewController {
             
         } else {
             print("Document successfully removed!")
+            let homepage = self.navigationController?.viewControllers[0] as? HomePageViewController
+            homepage?.getAllArticle()
             self.navigationController?.popViewController(animated: true)
         }
         }

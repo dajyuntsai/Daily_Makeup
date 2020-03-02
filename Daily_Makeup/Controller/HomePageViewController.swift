@@ -64,13 +64,13 @@ class HomePageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//
+        //
         
         db = Firestore.firestore()
         article.delegate = self
         article.dataSource = self
-        loadData()
-        
+//        loadData()
+        getAllArticle()
         //        refreshControl = UIRefreshControl()
         //        article.addSubview(refreshControl)
         //        refreshControl.addTarget(self, action: #selector(loadData), for: UIControl.Event.valueChanged)
@@ -95,12 +95,12 @@ class HomePageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //        likeState = []
-        loadData()
+        //        loadData()
         loadPersonalData()
         loadArticleData()
         self.article.es.addPullToRefresh {
             [unowned self] in
-
+            
             self.loadData()
         }
     }
@@ -117,9 +117,20 @@ class HomePageViewController: UIViewController {
         self.articleArray = []
         
         self.imageStore = []
+       
+        getAllArticle()
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "loading"
+        hud.show(in: self.view)
+        hud.dismiss(afterDelay: 1.5)
+    }
+    
+    func getAllArticle() {
+        self.articleArray = []
+        
+        self.imageStore = []
+        
         //全部人的文章
-        //        let group = DispatchGroup()
-        //        group.enter()
         
         db.collection("article").order(by: "time", descending: true).getDocuments() { (querySnapshot, err) in
             if let err = err {
@@ -147,18 +158,9 @@ class HomePageViewController: UIViewController {
                 self.loadPersonalImage()
             }
             
-                
-//            let hud = JGProgressHUD(style: .dark)
-//                hud.textLabel.text = "loading"
-//                hud.show(in: self.view)
-//                hud.dismiss(afterDelay: 1.5)
-                
         }
-       
         
     }
-    
-    
     
     func loadPersonalImage() {
         
@@ -180,9 +182,9 @@ class HomePageViewController: UIViewController {
                         do {
                             guard let userResult = try document.data(as: Profile.self, decoder: Firestore.Decoder())
                                 else { return }
-                            
-                            test.append(userResult.image)
-                            self.imageStore[count] = userResult.image
+                            guard let userImage = userResult.image else { return }
+                            test.append(userImage)
+                            self.imageStore[count] = userImage
                             if test.count == self.articleArray.count {
                                 self.article.reloadData()
                             }
@@ -295,7 +297,7 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         cell1.personalImage.kf.setImage(with: url)
         cell1.articleTitle.text = container[indexPath.row].title
         cell1.personalAccount.text = container[indexPath.row].name
-        cell1.articleImage.kf.setImage(with: URL(string: articleArray[indexPath.row].image[0]))
+        cell1.articleImage.kf.setImage(with: URL(string: container[indexPath.row].image[0]))
         cell1.articleManager = articleArray[indexPath.row]
         
         //        for count in 0 ..< user.articleLike.count {
@@ -342,7 +344,7 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
     
     //最旁邊間距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
+        return UIEdgeInsets(top: 6, left: 12, bottom: 6, right: 12)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

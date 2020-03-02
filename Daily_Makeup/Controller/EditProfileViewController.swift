@@ -170,7 +170,11 @@ class EditProfileViewController: UIViewController {
                     self.editProfileName = editProfile.name
                     self.editProfileEmail = editProfile.email
                     self.editProfileBio = editProfile.bio ?? ""
-                    self.editImage = editProfile.image
+                   
+                    if let editImage = editProfile.image {
+                        self.editImage = editImage
+                    }
+                    
                     
                     self.profileTableView.reloadData()
                 } else {

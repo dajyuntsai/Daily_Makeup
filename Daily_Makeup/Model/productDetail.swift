@@ -28,6 +28,8 @@ struct Product: Codable {
     
     let image: [String]
     
+    let uid: String
+    
 //    let image: String
 //
 }

@@ -121,17 +121,11 @@ class EditArticleViewController: UIViewController{
         
     }
     
-    func apple() {
-        
-    }
-    
     @objc func cancel() {
         
         dismiss(animated: false, completion: nil)
     }
-    
-    
-    
+  
     @IBOutlet var imageCollectionView: UICollectionView!
     
     
