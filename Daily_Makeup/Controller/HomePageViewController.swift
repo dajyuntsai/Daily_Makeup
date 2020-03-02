@@ -34,14 +34,15 @@ class HomePageViewController: UIViewController {
     var saveArticle: [Article] = []
     //    var likeState: [Bool] = []
     
-    var articleArray: [Article] = []{
-        didSet{
-            
-            // self.article.reloadData()
-            self.article.es.stopPullToRefresh()
-        }
-        
-    }
+    var articleArray: [Article] = []
+//    {
+//        didSet{
+//
+//            self.article.reloadData()
+//            self.article.es.stopPullToRefresh()
+//        }
+//
+//    }
     
     var filterArray : [Article] = []{
         didSet{
@@ -146,15 +147,15 @@ class HomePageViewController: UIViewController {
                         guard let result = try document.data(as: Article.self, decoder: Firestore.Decoder()) else { return }
                         print(result)
                         self.articleArray.append(result)
-                        
                         //用uid去firebase的user拿網址
                         // CRUD( READ )
-                        
+//                        self.loadPersonalImage()
                     } catch {
                         print("123")
                         print(error)
                     }
                 }
+                
                 self.loadPersonalImage()
             }
             
@@ -186,6 +187,7 @@ class HomePageViewController: UIViewController {
                             test.append(userImage)
                             self.imageStore[count] = userImage
                             if test.count == self.articleArray.count {
+                                
                                 self.article.reloadData()
                             }
                             
@@ -280,7 +282,8 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "cell1", for: indexPath) as? HomePageCollectionViewCell else { return UICollectionViewCell()
+        guard let cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "cell1", for: indexPath) as? HomePageCollectionViewCell else {
+            return UICollectionViewCell()
         }
         
         var container : [Article] = []
@@ -290,28 +293,26 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
             container = articleArray
         }
         
-        guard let url = URL(string: imageStore[indexPath.row])
+        if imageStore[indexPath.item].isEmpty {
+            
+            cell1.personalImage.image = UIImage(named: "sticker")
+            
+        } else {
+            
+            guard let url = URL(string: imageStore[indexPath.row])
             //              let user = profileDeta
-            else { return UICollectionViewCell() }
+            else {
+                return UICollectionViewCell() }
+            
+             cell1.personalImage.kf.setImage(with: url)
+            
+        }
         
-        cell1.personalImage.kf.setImage(with: url)
+//
         cell1.articleTitle.text = container[indexPath.row].title
         cell1.personalAccount.text = container[indexPath.row].name
         cell1.articleImage.kf.setImage(with: URL(string: container[indexPath.row].image[0]))
         cell1.articleManager = articleArray[indexPath.row]
-        
-        //        for count in 0 ..< user.articleLike.count {
-        //            if articleArray[indexPath.row].id == user.articleLike[count] {
-        //                print("true")
-        //                cell1.likeBtnState = true
-        //                cell1.likeBtn.setImage(UIImage(named: "heart (2)"),for: .normal)
-        //            } else {
-        //                print("fasle")
-        //                cell1.likeBtnState = false
-        //                cell1.likeBtn.setImage(UIImage(named: "heart (3)"),for: .normal)
-        //            }
-        //        }
-        
         
         cell1.likeNumber.text = String(articleArray[indexPath.row].likeNumber)
         cell1.littleView.layer.borderWidth = 0.5

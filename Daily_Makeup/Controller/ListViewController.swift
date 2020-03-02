@@ -19,6 +19,7 @@ class ListViewController: UIViewController {
     
     var list = ""
     var listImage = ""
+    let userDefaults = UserDefaults.standard
    
     var listArray = [Product]() {
         didSet{
@@ -113,8 +114,13 @@ class ListViewController: UIViewController {
                             
                             guard let result = try document.data(as: Product.self, decoder: Firestore.Decoder()) else { return }
                             
-                            self.listArray.append(result)
-                           
+                            guard let uid = self.userDefaults.string(forKey: "uid") else {
+                            return }
+                            
+                            if result.uid == uid {
+                                self.listArray.append(result)
+                            }
+//
                         } catch {
                             
                             print(error)
