@@ -20,7 +20,7 @@ class ListViewController: UIViewController {
     var list = ""
     var listImage = ""
     let userDefaults = UserDefaults.standard
-   
+    
     var listArray = [Product]() {
         didSet{
             if listArray.isEmpty {
@@ -76,27 +76,27 @@ class ListViewController: UIViewController {
     
     let search = UISearchController(searchResultsController: nil )
     
-//    func loadData() {
-//        db.collection("ProductDetail").getDocuments() { (querySnapshot, err) in
-//            if let err = err {
-//                print("Error getting documents: \(err)")
-//            } else {
-//                self.listArray = []
-//                for document in querySnapshot!.documents {
-//
-//                    do {
-//                        guard let result = try document.data(as: Product.self, decoder: Firestore.Decoder()) else { return }
-//                        print(result)
-//
-//                        self.listArray.append(result)
-//                    } catch {
-//                        print(error)
-//                    }
-//
-//                }
-//            }
-//        }
-//    }
+    //    func loadData() {
+    //        db.collection("ProductDetail").getDocuments() { (querySnapshot, err) in
+    //            if let err = err {
+    //                print("Error getting documents: \(err)")
+    //            } else {
+    //                self.listArray = []
+    //                for document in querySnapshot!.documents {
+    //
+    //                    do {
+    //                        guard let result = try document.data(as: Product.self, decoder: Firestore.Decoder()) else { return }
+    //                        print(result)
+    //
+    //                        self.listArray.append(result)
+    //                    } catch {
+    //                        print(error)
+    //                    }
+    //
+    //                }
+    //            }
+    //        }
+    //    }
     
     //拿產品資訊
     func productList() {
@@ -115,12 +115,12 @@ class ListViewController: UIViewController {
                             guard let result = try document.data(as: Product.self, decoder: Firestore.Decoder()) else { return }
                             
                             guard let uid = self.userDefaults.string(forKey: "uid") else {
-                            return }
+                                return }
                             
                             if result.uid == uid {
                                 self.listArray.append(result)
                             }
-//
+                            //
                         } catch {
                             
                             print(error)
@@ -173,16 +173,30 @@ class ListViewController: UIViewController {
     }
     
     @objc func add() {
-        guard let addProductVC = storyboard?.instantiateViewController(withIdentifier: "addProduct") as? ProductDetailViewController else {
+        
+        if self.userDefaults.string(forKey: "uid") == nil {
+            let controller = UIAlertController(title: "溫馨小提示", message: "登入帳號才能新增產品喔！", preferredStyle: .alert)
             
-            return
+            let okAction = UIAlertAction(title: "ok", style: .default, handler: nil)
+            
+            controller.addAction(okAction)
+            
+            present(controller, animated: true, completion: nil)
+            
+        } else {
+            guard let addProductVC = storyboard?.instantiateViewController(withIdentifier: "addProduct") as? ProductDetailViewController else {
+                
+                return
+            }
+            self.show(addProductVC, sender: nil)
+            
         }
-        self.show(addProductVC, sender: nil)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        loadData()
+        //        loadData()
         productList()
     }
     
@@ -261,10 +275,10 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         guard let productDetailVC = storyboard?.instantiateViewController(withIdentifier: "addProduct") as? ProductDetailViewController else   { return }
-
+        
         productDetailVC.productDocumentID = listArray[indexPath.row].id
         productDetailVC.loadViewIfNeeded()
-       
+        
         let url = URL(string: listArray[indexPath.row].image[0])
         
         productDetailVC.productImage.kf.setImage(with: url)

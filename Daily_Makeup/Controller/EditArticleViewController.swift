@@ -71,7 +71,7 @@ class EditArticleViewController: UIViewController{
                     
                     guard let imageUrl = url else { return }
                     self.personalImage = "\(imageUrl)"
-            
+                    
                     
                     guard let uid = self.userDefaults.string(forKey: "uid") else {
                         return }
@@ -108,7 +108,7 @@ class EditArticleViewController: UIViewController{
                     
                     NotificationCenter.default.post(name:Notification.Name("sharePost"), object: nil)
                     self.dismiss(animated: false, completion: nil)
-
+                    
                 }
             }
             
@@ -125,7 +125,7 @@ class EditArticleViewController: UIViewController{
         
         dismiss(animated: false, completion: nil)
     }
-  
+    
     @IBOutlet var imageCollectionView: UICollectionView!
     
     

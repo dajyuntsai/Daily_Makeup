@@ -73,7 +73,7 @@ class SavePageViewController: ViewController {
                                 do {
                                     guard let userResult = try querySnapshot.documents[0].data(as: Profile.self, decoder: Firestore.Decoder())
                                         else { return }
-                                        
+                                    
                                     self.userData.append(result)
                                     guard let userImage = userResult.image else { return }
                                     self.imageStore.append(userImage)

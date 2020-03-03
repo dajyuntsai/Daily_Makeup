@@ -130,7 +130,7 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
         productListPicker.delegate = self
         productListPicker.dataSource = self
         productDetailNote.text = productTextFieldNote
-       
+        
         //        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Cancel))
         navigationItem.title = "product detail"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(Cancel))
@@ -141,7 +141,7 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
         navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
         
         
-    
+        
         
         
         showDateFormatter.dateFormat = "yyyy-MM-dd"
@@ -168,7 +168,7 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
             productDetailNote.isEditable = false
             imageOutlet.isEnabled = false
             
-
+            
         }
         
         guard let url = URL(string: addProductImage) else { return }
@@ -178,7 +178,7 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
     }
     
     override func viewWillAppear(_ animated: Bool) {
-
+        
         if navigationItem.rightBarButtonItem?.title == "edit" {
             
             imageOutlet.isHidden = true
@@ -207,7 +207,7 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
     
     //若沒有Id表示要新增資料，若有Id表示是編輯
     @objc func save() {
-
+        
         if productDocumentID == "" {
             do {
                 
@@ -306,9 +306,9 @@ extension ProductDetailViewController:UITableViewDelegate,UITableViewDataSource 
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ProductDetailTableViewCell else { return UITableViewCell() }
         
         cell.ProdectDetailLabel.text = productDetail[indexPath.row]
-//        productImage.layer.cornerRadius = UIScreen.main.bounds.width / 40
-//        productImage.layer.maskedCorners = [.layerMinXMaxYCorner]
-//
+        //        productImage.layer.cornerRadius = UIScreen.main.bounds.width / 40
+        //        productImage.layer.maskedCorners = [.layerMinXMaxYCorner]
+        //
         cell.productDetailTextField.isEnabled = textFieldEditable
         
         

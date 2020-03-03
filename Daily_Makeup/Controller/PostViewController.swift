@@ -74,21 +74,35 @@ class PostViewController: UIViewController {
     
     @IBAction func saveBtn(_ sender: Any) {
         
-        if saveState {
-            //disselecet(button)
-            saveBtn.setImage(UIImage(named:
-                "bookmark (5)"), for: .normal)
-            deleated()
+        if self.userDefaults.string(forKey: "uid") == nil {
+            
+            let controller = UIAlertController(title: "溫馨小提示", message: "登入帳號才能收藏喔！", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "ok", style: .default, handler: nil)
+            
+            controller.addAction(okAction)
+            
+            present(controller, animated: true, completion: nil)
             
         } else {
-            //selecet(button)
-            saveBtn.setImage(UIImage(named:
-                "bookmark (4)"), for: .normal)
-            addData()
+            if saveState {
+                //disselecet(button)
+                saveBtn.setImage(UIImage(named:
+                    "bookmark (5)"), for: .normal)
+                deleated()
+                
+            } else {
+                //selecet(button)
+                saveBtn.setImage(UIImage(named:
+                    "bookmark (4)"), for: .normal)
+                addData()
+            }
+            
+            saveState = !saveState
+            
         }
         
-        saveState = !saveState
-        //
+        
         
         
     }
@@ -172,7 +186,7 @@ class PostViewController: UIViewController {
         alertcontroller.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
         let pickerEdit = UIAlertAction(title: "編輯", style: .default) { (void) in
-           
+            
         }
         
         let pickerdelete = UIAlertAction(title: "刪除", style: .default) { (void) in
@@ -195,31 +209,31 @@ class PostViewController: UIViewController {
     
     
     func deleatedArticle() {
-
-    guard let articleId = article?.id else { return }
-
+        
+        guard let articleId = article?.id else { return }
+        
         db.collection("article").document(articleId).delete { err in
-        if let err = err {
-            print("Error removing document: \(err)")
-            
-        } else {
-            print("Document successfully removed!")
-            let homepage = self.navigationController?.viewControllers[0] as? HomePageViewController
-            homepage?.getAllArticle()
-            self.navigationController?.popViewController(animated: true)
+            if let err = err {
+                print("Error removing document: \(err)")
+                
+            } else {
+                print("Document successfully removed!")
+                let homepage = self.navigationController?.viewControllers[0] as? HomePageViewController
+                homepage?.getAllArticle()
+                self.navigationController?.popViewController(animated: true)
+            }
         }
-        }
-//        delete() {
-//            err in
-//            if let err = err {
-//                print("Error removing document: \(err)")
-//            } else {
-//                print("Document successfully removed!")
-//            }
-//        }
-
-
-
+        //        delete() {
+        //            err in
+        //            if let err = err {
+        //                print("Error removing document: \(err)")
+        //            } else {
+        //                print("Document successfully removed!")
+        //            }
+        //        }
+        
+        
+        
     }
     
     func addBtuuonState() {

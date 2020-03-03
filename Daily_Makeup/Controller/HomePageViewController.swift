@@ -35,14 +35,14 @@ class HomePageViewController: UIViewController {
     //    var likeState: [Bool] = []
     
     var articleArray: [Article] = []
-//    {
-//        didSet{
-//
-//            self.article.reloadData()
-//            self.article.es.stopPullToRefresh()
-//        }
-//
-//    }
+    //    {
+    //        didSet{
+    //
+    //            self.article.reloadData()
+    //            self.article.es.stopPullToRefresh()
+    //        }
+    //
+    //    }
     
     var filterArray : [Article] = []{
         didSet{
@@ -70,7 +70,7 @@ class HomePageViewController: UIViewController {
         db = Firestore.firestore()
         article.delegate = self
         article.dataSource = self
-//        loadData()
+        //        loadData()
         getAllArticle()
         //        refreshControl = UIRefreshControl()
         //        article.addSubview(refreshControl)
@@ -118,7 +118,7 @@ class HomePageViewController: UIViewController {
         self.articleArray = []
         
         self.imageStore = []
-       
+        
         getAllArticle()
         let hud = JGProgressHUD(style: .dark)
         hud.textLabel.text = "loading"
@@ -149,7 +149,7 @@ class HomePageViewController: UIViewController {
                         self.articleArray.append(result)
                         //用uid去firebase的user拿網址
                         // CRUD( READ )
-//                        self.loadPersonalImage()
+                        //                        self.loadPersonalImage()
                     } catch {
                         print("123")
                         print(error)
@@ -190,7 +190,7 @@ class HomePageViewController: UIViewController {
                                 
                                 self.article.reloadData()
                             }
-                            
+                            self.article.es.stopPullToRefresh()
                             
                         } catch {
                             (print(error))
@@ -295,20 +295,20 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         
         if imageStore[indexPath.item].isEmpty {
             
-            cell1.personalImage.image = UIImage(named: "sticker")
+            cell1.personalImage.image = UIImage(named: "S__33742968")
             
         } else {
             
             guard let url = URL(string: imageStore[indexPath.row])
-            //              let user = profileDeta
-            else {
-                return UICollectionViewCell() }
+                //              let user = profileDeta
+                else {
+                    return UICollectionViewCell() }
             
-             cell1.personalImage.kf.setImage(with: url)
+            cell1.personalImage.kf.setImage(with: url)
             
         }
         
-//
+        //
         cell1.articleTitle.text = container[indexPath.row].title
         cell1.personalAccount.text = container[indexPath.row].name
         cell1.articleImage.kf.setImage(with: URL(string: container[indexPath.row].image[0]))

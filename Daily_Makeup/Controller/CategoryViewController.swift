@@ -23,7 +23,7 @@ class CategoryViewController: UIViewController {
     var db:Firestore!
     var productArray: [Product] = []
     
-
+    
     
     @IBAction func lipsBtn(_ sender: UIButton) {
         

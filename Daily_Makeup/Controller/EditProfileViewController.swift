@@ -125,8 +125,8 @@ class EditProfileViewController: UIViewController {
     }
     
     @objc func save() {
-
-     guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
         
         
         let document = db.collection("user").document(uid)
@@ -170,7 +170,7 @@ class EditProfileViewController: UIViewController {
                     self.editProfileName = editProfile.name
                     self.editProfileEmail = editProfile.email
                     self.editProfileBio = editProfile.bio ?? ""
-                   
+                    
                     if let editImage = editProfile.image {
                         self.editImage = editImage
                     }
@@ -273,11 +273,11 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
             task.resume()
             
             
-
+            
             dismiss(animated: true, completion: nil)
-        
+            
         }
-
+        
     }
 }
 

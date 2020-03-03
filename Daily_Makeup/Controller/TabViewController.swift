@@ -54,10 +54,10 @@ class TabViewController: UITabBarController, UITabBarControllerDelegate {
                 let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (Void) in
                     
                     
-                           
+                    
                     imagePickerAlertController.dismiss(animated: true, completion: nil)
                 }
-                       
+                
                 cancelAction.setValue(UIColor(red: 208/255 , green:129/255 , blue: 129/255, alpha: 1),forKey: "titleTextColor")
                 imagePickerAlertController.addAction(imageFromLibAction)
                 imagePickerAlertController.addAction(cancelAction)
@@ -83,31 +83,26 @@ extension TabViewController: UIImagePickerControllerDelegate,UINavigationControl
         
         var selectedImageFromPicker: UIImage?
         
-        // 取得從 UIImagePickerController 選擇的檔案
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             
             selectedImageFromPicker = pickedImage
         }
         
-        // 可以自動產生一組獨一無二的 ID 號碼，方便等一下上傳圖片的命名
-//        let uniqueString = NSUUID().uuidString
-
-        // 當判斷有 selectedImage 時，我們會在 if 判斷式裡將圖片上傳
+        
         if let selectedImage = selectedImageFromPicker {
             
-            //            profileImage.image = selectedImage
             dismiss(animated: true, completion: {
                 
                 guard let showArticleVC = self.storyboard?.instantiateViewController(withIdentifier: "showArticle") as? UINavigationController, let vc = showArticleVC.viewControllers.first as? EditArticleViewController else {
                     
                     return
                 }
-            
+                
                 
                 guard let selectedImageFromPicker = selectedImageFromPicker else { return }
                 vc.imageStore.append(selectedImageFromPicker)
                 showArticleVC.modalPresentationStyle = .overFullScreen
-
+                
                 self.show(showArticleVC, sender: nil)
             })
             

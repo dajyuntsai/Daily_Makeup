@@ -102,6 +102,7 @@
 		5C78699E23E1F91C007A94A1 /* SavePageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePageCollectionViewCell.swift; sourceTree = "<group>"; };
 		5CBA45B923F7E3B000DC32A8 /* article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = article.swift; sourceTree = "<group>"; };
 		5CBE793B240B87C600D8735E /* JGProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGProgressHUD.swift; sourceTree = "<group>"; };
+		5CBE793D240D48C500D8735E /* Daily_Makeup.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Daily_Makeup.entitlements; sourceTree = "<group>"; };
 		5CC4651123E84C2F00424243 /* SinginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinginViewController.swift; sourceTree = "<group>"; };
 		5CF684C823E2B75800F3C363 /* PersonalPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalPageViewController.swift; sourceTree = "<group>"; };
 		5CF684CA23E2B78E00F3C363 /* PersonalPageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalPageCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -157,6 +158,7 @@
 		5C57F34523DC46E00010A672 /* Daily_Makeup */ = {
 			isa = PBXGroup;
 			children = (
+				5CBE793D240D48C500D8735E /* Daily_Makeup.entitlements */,
 				5C57F35123DC46E20010A672 /* LaunchScreen.storyboard */,
 				5C57F35423DC46E20010A672 /* Info.plist */,
 				5C67C5C823ED79A000534D44 /* GoogleService-Info.plist */,
@@ -565,6 +567,7 @@
 			baseConfigurationReference = 1EDBDCB2B2DABF2EAF0B4A64 /* Pods-Daily_Makeup.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Daily_Makeup/Daily_Makeup.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6LAT54CJSN;
@@ -587,6 +590,7 @@
 			baseConfigurationReference = ADEE0E7F3CACC3135BD337BF /* Pods-Daily_Makeup.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Daily_Makeup/Daily_Makeup.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6LAT54CJSN;

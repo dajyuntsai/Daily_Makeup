@@ -27,7 +27,7 @@ class PersonalPageViewController: UIViewController {
     @IBOutlet var bioLabel: UILabel!
     
     @IBOutlet var userImage: UIImageView!
-
+    
     
     @IBOutlet var postNumberLabel: UILabel!
     
@@ -44,10 +44,10 @@ class PersonalPageViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(getdata), name: Notification.Name("sharePost"), object: nil)
         
-//        postNumberLabel.text = String(articleArray.count)
+        //        postNumberLabel.text = String(articleArray.count)
         
         
-       
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -94,11 +94,11 @@ class PersonalPageViewController: UIViewController {
                 
             }
             guard let home = self.storyboard?.instantiateViewController(withIdentifier: "singinVC") as? SinginViewController else { return }
-        
-        self.view.window?.rootViewController = home
-                   
-                   
-                   
+            
+            self.view.window?.rootViewController = home
+            
+            
+            
             
         }
         
@@ -106,7 +106,7 @@ class PersonalPageViewController: UIViewController {
         
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         
-       
+        
         cancelAction.setValue(UIColor(red: 208/255 , green:141/255 , blue: 125/255, alpha: 1),forKey: "titleTextColor")
         alertcontroller.addAction(cancelAction)
         
@@ -166,9 +166,9 @@ class PersonalPageViewController: UIViewController {
         guard let uid = userDefaults.string(forKey: "uid") else { return }
         
         db.collection("user").document(uid).collection("article").getDocuments() {
-        
+            
             (querySnapshot, err) in
-
+            
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
@@ -184,7 +184,7 @@ class PersonalPageViewController: UIViewController {
                     }
                 }
             }
-
+            
         }
         
     }
@@ -217,7 +217,7 @@ class PersonalPageViewController: UIViewController {
                     }
                     self.postNumberLabel.text = "\(self.articleArray.count)"
                     self.articleCollectionView.reloadData()
-//                    self.articleCollectionView.es.stopPullToRefresh()
+                    //                    self.articleCollectionView.es.stopPullToRefresh()
                 }
         }
         
@@ -279,7 +279,7 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
         postVC.article = articleArray[indexPath.row]
         postVC.urlArray = articleArray[indexPath.row].image
         postVC.personalImage = image
-    
+        
         navigationController?.pushViewController(postVC, animated: true)
         
         let article = articleArray[indexPath.item]
@@ -297,7 +297,7 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
             if article.id == likeState {
                 postVC.likestate = true
             }
-                
+            
             
         }
     }
