@@ -36,12 +36,18 @@ class SavePageViewController: ViewController {
         articleSave.delegate = self
         articleSave.dataSource = self
         
+        if userData.count != 0 {
+            notyetSaveLabel.isHidden = true
+        }
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         loadArticleData()
     }
     
+    @IBOutlet var notyetSaveLabel: UILabel!
     @IBOutlet var articleSave: UICollectionView!
     
     func loadArticleData() {

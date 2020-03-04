@@ -1183,6 +1183,13 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
+                                <label key="backgroundView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="尚未收藏文章喔！" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Kwt-qW-g2z">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="9fD-F9-VDg" customClass="SavePageCollectionViewCell" customModule="Daily_Makeup" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="185" height="300"/>
@@ -1298,6 +1305,7 @@
                     <navigationItem key="navigationItem" title="Save" id="Daz-rJ-Gmh"/>
                     <connections>
                         <outlet property="articleSave" destination="VfF-GT-vnY" id="k5E-2b-8bL"/>
+                        <outlet property="notyetSaveLabel" destination="Kwt-qW-g2z" id="689-Gy-VMw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k3u-9Z-RLh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1321,6 +1329,13 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
+                                <label key="backgroundView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="尚未發布過文章喔！" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Hv4-HL-2eo">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="6p2-eh-VH4" customClass="PersonalPageCollectionViewCell" customModule="Daily_Makeup" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="185" height="200"/>
@@ -1482,6 +1497,7 @@
                         <outlet property="bioLabel" destination="J8b-8f-0cp" id="Z1p-hZ-Pb6"/>
                         <outlet property="editBtn" destination="eTf-YF-hbI" id="qE5-kp-WU1"/>
                         <outlet property="nameLabel" destination="gwx-mi-m6F" id="xB2-X3-W3c"/>
+                        <outlet property="notyetPostLabel" destination="Hv4-HL-2eo" id="3Nq-6T-ZJn"/>
                         <outlet property="postNumberLabel" destination="PmX-9B-hrV" id="IdB-Qk-TCC"/>
                         <outlet property="test" destination="Db4-Ts-iys" id="UEh-tB-3Ic"/>
                         <outlet property="topConstraint" destination="QhC-Qr-1aC" id="3Ia-XO-Azf"/>

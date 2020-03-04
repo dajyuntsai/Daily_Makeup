@@ -31,13 +31,16 @@ class PersonalPageViewController: UIViewController {
     
     @IBOutlet var postNumberLabel: UILabel!
     
+    @IBOutlet var notyetPostLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         if userDefaults.string(forKey: "uid") == nil {
             nameLabel.text = "guset"
-        } 
-//        nameLabel.text = userDefaults.value(forKey: "name") as? String
+        }
         
         articleCollectionView.delegate = self
         articleCollectionView.dataSource = self
@@ -61,6 +64,11 @@ class PersonalPageViewController: UIViewController {
         loadData()
         
         getArticleData()
+        
+        if articleArray.count == 0 {
+            notyetPostLabel.isHidden = false
+        }
+        
         
         loadArticleData()
         
@@ -123,12 +131,27 @@ class PersonalPageViewController: UIViewController {
     
     
     @IBAction func editBtn(_ sender: Any) {
-        guard let editProfileVC = storyboard?.instantiateViewController(withIdentifier: "editProfile") as? EditProfileViewController else { return }
         
-        editProfileVC.editImage = image
-        
-        self.show(editProfileVC, sender: nil)
-        
+        if self.userDefaults.string(forKey: "uid") == nil {
+            let controller = UIAlertController(title: "溫馨小提示", message: "登入帳號才能修改個人資料喔！", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "ok", style: .default, handler: nil)
+            
+            controller.view.tintColor = UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1)
+            
+            controller.addAction(okAction)
+            
+            present(controller, animated: true, completion: nil)
+            
+        } else {
+            
+            guard let editProfileVC = storyboard?.instantiateViewController(withIdentifier: "editProfile") as? EditProfileViewController else { return }
+            
+            editProfileVC.editImage = image
+            
+            self.show(editProfileVC, sender: nil)
+            
+        }
         
     }
     func loadData() {

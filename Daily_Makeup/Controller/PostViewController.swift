@@ -78,6 +78,8 @@ class PostViewController: UIViewController {
             
             let controller = UIAlertController(title: "溫馨小提示", message: "登入帳號才能收藏喔！", preferredStyle: .alert)
             
+            controller.view.tintColor = UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1)
+            
             let okAction = UIAlertAction(title: "ok", style: .default, handler: nil)
             
             controller.addAction(okAction)

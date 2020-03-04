@@ -179,6 +179,8 @@ class ListViewController: UIViewController {
             
             let okAction = UIAlertAction(title: "ok", style: .default, handler: nil)
             
+            controller.view.tintColor = UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1)
+            
             controller.addAction(okAction)
             
             present(controller, animated: true, completion: nil)
