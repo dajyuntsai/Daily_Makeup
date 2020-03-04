@@ -36,10 +36,11 @@ class PersonalPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         if userDefaults.string(forKey: "uid") == nil {
             nameLabel.text = "guset"
+        }
+        if articleArray.count != 0 {
+            notyetPostLabel.isHidden = true
         }
         
         articleCollectionView.delegate = self
@@ -64,11 +65,6 @@ class PersonalPageViewController: UIViewController {
         loadData()
         
         getArticleData()
-        
-        if articleArray.count == 0 {
-            notyetPostLabel.isHidden = false
-        }
-        
         
         loadArticleData()
         
