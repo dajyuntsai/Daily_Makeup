@@ -355,9 +355,9 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         
         let article = articleArray[indexPath.item]
         
-        postVC.nameLabel = articleArray[indexPath.row].name
-        postVC.article = articleArray[indexPath.row]
-        postVC.urlArray = articleArray[indexPath.row].image
+        postVC.nameLabel = article.name
+        postVC.article = article
+        postVC.urlArray = article.image
         postVC.personalImage = imageStore[indexPath.row]
         
         self.show(postVC, sender: nil)

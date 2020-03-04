@@ -34,13 +34,18 @@ class PersonalPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        nameLabel.text = userDefaults.value(forKey: "name") as? String
+        if userDefaults.string(forKey: "uid") == nil {
+            nameLabel.text = "guset"
+        } 
+//        nameLabel.text = userDefaults.value(forKey: "name") as? String
         
         articleCollectionView.delegate = self
         articleCollectionView.dataSource = self
         articleCollectionView.contentInset = UIEdgeInsets(top: test.frame.size.height, left: 0, bottom: 0, right: 0)
         
         db = Firestore.firestore()
+        
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(getdata), name: Notification.Name("sharePost"), object: nil)
         
@@ -94,7 +99,9 @@ class PersonalPageViewController: UIViewController {
                 
             }
             guard let home = self.storyboard?.instantiateViewController(withIdentifier: "singinVC") as? SinginViewController else { return }
-            
+            self.userDefaults.set(nil, forKey: "name")
+            self.userDefaults.set(nil, forKey: "email")
+            self.userDefaults.set(nil, forKey: "uid")
             self.view.window?.rootViewController = home
             
             
@@ -221,12 +228,7 @@ class PersonalPageViewController: UIViewController {
                 }
         }
         
-        
-        
-        
     }
-    
-    
     
 }
 
@@ -274,7 +276,7 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
         
         guard let postVC = storyboard?.instantiateViewController(identifier: "postVC") as? PostViewController else { return }
         
-        print(postVC.imageScrollView)
+        
         postVC.nameLabel = articleArray[indexPath.row].name
         postVC.article = articleArray[indexPath.row]
         postVC.urlArray = articleArray[indexPath.row].image
@@ -297,7 +299,6 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
             if article.id == likeState {
                 postVC.likestate = true
             }
-            
             
         }
     }
