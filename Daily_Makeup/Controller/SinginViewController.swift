@@ -76,7 +76,10 @@ class SinginViewController: UIViewController {
       let appleIDProvider = ASAuthorizationAppleIDProvider()
       let request = appleIDProvider.createRequest()
       request.requestedScopes = [.fullName, .email]
-      request.nonce = sha256(nonce)
+      request.nonce = sha256(currentNonce!)
+        
+        print("----", sha256(currentNonce!))
+        print("----", currentNonce!)
 
       let authorizationController = ASAuthorizationController(authorizationRequests: [request])
       authorizationController.delegate = self
@@ -109,7 +112,7 @@ class SinginViewController: UIViewController {
         //        appleButton = ASAuthorizationAppleIDButton()
         view.layoutIfNeeded()
         
-        appleButton.addTarget(self, action: #selector(startSignInWithAppleFlow) , for: .touchUpInside)
+//        appleButton.addTarget(self, action: #selector(startSignInWithAppleFlow) , for: .touchUpInside)
         appleButton.frame = CGRect(x: 0, y: 0, width: appleSignin.frame.width, height: appleSignin.frame.height)
         appleSignin.addSubview(appleButton)
         //        NSLayoutConstraint.activate([
@@ -131,8 +134,6 @@ class SinginViewController: UIViewController {
     }
     
     @IBAction func guestSignin(_ sender: Any) {
-        
-        
         
         guard let home = storyboard?.instantiateViewController(identifier: "tabBarController") as? UITabBarController else {
             return }
@@ -230,7 +231,9 @@ extension SinginViewController: ASAuthorizationControllerDelegate, ASAuthorizati
 
 
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            
             guard let nonce = currentNonce else {
                 fatalError("Invalid state: A login callback was received, but no login request was sent.")
             }
@@ -250,6 +253,9 @@ extension SinginViewController: ASAuthorizationControllerDelegate, ASAuthorizati
 
             let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
 
+            print("----", idTokenString)
+            print("----", nonce)
+            
             //            Sign in with Firebase.
             Auth.auth().signIn(with: credential, completion: { (user, error) in
                 if let error = error {
@@ -265,9 +271,10 @@ extension SinginViewController: ASAuthorizationControllerDelegate, ASAuthorizati
                 }
 
                 guard let uid = user?.user.uid,
-                    let name = user?.user.displayName,
                     let email = user?.user.email
                     else { return }
+                
+                let name = user?.user.displayName ?? ""
                 //                    let image = user?.user.photoURL?.absoluteString else { return }
 
 
