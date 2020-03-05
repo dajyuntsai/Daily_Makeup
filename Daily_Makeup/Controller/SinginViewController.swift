@@ -122,7 +122,19 @@ class SinginViewController: UIViewController {
         //            appleButton.trailingAnchor.constraint(equalTo: appleSignin.trailingAnchor),
         //        ])
     }
+ 
+    @IBAction func privacyBtn(_ sender: UIButton) {
+        
+        if let url = URL(string: "https://github.com/dajyuntsai/Privacy-Policy/blob/master/README.md") {
+            UIApplication.shared.open(url)
+        }
+    }
     
+    @IBAction func uesrBtn(_ sender: UIButton) {
+        if let url = URL(string: "https://www.eulatemplate.com/live.php?token=cVEFunJ0oBoPd3FsWoKmvEYmNdNgsBbG") {
+            UIApplication.shared.open(url)
+        }
+    }
     
     
     @objc func success() {

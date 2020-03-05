@@ -21,7 +21,16 @@ class SavePageViewController: ViewController {
     
     var profilePhoto = ""
     
-    var imageStore: [String] = []
+    var imageStore: [String] = []{
+        didSet{
+            if self.imageStore.count == 0 {
+                self.notyetSaveLabel.isHidden = false
+            } else {
+                self.notyetSaveLabel.isHidden = true
+            }
+            
+        }
+    }
     
     var userData: [Article] = []{
         didSet{
@@ -35,16 +44,17 @@ class SavePageViewController: ViewController {
         db = Firestore.firestore()
         articleSave.delegate = self
         articleSave.dataSource = self
-        
-        if userData.count != 0 {
-            notyetSaveLabel.isHidden = true
-        }
+       
+         
         
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         loadArticleData()
+        
+//
+        
     }
     
     @IBOutlet var notyetSaveLabel: UILabel!
@@ -83,7 +93,11 @@ class SavePageViewController: ViewController {
                                     self.userData.append(result)
                                     guard let userImage = userResult.image else { return }
                                     self.imageStore.append(userImage)
-                                    
+//                                    if self.imageStore.count == 0 {
+//                                         self.notyetSaveLabel.isHidden = false
+//                                    } else {
+//                                        self.notyetSaveLabel.isHidden = true
+//                                    }
                                     print(result)
                                 } catch {
                                     print(error)

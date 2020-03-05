@@ -20,7 +20,15 @@ class PersonalPageViewController: UIViewController {
     @IBOutlet var test: UIView!
     var db: Firestore!
     var profileData : Profile?
-    var articleArray: [Article] = []
+    var articleArray: [Article] = []{
+        didSet{
+            if self.articleArray.count == 0 {
+               self.notyetPostLabel.isHidden = false
+            } else {
+                self.notyetPostLabel.isHidden = true
+            }
+        }
+    }
     var personalSave :[Article] = []
     var image = ""
     @IBOutlet var nameLabel: UILabel!
