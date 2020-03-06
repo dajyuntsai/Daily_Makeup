@@ -290,7 +290,6 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
         productDetailVC.productDetailColor = listArray[indexPath.row].colortone
         productDetailVC.productdetailOpened = listArray[indexPath.row].opened
         productDetailVC.productExpirydate = listArray[indexPath.row].expirydate
-        
         productDetailVC.productTextFieldNote = listArray[indexPath.row].note
         productDetailVC.addProductImage = listArray[indexPath.row].image[0]
         
