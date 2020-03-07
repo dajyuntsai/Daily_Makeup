@@ -21,5 +21,7 @@ struct Profile: Codable {
     let image: String?
     
     let articleLike: [String]?
+    
+    var blackList: [String] = []
 }
 

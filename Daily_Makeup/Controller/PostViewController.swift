@@ -50,6 +50,7 @@ class PostViewController: UIViewController {
     
     @IBOutlet var likeBtn: UIButton!
     
+    
     //返回上一頁
     @IBAction func backToImages(_ sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
@@ -182,31 +183,59 @@ class PostViewController: UIViewController {
     
     @IBAction func settingsBtn(_ sender: Any) {
         
-        let alertcontroller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
-        alertcontroller.view.tintColor = UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1)
-        alertcontroller.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        
-        let pickerEdit = UIAlertAction(title: "編輯", style: .default) { (void) in
+        if self.userDefaults.string(forKey: "uid") == article?.uid {
+            let alertcontroller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            
+            alertcontroller.view.tintColor = UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1)
+            alertcontroller.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            
+            let pickerEdit = UIAlertAction(title: "編輯", style: .default) { (void) in
+                
+            }
+            
+            let pickerdelete = UIAlertAction(title: "刪除", style: .default) { (void) in
+                
+                self.deleatedArticle()
+                print(123) }
+            
+            alertcontroller.addAction(pickerEdit)
+            alertcontroller.addAction(pickerdelete)
+            
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+            
+            cancelAction.setValue(UIColor(red: 208/255 , green:129/255 , blue: 129/255, alpha: 1),forKey: "titleTextColor")
+            
+            alertcontroller.addAction(cancelAction)
+            
+            present(alertcontroller, animated: true, completion: nil)
+        }  else {
+            
+            let alertcontroller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            
+            alertcontroller.view.tintColor = UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1)
+            alertcontroller.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            
+            let pickerEdit = UIAlertAction(title: "檢舉", style: .default) { (void) in
+                
+            }
+            
+            let pickerdelete = UIAlertAction(title: "封鎖", style: .default) { (void) in
+                
+                self.uploadUserUID()
+                print(123) }
+            
+            alertcontroller.addAction(pickerEdit)
+            alertcontroller.addAction(pickerdelete)
+            
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+            
+            cancelAction.setValue(UIColor(red: 208/255 , green:129/255 , blue: 129/255, alpha: 1),forKey: "titleTextColor")
+            
+            alertcontroller.addAction(cancelAction)
+            
+            present(alertcontroller, animated: true, completion: nil)
             
         }
-        
-        let pickerdelete = UIAlertAction(title: "刪除", style: .default) { (void) in
-            
-            self.deleatedArticle()
-            print(123) }
-        
-        alertcontroller.addAction(pickerEdit)
-        alertcontroller.addAction(pickerdelete)
-        
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        
-        cancelAction.setValue(UIColor(red: 208/255 , green:129/255 , blue: 129/255, alpha: 1),forKey: "titleTextColor")
-        
-        alertcontroller.addAction(cancelAction)
-        
-        present(alertcontroller, animated: true, completion: nil)
-        
     }
     
     
@@ -236,6 +265,18 @@ class PostViewController: UIViewController {
         
         
         
+    }
+    
+    
+    func uploadUserUID() {
+        
+        guard let uid = userDefaults.string(forKey: "uid") else { return }
+        
+        let document = db.collection("user").document(uid)
+        
+        guard let articleUid = article?.uid else { return }
+        document.updateData(["blackList" : FieldValue.arrayUnion(["123"])
+        ])
     }
     
     func addBtuuonState() {
@@ -326,7 +367,6 @@ extension PostViewController:UITableViewDelegate,UITableViewDataSource{
             
         else if indexPath.row == 0 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? PostTitleTableViewCell {
-                
                 cell.articleTitle.text = article.title
                 return cell
             } else {

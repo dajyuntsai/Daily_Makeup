@@ -17,6 +17,7 @@ import CryptoKit
 import AuthenticationServices
 
 
+@available(iOS 13.0, *)
 class SinginViewController: UIViewController {
     
     var db: Firestore!
@@ -28,7 +29,11 @@ class SinginViewController: UIViewController {
     let appleButton: ASAuthorizationAppleIDButton = {
         let button = ASAuthorizationAppleIDButton()
         button.cornerRadius = 22.5
-        button.addTarget(self, action: #selector(startSignInWithAppleFlow) , for: .touchUpInside)
+        if #available(iOS 13, *) {
+            button.addTarget(self, action: #selector(startSignInWithAppleFlow) , for: .touchUpInside)
+        } else {
+            // Fallback on earlier versions
+        }
         return button
         
     }()
@@ -147,7 +152,7 @@ class SinginViewController: UIViewController {
     
     @IBAction func guestSignin(_ sender: Any) {
         
-        guard let home = storyboard?.instantiateViewController(identifier: "tabBarController") as? UITabBarController else {
+        guard let home = storyboard?.instantiateViewController(withIdentifier: "tabBarController") as? UITabBarController else {
             return }
         
         self.view.window?.rootViewController = home

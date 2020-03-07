@@ -15,7 +15,8 @@ class PostTitleTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    @IBOutlet var articleTitle: UILabel!
+    
+    @IBOutlet var articleTitle: UITextField!
     
     
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -129,8 +129,7 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
         productDetailTableView.separatorStyle = .none
         productListPicker.delegate = self
         productListPicker.dataSource = self
-        productDetailNote.text = productTextFieldNote
-        
+                
         //        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Cancel))
         navigationItem.title = "product detail"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(Cancel))
@@ -179,6 +178,8 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
     
     override func viewWillAppear(_ animated: Bool) {
         
+        productDetailNote.text = productTextFieldNote
+
         if navigationItem.rightBarButtonItem?.title == "edit" {
             
             imageOutlet.isHidden = true

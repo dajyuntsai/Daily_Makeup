@@ -70,7 +70,7 @@ class ListViewController: UIViewController {
     
     @IBAction func addImageButton(_ sender: UIButton) {
         
-        
+        productList()
         
     }
     
@@ -119,6 +119,7 @@ class ListViewController: UIViewController {
                             
                             if result.uid == uid {
                                 self.listArray.append(result)
+                                
                             }
                             //
                         } catch {
@@ -167,6 +168,16 @@ class ListViewController: UIViewController {
         search.obscuresBackgroundDuringPresentation = false
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+       productList()
+        
+    }
+    
+    
+    
+    
     @objc func back() {
         navigationController?.popViewController(animated: true)
         
@@ -196,11 +207,7 @@ class ListViewController: UIViewController {
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        //        loadData()
-        productList()
-    }
+ 
     
     func deletDocument(a:Int) {
         let id = listArray[a].id

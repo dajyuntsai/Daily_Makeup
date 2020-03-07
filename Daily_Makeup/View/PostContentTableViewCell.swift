@@ -10,7 +10,7 @@ import UIKit
 
 class PostContentTableViewCell: UITableViewCell {
 
-    @IBOutlet var articleContent: UILabel!
+   
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -18,7 +18,8 @@ class PostContentTableViewCell: UITableViewCell {
     }
 
    
-   
+    @IBOutlet var articleContent: UITextView!
+    
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

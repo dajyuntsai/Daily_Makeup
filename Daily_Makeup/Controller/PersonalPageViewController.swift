@@ -13,6 +13,8 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FBSDKLoginKit
 
+@available(iOS 13.0, *)
+@available(iOS 13.0, *)
 class PersonalPageViewController: UIViewController {
     
     let userDefaults = UserDefaults.standard
@@ -259,6 +261,7 @@ class PersonalPageViewController: UIViewController {
     
 }
 
+@available(iOS 13.0, *)
 extension PersonalPageViewController:UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return articleArray.count
@@ -301,7 +304,7 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        guard let postVC = storyboard?.instantiateViewController(identifier: "postVC") as? PostViewController else { return }
+        guard let postVC = storyboard?.instantiateViewController(withIdentifier: "postVC") as? PostViewController else { return }
         
         
         postVC.nameLabel = articleArray[indexPath.row].name

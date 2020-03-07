@@ -155,7 +155,7 @@ class HomePageViewController: UIViewController {
                         print(error)
                     }
                 }
-                
+
                 self.loadPersonalImage()
             }
             
