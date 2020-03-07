@@ -216,7 +216,7 @@ class PostViewController: UIViewController {
             alertcontroller.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             
             let pickerEdit = UIAlertAction(title: "檢舉", style: .default) { (void) in
-                
+                self.uploadUserUID()
             }
             
             let pickerdelete = UIAlertAction(title: "封鎖", style: .default) { (void) in
