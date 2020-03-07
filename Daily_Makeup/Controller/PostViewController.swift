@@ -275,7 +275,7 @@ class PostViewController: UIViewController {
         let document = db.collection("user").document(uid)
         
         guard let articleUid = article?.uid else { return }
-        document.updateData(["blackList" : FieldValue.arrayUnion(["123"])
+        document.updateData(["blackList" : FieldValue.arrayUnion([articleUid])
         ])
     }
     

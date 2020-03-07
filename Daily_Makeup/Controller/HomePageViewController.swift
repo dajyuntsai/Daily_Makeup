@@ -32,6 +32,7 @@ class HomePageViewController: UIViewController {
     var imageStore: [String] = []
     var profileDeta: Profile?
     var saveArticle: [Article] = []
+    
     //    var likeState: [Bool] = []
     
     var articleArray: [Article] = []
@@ -72,6 +73,7 @@ class HomePageViewController: UIViewController {
         article.dataSource = self
         //        loadData()
         getAllArticle()
+        
         //        refreshControl = UIRefreshControl()
         //        article.addSubview(refreshControl)
         //        refreshControl.addTarget(self, action: #selector(loadData), for: UIControl.Event.valueChanged)
@@ -126,6 +128,32 @@ class HomePageViewController: UIViewController {
         hud.dismiss(afterDelay: 1.5)
     }
     
+    //    func getUserData() {
+    //
+    //        guard let uid = userDefaults.string(forKey: "uid") else { return }
+    //        let docRef = db.collection("user").document(uid)
+    //
+    //        docRef.getDocument { (document, error) in
+    //            let result = Result {
+    //                try document.flatMap {
+    //                    try $0.data(as: Profile.self)
+    //                }
+    //            }
+    //            switch result {
+    //            case .success(let personal):
+    //                if let personal = personal {
+    //                    print("User: \(personal)")
+    //                } else {
+    //                    print("Document does not exist")
+    //                }
+    //            case .failure(let error):
+    //                print("Error decoding city: \(error)")
+    //            }
+    //        }
+    //
+    //
+    //    }
+    
     func getAllArticle() {
         self.articleArray = []
         
@@ -145,17 +173,23 @@ class HomePageViewController: UIViewController {
                     do {
                         
                         guard let result = try document.data(as: Article.self, decoder: Firestore.Decoder()) else { return }
-                        print(result)
-                        self.articleArray.append(result)
-                        //用uid去firebase的user拿網址
-                        // CRUD( READ )
-                        //                        self.loadPersonalImage()
+//                        print(result)
+                        if self.profileDeta!.blackList.contains(where: { $0 == result.uid}) {
+                            
+                            print(result)
+                        } else {
+                        
+                            print(result)
+                            
+                            self.articleArray.append(result)
+                        }
+                        
                     } catch {
                         print("123")
                         print(error)
                     }
                 }
-
+                
                 self.loadPersonalImage()
             }
             

@@ -122,7 +122,7 @@ class PersonalPageViewController: UIViewController {
             
             
         }
-        
+
         alertcontroller.addAction(pickerAction)
         
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
