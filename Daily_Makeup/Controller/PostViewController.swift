@@ -33,6 +33,8 @@ class PostViewController: UIViewController {
     
     var likestate = false
     
+    var editting = false
+    
     @IBOutlet var imageScrollView: UIScrollView!
     
     @IBAction func postPageControl(_ sender: UIPageControl) {
@@ -190,7 +192,8 @@ class PostViewController: UIViewController {
             alertcontroller.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             
             let pickerEdit = UIAlertAction(title: "編輯", style: .default) { (void) in
-                
+                self.editting = true
+                self.postTableView.reloadData()
             }
             
             let pickerdelete = UIAlertAction(title: "刪除", style: .default) { (void) in
@@ -333,11 +336,8 @@ class PostViewController: UIViewController {
                 print("Document successfully removed!")
             }
         }
-        
-        
-        
+       
     }
-    
     
 }
 
@@ -368,6 +368,11 @@ extension PostViewController:UITableViewDelegate,UITableViewDataSource{
         else if indexPath.row == 0 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? PostTitleTableViewCell {
                 cell.articleTitle.text = article.title
+                
+                cell.articleTitle.isEnabled = editting
+                
+                
+               
                 return cell
             } else {
                 return UITableViewCell()
@@ -378,6 +383,11 @@ extension PostViewController:UITableViewDelegate,UITableViewDataSource{
             if let cell1 = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) as? PostContentTableViewCell {
                 
                 cell1.articleContent.text = article.content
+                 
+                cell1.articleContent.isEditable = editting
+                
+                    
+              
                 
                 return cell1
             } else {
@@ -385,23 +395,17 @@ extension PostViewController:UITableViewDelegate,UITableViewDataSource{
             }
         }
         
-        
-        
         return UITableViewCell()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        
         
         let frameWidth = Int(imageScrollView.frame.size.width)
         let contentOffsetX = Int(imageScrollView.contentOffset.x) + frameWidth / 3
         let currentPage = contentOffsetX / frameWidth
         pageControl.currentPage = currentPage
         
-        
     }
-    
     
     func timeConverter(time: Int) -> String {
         let time = Date.init(timeIntervalSince1970: TimeInterval(time))
