@@ -11,9 +11,9 @@ import Firebase
 
 struct  Article: Codable {
     
-    let title : String
+    var title : String
     
-    let content : String
+    var content : String
     
     let uid: String
     

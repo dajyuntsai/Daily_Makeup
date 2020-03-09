@@ -127,9 +127,10 @@ class PostViewController: UIViewController {
         postTableView.rowHeight = UITableView.automaticDimension
         postTableView.separatorStyle = .none
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(back))
-        
         navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
-        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "done", style: .plain, target: self, action: #selector(done))
+        navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+        navigationItem.rightBarButtonItem?.isEnabled = false
         
         let url = URL(string: personalImage)
         profilePhoto.kf.setImage(with: url)
@@ -171,6 +172,38 @@ class PostViewController: UIViewController {
         }
     }
     
+    
+    @objc func done() {
+        
+        guard let article = article else { return }
+        
+        let document = db.collection("article").document(article.id)
+        
+        document.updateData([
+            "content": article.content ,
+            "title": article.title
+        ]) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+            } else {
+                print("Document successfully updated")
+            }
+        }
+        
+        
+    
+        
+        
+
+//
+//        documentTitle.updateData(["title" :FieldValue.arrayUnion([article.title])])
+        
+        let backhomepage = navigationController?.viewControllers[0] as? HomePageViewController
+        backhomepage?.getAllArticle()
+        navigationController?.popViewController(animated: true)
+        
+    }
+    
     @objc func back() {
         let homepage = navigationController?.viewControllers[0] as? HomePageViewController
         homepage?.getAllArticle()
@@ -193,6 +226,9 @@ class PostViewController: UIViewController {
             
             let pickerEdit = UIAlertAction(title: "編輯", style: .default) { (void) in
                 self.editting = true
+                self.navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
+
+                self.navigationItem.rightBarButtonItem?.isEnabled = true
                 self.postTableView.reloadData()
             }
             
@@ -257,16 +293,6 @@ class PostViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
             }
         }
-        //        delete() {
-        //            err in
-        //            if let err = err {
-        //                print("Error removing document: \(err)")
-        //            } else {
-        //                print("Document successfully removed!")
-        //            }
-        //        }
-        
-        
         
     }
     
@@ -308,7 +334,7 @@ class PostViewController: UIViewController {
         ])
         
     }
-    
+    //加入收藏
     func addData() {
         
         guard let uid = userDefaults.string(forKey: "uid"),
@@ -322,7 +348,7 @@ class PostViewController: UIViewController {
         }
     }
     
-    
+    //刪除文章
     func deleated() {
         
         guard let uid = userDefaults.string(forKey:"uid") else { return }
@@ -336,7 +362,7 @@ class PostViewController: UIViewController {
                 print("Document successfully removed!")
             }
         }
-       
+        
     }
     
 }
@@ -370,9 +396,11 @@ extension PostViewController:UITableViewDelegate,UITableViewDataSource{
                 cell.articleTitle.text = article.title
                 
                 cell.articleTitle.isEnabled = editting
+                cell.passText = { [weak self] text in
+                    self?.article?.title = text
+                }
                 
                 
-               
                 return cell
             } else {
                 return UITableViewCell()
@@ -383,11 +411,10 @@ extension PostViewController:UITableViewDelegate,UITableViewDataSource{
             if let cell1 = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) as? PostContentTableViewCell {
                 
                 cell1.articleContent.text = article.content
-                 
+                
                 cell1.articleContent.isEditable = editting
                 
-                    
-              
+                cell1.articleContent.delegate = self
                 
                 return cell1
             } else {
@@ -414,4 +441,12 @@ extension PostViewController:UITableViewDelegate,UITableViewDataSource{
         let timeConvert = dateFormatter.string(from: time)
         return timeConvert
     }
+}
+
+extension PostViewController: UITextViewDelegate {
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        article?.content = textView.text
+    }
+    
 }

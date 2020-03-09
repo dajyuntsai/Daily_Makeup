@@ -1095,6 +1095,9 @@
                                                     <color key="backgroundColor" red="0.81568627449999997" green="0.50588235290000005" blue="0.50588235290000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="articleTextfield:" destination="k05-ZI-2Oc" eventType="editingDidEnd" id="aCo-JP-jVy"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -1118,7 +1121,7 @@
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6jY-DN-x1H">
                                                     <rect key="frame" x="20" y="4" width="374" height="100"/>
-                                                    <color key="backgroundColor" red="0.078431372550000003" green="0.16862745100000001" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="100" id="khL-Tu-H1m"/>
                                                     </constraints>

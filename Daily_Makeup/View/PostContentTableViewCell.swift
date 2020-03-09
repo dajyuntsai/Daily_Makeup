@@ -20,7 +20,7 @@ class PostContentTableViewCell: UITableViewCell {
    
     @IBOutlet var articleContent: UITextView!
     
-    
+    var passText: ((String) -> Void)?
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
