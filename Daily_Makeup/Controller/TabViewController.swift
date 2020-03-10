@@ -14,9 +14,9 @@ class TabViewController: UITabBarController, UITabBarControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         self.delegate = self
+        
+        
     }
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
@@ -50,45 +50,8 @@ class TabViewController: UITabBarController, UITabBarControllerDelegate {
                     
                 } else {
                     
-                    let imagePickerController = UIImagePickerController()
+                    openPictureLibrary()
                     
-                    imagePickerController.delegate = self
-                    
-                    let imagePickerAlertController = UIAlertController(title: "上傳圖片", message: "請選擇要上傳的圖片", preferredStyle: .actionSheet)
-                    
-                    imagePickerAlertController.view.tintColor = UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1)
-                    
-                    imagePickerAlertController.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                    
-                    
-                    let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (Void) in
-                        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-                            imagePickerController.sourceType = .photoLibrary
-                            self.present(imagePickerController, animated: true, completion: nil)
-                        }
-                    }
-                    let imageFromCameraAction = UIAlertAction(title: "相機", style: .default) { (Void) in
-                        
-                        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                            imagePickerController.sourceType = .camera
-                            self.present(imagePickerController, animated: true, completion: nil)
-                        }
-                    }
-                    
-                    let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (Void) in
-                        
-                        
-                        
-                        imagePickerAlertController.dismiss(animated: true, completion: nil)
-                    }
-                    
-                    cancelAction.setValue(UIColor(red: 208/255 , green:129/255 , blue: 129/255, alpha: 1),forKey: "titleTextColor")
-                    imagePickerAlertController.addAction(imageFromLibAction)
-                    imagePickerAlertController.addAction(cancelAction)
-                    
-                    imagePickerAlertController.addAction(imageFromCameraAction)
-                    
-                    present(imagePickerAlertController, animated: true, completion: nil)
                     
                     return false
                     
@@ -98,6 +61,50 @@ class TabViewController: UITabBarController, UITabBarControllerDelegate {
         }
         
         return true
+    }
+    
+    
+    func openPictureLibrary() {
+        let imagePickerController = UIImagePickerController()
+        
+        imagePickerController.delegate = self
+        
+        let imagePickerAlertController = UIAlertController(title: "上傳圖片", message: "請選擇要上傳的圖片", preferredStyle: .actionSheet)
+        
+        imagePickerAlertController.view.tintColor = UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1)
+        
+        imagePickerAlertController.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        
+        
+        let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (Void) in
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                imagePickerController.sourceType = .photoLibrary
+                self.present(imagePickerController, animated: true, completion: nil)
+            }
+        }
+        let imageFromCameraAction = UIAlertAction(title: "相機", style: .default) { (Void) in
+            
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                imagePickerController.sourceType = .camera
+                self.present(imagePickerController, animated: true, completion: nil)
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (Void) in
+            
+            
+            
+            imagePickerAlertController.dismiss(animated: true, completion: nil)
+        }
+        
+        cancelAction.setValue(UIColor(red: 208/255 , green:129/255 , blue: 129/255, alpha: 1),forKey: "titleTextColor")
+        imagePickerAlertController.addAction(imageFromLibAction)
+        imagePickerAlertController.addAction(cancelAction)
+        
+        imagePickerAlertController.addAction(imageFromCameraAction)
+        
+        present(imagePickerAlertController, animated: true, completion: nil)
+        
     }
     
 }

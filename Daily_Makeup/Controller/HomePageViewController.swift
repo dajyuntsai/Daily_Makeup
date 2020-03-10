@@ -173,7 +173,13 @@ class HomePageViewController: UIViewController {
                     do {
                         
                         guard let result = try document.data(as: Article.self, decoder: Firestore.Decoder()) else { return }
-//                        print(result)
+                        if self.profileDeta == nil {
+                            
+                            self.articleArray.append(result)
+                            
+                            continue
+                        }
+                        
                         if self.profileDeta!.blackList.contains(where: { $0 == result.uid}) {
                             
                             print(result)
@@ -182,6 +188,14 @@ class HomePageViewController: UIViewController {
                             print(result)
                             
                             self.articleArray.append(result)
+//                            guard let saveState = else {
+//                            return}
+//                            for post in self.articleArray {
+//                                if articleArray.id ==  {
+//
+//                                }
+//                            }
+//
                         }
                         
                     } catch {

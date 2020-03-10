@@ -46,7 +46,7 @@ class HomePageCollectionViewCell: UICollectionViewCell {
     
     
     
-    @IBAction func articleLikeBtn(_ sender: UIButton) {
+    @IBAction func articleSaveBtn(_ sender: UIButton) {
         
         guard let articleManager = articleManager else { return}
         
@@ -54,24 +54,24 @@ class HomePageCollectionViewCell: UICollectionViewCell {
             
             likeStateBtn?(false)
             
-            likeBtn.setImage(UIImage(named: "heart (3)"),for: .normal)
+            likeBtn.setImage(UIImage(named: "bookmark (5)"),for: .normal)
             
 //            likeNumber.text =  String(Int(likeNumber.text!)! - 1)
             
             
 
-            db.collection("article").document(articleManager.id).updateData(["likeNumber": articleManager.likeNumber - 1])
+//            db.collection("article").document(articleManager.id).updateData(["likeNumber": articleManager.likeNumber - 1])
             
         
         } else {
             
-            likeBtn.setImage(UIImage(named: "heart (2)"), for: .normal)
+            likeBtn.setImage(UIImage(named: "bookmark (4)"), for: .normal)
             
             likeStateBtn?(true)
             
-            likeNumber.text =  String(Int(likeNumber.text!)! + 1)
-            
-            db.collection("article").document(articleManager.id).updateData(["likeNumber": articleManager.likeNumber + 1])
+//            likeNumber.text =  String(Int(likeNumber.text!)! + 1)
+//
+//            db.collection("article").document(articleManager.id).updateData(["likeNumber": articleManager.likeNumber + 1])
             
         }
         

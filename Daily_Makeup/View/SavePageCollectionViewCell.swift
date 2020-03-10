@@ -31,15 +31,15 @@ class SavePageCollectionViewCell: UICollectionViewCell {
         
         if btnState {
             
-            likeNumberBtn.setImage(UIImage(named: "heart (3)"), for: .normal)
+            likeNumberBtn.setImage(UIImage(named: "bookmark (5)"), for: .normal)
             
-            likeNumber.text = String(Int(likeNumber.text!)! - 1)
+//            likeNumber.text = String(Int(likeNumber.text!)! - 1)
             
             
         } else {
-            likeNumberBtn.setImage(UIImage(named: "heart (2)"), for: .normal)
+            likeNumberBtn.setImage(UIImage(named: "bookmark (4)"), for: .normal)
             
-            likeNumber.text = String(Int(likeNumber.text!)! + 1)
+//            likeNumber.text = String(Int(likeNumber.text!)! + 1)
         }
         
         btnState = !btnState

@@ -39,12 +39,11 @@ class EditProfileViewController: UIViewController {
         profileTableView.dataSource = self
         profileTableView.separatorStyle = .none
         navigationItem.title = "edit profile"
-        
-        
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "cancel", style: .plain, target: self, action: #selector(cancel))
         navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "save", style: .plain, target: self, action: #selector(save))
         navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
+        
         
         loadData()
         
@@ -91,6 +90,37 @@ class EditProfileViewController: UIViewController {
     }
     
     @IBAction func addImageBtn(_ sender: Any) {
+        openPictureLibrary()
+    }
+    
+    @objc func save() {
+        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        
+        let document = db.collection("user").document(uid)
+        
+        let profile = Profile (
+            name: editProfileName,
+            email: editProfileEmail,
+            bio: editProfileBio,
+            uid: uid,
+            image: editImage,
+            articleLike: articleLike,
+            blackList:blackList
+        )
+        
+        
+        do {
+            try document.setData(from: profile, merge: true)
+            
+        } catch {
+            print(error)
+        }
+        navigationController?.popViewController(animated: true)
+    }
+    
+   @objc func openPictureLibrary() {
         let imagePickerController = UIImagePickerController()
         
         imagePickerController.delegate = self
@@ -128,34 +158,7 @@ class EditProfileViewController: UIViewController {
         present(imagePickerAlertController, animated: true, completion: nil)
         
         
-    }
-    
-    @objc func save() {
         
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        
-        let document = db.collection("user").document(uid)
-        
-        let profile = Profile (
-            name: editProfileName,
-            email: editProfileEmail,
-            bio: editProfileBio,
-            uid: uid,
-            image: editImage,
-            articleLike: articleLike,
-            blackList:blackList
-            )
-            
-        
-        do {
-            try document.setData(from: profile, merge: true)
-            
-            
-        } catch {
-            print(error)
-        }
-        navigationController?.popViewController(animated: true)
     }
     
     func loadData() {

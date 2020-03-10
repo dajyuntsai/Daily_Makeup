@@ -167,9 +167,9 @@ class PostViewController: UIViewController {
                 "bookmark (4)"), for: .normal)
         }
         
-        if likestate {
-            likeBtn.setImage(UIImage(named: "heart (2)" ), for: .normal)
-        }
+//        if likestate {
+//            likeBtn.setImage(UIImage(named: "heart (2)" ), for: .normal)
+//        }
     }
     
     

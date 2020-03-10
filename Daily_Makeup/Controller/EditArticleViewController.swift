@@ -20,7 +20,7 @@ class EditArticleViewController: UIViewController{
     var imageStore: [UIImage] = []
     var uid = ""
     var name = ""
-    var personalImage = ""
+//    var personalImage = ""
     var saveState = false
     var editarticleNumber = 0
     var articleImage: [String] = []
@@ -59,71 +59,80 @@ class EditArticleViewController: UIViewController{
     
     @objc func share() {
         
+        let group = DispatchGroup()
         
-        let uniqueString = NSUUID().uuidString
-        let storage = Storage.storage()
-        let storageRef = storage.reference()
-        let path = "Image/\(uniqueString).jpeg"
-        let imageRef = storageRef.child(path)
-        
-        guard let data = imageStore[0].jpegData(compressionQuality: 0.5) else { return }
-        
-        for i in imageStore {
+        for image in imageStore {
+            
+            let uniqueString = NSUUID().uuidString
+            let storage = Storage.storage()
+            let storageRef = storage.reference()
+            let path = "Image/\(uniqueString).jpeg"
+            let imageRef = storageRef.child(path)
+            guard let data = image.jpegData(compressionQuality: 0.5) else { return }
+            
+            group.enter()
             let task = imageRef.putData(data, metadata: nil) {
                 (metadata, error) in
                 
-                imageRef.downloadURL { (url, error) in
-                    print(url)
+                imageRef.downloadURL { [weak self] (url, error) in
+//                    print(url)
                     
                     guard let imageUrl = url else { return }
-                    self.personalImage = "\(imageUrl)"
-                    
-                    
-                    guard let uid = self.userDefaults.string(forKey: "uid") else {
-                        return }
-                    
-                    guard let name = self.userDefaults.string(forKey: "name") else {
-                        return }
-                    
-                    let id = UUID().uuidString
-                    
-                    let document = self.db.collection("article").document(id)
-                    
-                    let currentTimes = Int(self.now.timeIntervalSince1970)
-                    
-                    guard let articleTextField = self.articleTextField.text else { return }
-                    
-                    let article = Article(
-                        title: articleTextField,
-                        content: self.articleTextview.text,
-                        uid: uid,
-                        name: name,
-                        id: id,
-                        time: currentTimes,
-                        image: [self.personalImage],
-                        likeNumber: self.editarticleNumber,
-                        saveState: self.saveState
-                        
-                    )
-                    
-                    do {
-                        try document.setData(from: article)
-                    } catch {
-                        print(error)
-                    }
-                    
-                    NotificationCenter.default.post(name:Notification.Name("sharePost"), object: nil)
-                    self.dismiss(animated: false, completion: nil)
+//                    self.personalImage = "\(imageUrl)"
+                    self?.articleImage.append(imageUrl.absoluteString)
+                    group.leave()
                     
                 }
             }
+            task.resume()
             
         }
         
-        let hud = JGProgressHUD(style: .dark)
-        hud.textLabel.text = "Loading"
-        hud.show(in: self.view)
-        hud.dismiss(afterDelay: 3.0)
+        group.notify(queue: .main) { [weak self] in
+            
+            guard let strongSelf = self else { return }
+            
+            guard let uid = strongSelf.userDefaults.string(forKey: "uid") else {
+                return }
+            
+            guard let name = strongSelf.userDefaults.string(forKey: "name") else {
+                return }
+            
+            let id = UUID().uuidString
+            
+            let document = strongSelf.db.collection("article").document(id)
+            
+            let currentTimes = Int(strongSelf.now.timeIntervalSince1970)
+            
+            guard let articleTextField = strongSelf.articleTextField.text else { return }
+            
+            let article = Article(
+                title: articleTextField,
+                content: strongSelf.articleTextview.text,
+                uid: uid,
+                name: name,
+                id: id,
+                time: currentTimes,
+                image: strongSelf.articleImage,
+                likeNumber: strongSelf.editarticleNumber,
+                saveState: strongSelf.saveState
+                
+            )
+            
+            do {
+                try document.setData(from: article)
+            } catch {
+                print(error)
+            }
+            
+            NotificationCenter.default.post(name:Notification.Name("sharePost"), object: nil)
+            strongSelf.dismiss(animated: false, completion: nil)
+            
+            let hud = JGProgressHUD(style: .dark)
+            hud.textLabel.text = "Loading"
+            hud.show(in: strongSelf.view)
+            hud.dismiss(afterDelay: 3.0)
+        }
         
     }
     
@@ -168,11 +177,15 @@ extension EditArticleViewController:UICollectionViewDataSource,UICollectionViewD
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? EditArticleCollectionViewCell else { return UICollectionViewCell() }
         if indexPath.row == imageStore.count{
-            return cell
+            cell.addImageBtn.isHidden = false
+            cell.articleImage.isHidden = true
+//            return cell
         } else {
             cell.articleImage.image = imageStore[indexPath.row]
+            cell.addImageBtn.isHidden = true
+            cell.articleImage.isHidden = false
         }
-        
+        cell.delegate = self
         return cell
         
     }
@@ -186,4 +199,90 @@ extension EditArticleViewController:UICollectionViewDataSource,UICollectionViewD
     }
     
     
+}
+
+extension EditArticleViewController:PassDataDelegate{
+    func passData() {
+        openPictureLibrary()
+    }
+    
+    func openPictureLibrary() {
+        let imagePickerController = UIImagePickerController()
+        
+        imagePickerController.delegate = self
+        
+        let imagePickerAlertController = UIAlertController(title: "上傳圖片", message: "請選擇要上傳的圖片", preferredStyle: .actionSheet)
+        
+        imagePickerAlertController.view.tintColor = UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1)
+        
+        imagePickerAlertController.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        
+        
+        let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (Void) in
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                imagePickerController.sourceType = .photoLibrary
+                self.present(imagePickerController, animated: true, completion: nil)
+            }
+        }
+        let imageFromCameraAction = UIAlertAction(title: "相機", style: .default) { (Void) in
+            
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                imagePickerController.sourceType = .camera
+                self.present(imagePickerController, animated: true, completion: nil)
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (Void) in
+           
+            imagePickerAlertController.dismiss(animated: true, completion: nil)
+        }
+        
+        cancelAction.setValue(UIColor(red: 208/255 , green:129/255 , blue: 129/255, alpha: 1),forKey: "titleTextColor")
+        imagePickerAlertController.addAction(imageFromLibAction)
+        imagePickerAlertController.addAction(cancelAction)
+        
+        imagePickerAlertController.addAction(imageFromCameraAction)
+        
+        present(imagePickerAlertController, animated: true, completion: nil)
+        
+    }
+   
+}
+
+extension EditArticleViewController: UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        
+        var selectedImageFromPicker: UIImage?
+        
+        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            
+            selectedImageFromPicker = pickedImage
+        }
+        
+        
+        if let selectedImage = selectedImageFromPicker {
+            
+            dismiss(animated: true, completion: {
+                
+//                guard let vc = showArticleVC.viewControllers.first as? EditArticleViewController else {
+//
+//                    return
+//                }
+                
+                guard let selectedImageFromPicker = selectedImageFromPicker else { return }
+                
+                self.imageStore.append(selectedImageFromPicker)
+                
+                self.imageCollectionView.reloadData()
+//                showArticleVC.modalPresentationStyle = .overFullScreen
+                
+//                self.show(showArticleVC, sender: nil)
+            })
+            print("\(selectedImage)")
+        }
+        
+        
+    }
 }

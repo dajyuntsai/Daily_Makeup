@@ -207,6 +207,7 @@
 		5C78699323E1B61B007A94A1 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				5C78699423E1B9B9007A94A1 /* HomePageViewController.swift */,
 				5CFC31E6240FA77500D5AEBD /* GuestSigninViewController.swift */,
 				5C4CF8E023F550D700AB65B6 /* EditArticleViewController.swift */,
 				5C20982223F5409A00BE515D /* TabViewController.swift */,
@@ -217,7 +218,6 @@
 				5C52A36B23E4992B00969BDE /* ListViewController.swift */,
 				5CF684C823E2B75800F3C363 /* PersonalPageViewController.swift */,
 				5CF684CC23E2CFCD00F3C363 /* EditProfileViewController.swift */,
-				5C78699423E1B9B9007A94A1 /* HomePageViewController.swift */,
 				5C78699C23E1F8E2007A94A1 /* SavePageViewController.swift */,
 				5CF684D023E2D04B00F3C363 /* CategoryViewController.swift */,
 				5CF6AA1B23FBB92A000CB692 /* SettingViewController.swift */,

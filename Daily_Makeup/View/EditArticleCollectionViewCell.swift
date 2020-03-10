@@ -7,12 +7,24 @@
 //
 
 import UIKit
+protocol PassDataDelegate: AnyObject {
+    func passData()
+}
 
 class EditArticleCollectionViewCell: UICollectionViewCell {
     
- 
+    weak var delegate: PassDataDelegate?
     
     @IBOutlet var articleImage: UIImageView!
+    
+    
+    @IBOutlet var addImageBtn: UIButton!
+    
+    
+    @IBAction func addImageBtn(_ sender: Any) {
+        delegate?.passData()
+        
+    }
     
     
     
