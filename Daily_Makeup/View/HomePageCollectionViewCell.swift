@@ -16,16 +16,41 @@ import FirebaseFirestoreSwift
 
 class HomePageCollectionViewCell: UICollectionViewCell {
     
+    let userDefaults = UserDefaults.standard
     
     var db = Firestore.firestore()
     
-    var likeBtnState = false
+    var likeBtnState = false {
+        didSet {
+            
+            if likeBtnState {
+
+//                likeStateBtn?(false)
+
+                likeBtn.setImage(UIImage(named: "bookmark (4)"),for: .normal)
+                
+//                deleated()
+            
+            } else {
+
+                likeBtn.setImage(UIImage(named: "bookmark (5)"), for: .normal)
+
+//                likeStateBtn?(true)
+//
+//                addData()
+                
+
+            }
+        }
+    }
     
-    var btnSelected = false
+//    var btnSelected = false
     
     var articleManager: Article?
     
     var articleId: String = ""
+    
+    
     
     @IBOutlet var articleImage: UIImageView!
 
@@ -47,36 +72,59 @@ class HomePageCollectionViewCell: UICollectionViewCell {
     
     
     @IBAction func articleSaveBtn(_ sender: UIButton) {
-        
-        guard let articleManager = articleManager else { return}
-        
-        if likeBtnState {
-            
-            likeStateBtn?(false)
-            
-            likeBtn.setImage(UIImage(named: "bookmark (5)"),for: .normal)
-            
-//            likeNumber.text =  String(Int(likeNumber.text!)! - 1)
-            
-            
 
-//            db.collection("article").document(articleManager.id).updateData(["likeNumber": articleManager.likeNumber - 1])
+        if likeBtnState {
+
+            likeStateBtn?(false)
+
+//            likeBtn.setImage(UIImage(named: "bookmark (5)"),for: .normal)
             
+            deleated()
         
         } else {
-            
-            likeBtn.setImage(UIImage(named: "bookmark (4)"), for: .normal)
-            
+
+//            likeBtn.setImage(UIImage(named: "bookmark (4)"), for: .normal)
+
             likeStateBtn?(true)
             
-//            likeNumber.text =  String(Int(likeNumber.text!)! + 1)
-//
-//            db.collection("article").document(articleManager.id).updateData(["likeNumber": articleManager.likeNumber + 1])
+            addData()
             
+
+        }
+
+        likeBtnState = !likeBtnState
+       
+    }
+    
+    func addData() {
+        
+        guard let uid = userDefaults.string(forKey: "uid"),
+            let article = articleManager else { return }
+        
+        do {
+            let docRef = db.collection("user").document(uid).collection("article").document(article.id)
+            try docRef.setData(from: article)
+        } catch {
+            print(error)
+        }
+    }
+    
+    func deleated() {
+        
+        guard let uid = userDefaults.string(forKey:"uid") else { return }
+        guard let id = articleManager?.id else { return }
+        
+        db.collection("user").document(uid).collection("article").document(id).delete() {
+            err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+            }
         }
         
-        likeBtnState = !likeBtnState
-     
     }
+    
+    
     
 }

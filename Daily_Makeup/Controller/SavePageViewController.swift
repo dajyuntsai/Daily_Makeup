@@ -44,8 +44,8 @@ class SavePageViewController: ViewController {
         db = Firestore.firestore()
         articleSave.delegate = self
         articleSave.dataSource = self
-       
-         
+        
+        
         
         
     }
@@ -53,7 +53,7 @@ class SavePageViewController: ViewController {
     override func viewWillAppear(_ animated: Bool) {
         loadArticleData()
         
-//
+        //
         
     }
     
@@ -93,11 +93,11 @@ class SavePageViewController: ViewController {
                                     self.userData.append(result)
                                     guard let userImage = userResult.image else { return }
                                     self.imageStore.append(userImage)
-//                                    if self.imageStore.count == 0 {
-//                                         self.notyetSaveLabel.isHidden = false
-//                                    } else {
-//                                        self.notyetSaveLabel.isHidden = true
-//                                    }
+                                    //                                    if self.imageStore.count == 0 {
+                                    //                                         self.notyetSaveLabel.isHidden = false
+                                    //                                    } else {
+                                    //                                        self.notyetSaveLabel.isHidden = true
+                                    //                                    }
                                     print(result)
                                 } catch {
                                     print(error)
@@ -152,6 +152,32 @@ extension SavePageViewController:UICollectionViewDataSource,UICollectionViewDele
         cell.saveLittleView.layer.cornerRadius = UIScreen.main.bounds.width / 60
         cell.saveLittleView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         
+        let article = userData[indexPath.row]
+        cell.article = article
+        
+        cell.saveBtnState = { isSave in
+            
+            if isSave {
+                self.userData.append(self.userData[indexPath.row])
+            } else {
+                self.userData.remove(at: indexPath.row)
+            }
+            self.articleSave.reloadData()
+            
+        }
+        
+        
+        cell.btnState = false
+        for post in userData {
+            let article = userData[indexPath.row]
+            if article.id == post.id {
+                cell.btnState = true
+            }
+            
+        }
+        
+        
+        
         return cell
     }
     
@@ -179,15 +205,17 @@ extension SavePageViewController:UICollectionViewDataSource,UICollectionViewDele
         
         guard let postVC = storyboard?.instantiateViewController(withIdentifier: "postVC") as? PostViewController else { return }
         
+        let article = userData[indexPath.row]
+        
         postVC.nameLabel = userData[indexPath.row].name
         postVC.article = userData[indexPath.row]
         postVC.urlArray = userData[indexPath.row].image
         postVC.personalImage = imageStore[indexPath.row]
+        postVC.article = article
         
         //        postVC.saveBtn = userData[indexPath.row].saveState
         self.show(postVC, sender: nil)
         
-        let article = userData[indexPath.row]
         
         for post in userData {
             if article.id == post.id {

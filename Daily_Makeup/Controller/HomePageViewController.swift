@@ -36,14 +36,6 @@ class HomePageViewController: UIViewController {
     //    var likeState: [Bool] = []
     
     var articleArray: [Article] = []
-    //    {
-    //        didSet{
-    //
-    //            self.article.reloadData()
-    //            self.article.es.stopPullToRefresh()
-    //        }
-    //
-    //    }
     
     var filterArray : [Article] = []{
         didSet{
@@ -184,18 +176,11 @@ class HomePageViewController: UIViewController {
                             
                             print(result)
                         } else {
-                        
+                            
                             print(result)
                             
                             self.articleArray.append(result)
-//                            guard let saveState = else {
-//                            return}
-//                            for post in self.articleArray {
-//                                if articleArray.id ==  {
-//
-//                                }
-//                            }
-//
+                           
                         }
                         
                     } catch {
@@ -373,6 +358,28 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         cell1.littleView.layer.cornerRadius = UIScreen.main.bounds.width / 60
         cell1.littleView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         
+        cell1.likeStateBtn = { isSave in
+            
+            if isSave {
+                self.saveArticle.append(self.articleArray[indexPath.row])
+            } else {
+                if indexPath.row < self.saveArticle.count{
+                    self.saveArticle.remove(at: indexPath.row)
+                    
+                }
+            }
+            
+            
+        }
+        
+        //cell的收藏狀態
+        cell1.likeBtnState = false
+        for post in saveArticle {
+            if container[indexPath.row].id == post.id {
+                cell1.likeBtnState = true
+            }
+        }
+        
         return cell1
     }
     
@@ -408,25 +415,29 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         postVC.urlArray = article.image
         postVC.personalImage = imageStore[indexPath.row]
         
+        
         self.show(postVC, sender: nil)
         
         
         //書籤狀態
+        
+        
         for post in saveArticle {
-            if article.id == post.id {
-                postVC.saveState = true
-            }
-        }
+                          if article.id == post.id {
+                              postVC.saveState = true
+                          }
+                      }
+       
         
         //愛心狀態
         
-        guard let articleLike = profileDeta?.articleLike else {
-            return}
-        for likeState in articleLike {
-            if article.id == likeState {
-                postVC.likestate = true
-            }
-        }
+        //        guard let articleLike = profileDeta?.articleLike else {
+        //            return}
+        //        for likeState in articleLike {
+        //            if article.id == likeState {
+        //                postVC.likestate = true
+        //            }
+        //        }
         
         //可以拿到postVC的nameLabel
         
