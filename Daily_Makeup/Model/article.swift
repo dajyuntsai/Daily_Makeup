@@ -29,5 +29,4 @@ struct  Article: Codable {
     
     let saveState: Bool
 
-
 }

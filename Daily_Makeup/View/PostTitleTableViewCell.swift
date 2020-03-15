@@ -15,7 +15,6 @@ class PostTitleTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    
     @IBOutlet var articleTitle: UITextField!
     
     var passText: ((String) -> Void)?

@@ -12,8 +12,6 @@ class PostTimeTableViewCell: UITableViewCell {
 
     @IBOutlet var postTimeLabel: UILabel!
     
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

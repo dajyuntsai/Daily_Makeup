@@ -262,6 +262,7 @@
 				5C57F34123DC46E00010A672 /* Resources */,
 				BD657616C98E1A1FD16380E7 /* [CP] Embed Pods Frameworks */,
 				0CD550F61B7E7E3BE011022B /* [CP] Copy Pods Resources */,
+				5C330A18241B8B55005E7147 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -348,6 +349,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Daily_Makeup/Pods-Daily_Makeup-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		5C330A18241B8B55005E7147 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n\n";
 		};
 		BD657616C98E1A1FD16380E7 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -23,35 +23,18 @@ class TabViewController: UITabBarController, UITabBarControllerDelegate {
         
         guard let vcs = viewControllers else { return false }
         
-        for (index, vc) in vcs.enumerated() {
+        for (index, vcs) in vcs.enumerated() {
             
-            if vc == viewController && index == 2 {
-                
-                
+            if vcs == viewController && index == 2 {
                 
                 if self.userDefaults.string(forKey: "uid") == nil {
                     
-                    guard let navVC = vc as? UINavigationController, let editArticleVC = navVC.viewControllers[0] as? EditArticleViewController else { return true }
-//
+                    guard let navVC = vcs as? UINavigationController, let editArticleVC = navVC.viewControllers[0] as? EditArticleViewController else { return true }
+                    //
                     editArticleVC.isGuest = true
-//                    guard let editArticleVC = storyboard?.instantiateViewController(withIdentifier: "editArticle") as? EditArticleViewController else  { return true }
-//                    editArticleVC.modalPresentationStyle = .overFullScreen
-                    
-                    
-                    //                    let controller = UIAlertController(title: "溫馨小提示", message: "登入帳號才能發文喔！", preferredStyle: .alert)
-                    //
-                    //                    let okAction = UIAlertAction(title: "ok", style: .default, handler: nil)
-                    //
-                    //                    controller.view.tintColor = UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1)
-                    //
-                    //                    controller.addAction(okAction)
-                    
-                    //                    present(, animated: true, completion: nil)
                     
                 } else {
-                    
                     openPictureLibrary()
-                    
                     
                     return false
                     
@@ -62,7 +45,6 @@ class TabViewController: UITabBarController, UITabBarControllerDelegate {
         
         return true
     }
-    
     
     func openPictureLibrary() {
         let imagePickerController = UIImagePickerController()
@@ -75,14 +57,13 @@ class TabViewController: UITabBarController, UITabBarControllerDelegate {
         
         imagePickerAlertController.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
-        
-        let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (Void) in
+        let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (void) in
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                 imagePickerController.sourceType = .photoLibrary
                 self.present(imagePickerController, animated: true, completion: nil)
             }
         }
-        let imageFromCameraAction = UIAlertAction(title: "相機", style: .default) { (Void) in
+        let imageFromCameraAction = UIAlertAction(title: "相機", style: .default) { (void) in
             
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 imagePickerController.sourceType = .camera
@@ -90,14 +71,12 @@ class TabViewController: UITabBarController, UITabBarControllerDelegate {
             }
         }
         
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (Void) in
-            
-            
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (void) in
             
             imagePickerAlertController.dismiss(animated: true, completion: nil)
         }
         
-        cancelAction.setValue(UIColor(red: 208/255 , green:129/255 , blue: 129/255, alpha: 1),forKey: "titleTextColor")
+        cancelAction.setValue(UIColor(red: 208/255, green: 129/255 , blue: 129/255, alpha: 1),forKey: "titleTextColor")
         imagePickerAlertController.addAction(imageFromLibAction)
         imagePickerAlertController.addAction(cancelAction)
         
@@ -109,11 +88,9 @@ class TabViewController: UITabBarController, UITabBarControllerDelegate {
     
 }
 
-
 extension TabViewController: UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
         
         var selectedImageFromPicker: UIImage?
         
@@ -122,28 +99,24 @@ extension TabViewController: UIImagePickerControllerDelegate,UINavigationControl
             selectedImageFromPicker = pickedImage
         }
         
-        
         if let selectedImage = selectedImageFromPicker {
             
             dismiss(animated: true, completion: {
                 
-                guard let showArticleVC = self.storyboard?.instantiateViewController(withIdentifier: "showArticle") as? UINavigationController, let vc = showArticleVC.viewControllers.first as? EditArticleViewController else {
+                guard let showArticleVC = self.storyboard?.instantiateViewController(withIdentifier: "showArticle") as? UINavigationController, let vcs = showArticleVC.viewControllers.first as? EditArticleViewController else {
                     
                     return
                 }
                 
-                
                 guard let selectedImageFromPicker = selectedImageFromPicker else { return }
-                vc.imageStore.append(selectedImageFromPicker)
+                vcs.imageStore.append(selectedImageFromPicker)
                 showArticleVC.modalPresentationStyle = .overFullScreen
                 
                 self.show(showArticleVC, sender: nil)
             })
             
-            
             print("\(selectedImage)")
         }
-        
         
     }
 }

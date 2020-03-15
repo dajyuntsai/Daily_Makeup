@@ -10,14 +10,11 @@ import UIKit
 
 class PostContentTableViewCell: UITableViewCell {
 
-   
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
-   
     @IBOutlet var articleContent: UITextView!
     
     var passText: ((String) -> Void)?

@@ -18,10 +18,10 @@ class SavePageCollectionViewCell: UICollectionViewCell {
     
     var btnState = false {
         didSet {
-            if btnState{
-                likeNumberBtn.setImage(UIImage(named: "bookmark (4)"),for: .normal)
+            if btnState {
+                likeNumberBtn.setImage(UIImage(named: "bookmark (4)"), for: .normal)
             } else {
-                likeNumberBtn.setImage(UIImage(named: "bookmark (5)"),for: .normal)
+                likeNumberBtn.setImage(UIImage(named: "bookmark (5)"), for: .normal)
             }
         }
     }
@@ -37,20 +37,12 @@ class SavePageCollectionViewCell: UICollectionViewCell {
     var btnSelected = false
     
     @IBOutlet var articleImage: UIImageView!
-    
     @IBOutlet var articleTitle: UILabel!
-    
     @IBOutlet var personalImage: UIImageView!
     @IBOutlet var personalAccount: UILabel!
-    
     @IBOutlet var likeNumber: UILabel!
     @IBOutlet var saveLittleView: UIView!
-    
-    
     @IBOutlet var likeNumberBtn: UIButton!
-    
-    
-    
     @IBAction func articleLike(_ sender: Any) {
         
         if btnState {
@@ -62,7 +54,6 @@ class SavePageCollectionViewCell: UICollectionViewCell {
 //            likeNumberBtn.setImage(UIImage(named: "bookmark (5)"), for: .normal)
             
 //            likeNumber.text = String(Int(likeNumber.text!)! - 1)
-            
             
         } else {
 //            likeNumberBtn.setImage(UIImage(named: "bookmark (4)"), for: .normal)
@@ -88,14 +79,12 @@ class SavePageCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    
     func deleated() {
         
         guard let uid = userDefaults.string(forKey:"uid") else { return }
         guard let id = article?.id else { return }
         
-        db.collection("user").document(uid).collection("article").document(id).delete() {
-            err in
+        db.collection("user").document(uid).collection("article").document(id).delete() { err in
             if let err = err {
                 print("Error removing document: \(err)")
             } else {

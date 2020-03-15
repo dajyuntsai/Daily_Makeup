@@ -17,10 +17,8 @@ import JGProgressHUD
 
 class HomePageViewController: UIViewController {
     
-    
     @IBAction func hotBtn(_ sender: Any) {
     }
-    
     
     @IBAction func newestBtn(_ sender: Any) {
         
@@ -37,8 +35,8 @@ class HomePageViewController: UIViewController {
     
     var articleArray: [Article] = []
     
-    var filterArray : [Article] = []{
-        didSet{
+    var filterArray : [Article] = [] {
+        didSet {
             
             self.article.reloadData()
             self.article.es.stopPullToRefresh()
@@ -180,7 +178,7 @@ class HomePageViewController: UIViewController {
                             print(result)
                             
                             self.articleArray.append(result)
-                           
+                            
                         }
                         
                     } catch {
@@ -294,14 +292,9 @@ class HomePageViewController: UIViewController {
             
         }
         
-        
     }
     
-    
-    
 }
-
-
 
 extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
@@ -369,7 +362,6 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
                 }
             }
             
-            
         }
         
         //cell的收藏狀態
@@ -390,7 +382,6 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         let size = CGSize(width: width, height: UIScreen.main.bounds.height / 2.8)
         return size
         
-        
     }
     
     //中間距離
@@ -405,7 +396,6 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        
         guard let postVC = storyboard?.instantiateViewController(withIdentifier: "postVC") as? PostViewController else { return }
         
         let article = articleArray[indexPath.item]
@@ -415,31 +405,14 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         postVC.urlArray = article.image
         postVC.personalImage = imageStore[indexPath.row]
         
-        
         self.show(postVC, sender: nil)
         
-        
         //書籤狀態
-        
-        
         for post in saveArticle {
-                          if article.id == post.id {
-                              postVC.saveState = true
-                          }
-                      }
-       
-        
-        //愛心狀態
-        
-        //        guard let articleLike = profileDeta?.articleLike else {
-        //            return}
-        //        for likeState in articleLike {
-        //            if article.id == likeState {
-        //                postVC.likestate = true
-        //            }
-        //        }
-        
-        //可以拿到postVC的nameLabel
+            if article.id == post.id {
+                postVC.saveState = true
+            }
+        }
         
     }
     
@@ -485,7 +458,6 @@ extension HomePageViewController: UISearchResultsUpdating {
 
 extension HomePageViewController: UISearchBarDelegate {
     
-    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         isFilter = true
     }
@@ -503,6 +475,5 @@ extension HomePageViewController: UISearchBarDelegate {
         search.searchBar.resignFirstResponder()
         
     }
-    
     
 }

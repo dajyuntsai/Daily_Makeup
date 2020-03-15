@@ -318,7 +318,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.98039215686274506" green="0.96078431372549022" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <connections>
-                                            <outlet property="ProdectDetailLabel" destination="Ux2-hO-oN3" id="vPK-0t-z1R"/>
+                                            <outlet property="prodectDetailLabel" destination="Ux2-hO-oN3" id="vPK-0t-z1R"/>
                                             <outlet property="productDetailTextField" destination="wh9-qP-Wb7" id="BhL-R4-ZY8"/>
                                         </connections>
                                     </tableViewCell>

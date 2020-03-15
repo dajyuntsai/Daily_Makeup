@@ -15,8 +15,5 @@ struct SignID: Codable {
     let email: String
     
     let uid: String
-    
-//    let image: String
-    
-        
+
 }

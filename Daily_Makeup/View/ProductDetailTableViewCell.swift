@@ -15,12 +15,9 @@ class ProductDetailTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    @IBOutlet var ProdectDetailLabel: UILabel!
-    
+    @IBOutlet var prodectDetailLabel: UILabel!
     
     @IBOutlet var productDetailTextField: UITextField!
-    
-    
     
     //closure傳值
     var passText: ((String) -> Void)?

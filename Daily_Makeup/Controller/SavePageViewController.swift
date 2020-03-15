@@ -45,15 +45,10 @@ class SavePageViewController: ViewController {
         articleSave.delegate = self
         articleSave.dataSource = self
         
-        
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         loadArticleData()
-        
-        //
         
     }
     
@@ -69,9 +64,7 @@ class SavePageViewController: ViewController {
         self.userData = []
         db.collection("user").document(uid).collection("article").getDocuments() {
             
-            (querySnapshot, err) in
-            
-            if let err = err {
+            (querySnapshot, err) in if let err = err {
                 print("Error getting documents: \(err)")
             } else {
                 self.userData = []
@@ -200,7 +193,6 @@ extension SavePageViewController:UICollectionViewDataSource,UICollectionViewDele
         return UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard let postVC = storyboard?.instantiateViewController(withIdentifier: "postVC") as? PostViewController else { return }
@@ -215,8 +207,6 @@ extension SavePageViewController:UICollectionViewDataSource,UICollectionViewDele
         
         //        postVC.saveBtn = userData[indexPath.row].saveState
         self.show(postVC, sender: nil)
-        
-        
         for post in userData {
             if article.id == post.id {
                 postVC.saveState = true
@@ -224,6 +214,5 @@ extension SavePageViewController:UICollectionViewDataSource,UICollectionViewDele
         }
         
     }
-    
     
 }

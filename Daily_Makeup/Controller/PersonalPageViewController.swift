@@ -23,7 +23,7 @@ class PersonalPageViewController: UIViewController {
     var db: Firestore!
     var profileData : Profile?
     var articleArray: [Article] = []{
-        didSet{
+        didSet {
             if self.articleArray.count == 0 {
                self.notyetPostLabel.isHidden = false
             } else {
@@ -35,14 +35,9 @@ class PersonalPageViewController: UIViewController {
     var image = ""
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var bioLabel: UILabel!
-    
     @IBOutlet var userImage: UIImageView!
-    
-    
     @IBOutlet var postNumberLabel: UILabel!
-    
     @IBOutlet var notyetPostLabel: UILabel!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -59,14 +54,8 @@ class PersonalPageViewController: UIViewController {
         
         db = Firestore.firestore()
         
-        
-        
         NotificationCenter.default.addObserver(self, selector: #selector(getdata), name: Notification.Name("sharePost"), object: nil)
-        
-        //        postNumberLabel.text = String(articleArray.count)
-        
-        
-        
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,26 +68,21 @@ class PersonalPageViewController: UIViewController {
         loadArticleData()
         
     }
-    
-    
+        
     @objc func getdata(){
         getArticleData()
     }
     
-    
     @IBOutlet var articleCollectionView: UICollectionView!
     @IBOutlet var topConstraint: NSLayoutConstraint!
-    
     @IBOutlet var editBtn: UIButton! {
         didSet {
             editBtn.layer.cornerRadius = 6
         }
     }
     
-    
     @IBAction func settingBtn(_ sender: UIButton
     ) {
-        
         
         let alertcontroller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -119,14 +103,11 @@ class PersonalPageViewController: UIViewController {
             self.view.window?.rootViewController = home
             
             
-            
-            
         }
 
         alertcontroller.addAction(pickerAction)
         
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        
         
         cancelAction.setValue(UIColor(red: 208/255 , green:141/255 , blue: 125/255, alpha: 1),forKey: "titleTextColor")
         alertcontroller.addAction(cancelAction)
@@ -134,7 +115,6 @@ class PersonalPageViewController: UIViewController {
         present(alertcontroller, animated: true, completion: nil)
         
     }
-    
     
     @IBAction func editBtn(_ sender: Any) {
         
@@ -163,9 +143,30 @@ class PersonalPageViewController: UIViewController {
     func loadData() {
         //拿個人資料
         guard let uid =  userDefaults.string(forKey: "uid") else { return }
+        guard let name =  userDefaults.string(forKey: "name") else { return }
         
         let docRef = db.collection("user").document(uid)
         
+        docRef.getDocument{(document, error) in
+            let result = Result {
+                try document.flatMap {
+                    try $0.data(as: SignID.self)
+                }
+            }
+            switch result {
+            case .success(let profile):
+                if let profile = profile {
+                    print("Profile: \(profile)")
+                    
+                    self.nameLabel.text = name
+                    
+                } else {
+                    print("Document does not exist")
+                }
+            case .failure(let error):
+                print("Error decoding city: \(error)")
+            }
+        }
         docRef.getDocument { (document, error) in
             let result = Result {
                 try document.flatMap {
@@ -177,9 +178,9 @@ class PersonalPageViewController: UIViewController {
                 if let profile = profile {
                     print("Profile: \(profile)")
                     self.profileData = profile
+                    self.nameLabel.text = name
                     self.bioLabel.text = profile.bio
-                    self.nameLabel.text = profile.name
-                    
+
                     let size = "?width=400&height=400"
                     guard let profileImage = profile.image else { return }
                     let picture = "\(profileImage + size)"
@@ -194,17 +195,13 @@ class PersonalPageViewController: UIViewController {
             }
         }
         
-        
     }
     
     func loadArticleData() {
         //拿save頁的資料
         guard let uid = userDefaults.string(forKey: "uid") else { return }
         
-        db.collection("user").document(uid).collection("article").getDocuments() {
-            
-            (querySnapshot, err) in
-            
+        db.collection("user").document(uid).collection("article").getDocuments() {(querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
@@ -225,13 +222,12 @@ class PersonalPageViewController: UIViewController {
         
     }
     
-    func getArticleData(){
+    func getArticleData() {
         //拿自己發過的文章
-        guard let uid = userDefaults.string(forKey: "uid") else { return }
+    guard let uid = userDefaults.string(forKey: "uid") else { return }
         
         db.collection("article").whereField("uid", isEqualTo: uid)
-            .getDocuments() { (querySnapshot, err) in
-                if let err = err {
+            .getDocuments() { (querySnapshot, err) in if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
                     self.articleArray = []
@@ -262,7 +258,7 @@ class PersonalPageViewController: UIViewController {
 }
 
 @available(iOS 13.0, *)
-extension PersonalPageViewController:UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
+extension PersonalPageViewController:UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return articleArray.count
     }
@@ -306,9 +302,7 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
         
         guard let postVC = storyboard?.instantiateViewController(withIdentifier: "postVC") as? PostViewController else { return }
         
-        
         postVC.nameLabel = articleArray[indexPath.row].name
-        postVC.article = articleArray[indexPath.row]
         postVC.urlArray = articleArray[indexPath.row].image
         postVC.personalImage = image
         

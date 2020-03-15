@@ -68,9 +68,6 @@ class HomePageCollectionViewCell: UICollectionViewCell {
     
     var likeStateBtn:((Bool) -> Void)?
     
-    
-    
-    
     @IBAction func articleSaveBtn(_ sender: UIButton) {
 
         if likeBtnState {
@@ -88,8 +85,7 @@ class HomePageCollectionViewCell: UICollectionViewCell {
             likeStateBtn?(true)
             
             addData()
-            
-
+         
         }
 
         likeBtnState = !likeBtnState
@@ -111,12 +107,9 @@ class HomePageCollectionViewCell: UICollectionViewCell {
     
     func deleated() {
         
-        guard let uid = userDefaults.string(forKey:"uid") else { return }
+        guard let uid = userDefaults.string(forKey: "uid") else { return }
         guard let id = articleManager?.id else { return }
-        
-        db.collection("user").document(uid).collection("article").document(id).delete() {
-            err in
-            if let err = err {
+        db.collection("user").document(uid).collection("article").document(id).delete() {err in if let err = err {
                 print("Error removing document: \(err)")
             } else {
                 print("Document successfully removed!")
@@ -124,7 +117,5 @@ class HomePageCollectionViewCell: UICollectionViewCell {
         }
         
     }
-    
-    
-    
+   
 }

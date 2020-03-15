@@ -78,13 +78,13 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
         imagePickerController.delegate = self
         let imagePickerAlertController = UIAlertController(title: "上傳圖片", message: "請選擇要上傳的圖片", preferredStyle: .actionSheet)
         
-        let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (Void) in
+        let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (void) in
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                 imagePickerController.sourceType = .photoLibrary
                 self.present(imagePickerController, animated: true, completion: nil)
             }
         }
-        let imageFromCameraAction = UIAlertAction(title: "相機", style: .default) { (Void) in
+        let imageFromCameraAction = UIAlertAction(title: "相機", style: .default) { (void) in
             
             // 判斷是否可以從相機取得照片來源
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
@@ -94,7 +94,7 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
         }
         
         // 新增一個取消動作，讓使用者可以跳出 UIAlertController
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (Void) in
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (void) in
             
             imagePickerAlertController.dismiss(animated: true, completion: nil)
         }
@@ -131,7 +131,7 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
                 
         //        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Cancel))
         navigationItem.title = "product detail"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(Cancel))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(cancel))
         navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
@@ -200,7 +200,7 @@ class ProductDetailViewController: UIViewController,UIPickerViewDataSource,UIPic
     
     
     
-    @objc func Cancel() {
+    @objc func cancel() {
         navigationController?.popViewController(animated: true)
         
     }
@@ -305,7 +305,7 @@ extension ProductDetailViewController:UITableViewDelegate,UITableViewDataSource 
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ProductDetailTableViewCell else { return UITableViewCell() }
         
-        cell.ProdectDetailLabel.text = productDetail[indexPath.row]
+        cell.prodectDetailLabel.text = productDetail[indexPath.row]
         //        productImage.layer.cornerRadius = UIScreen.main.bounds.width / 40
         //        productImage.layer.maskedCorners = [.layerMinXMaxYCorner]
         //
@@ -365,7 +365,6 @@ extension ProductDetailViewController:UITableViewDelegate,UITableViewDataSource 
 extension ProductDetailViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        
         var selectedImageFromPicker: UIImage?
         
         // 取得從 UIImagePickerController 選擇的檔案
@@ -388,10 +387,8 @@ extension ProductDetailViewController : UIImagePickerControllerDelegate, UINavig
             
             guard let data = selectedImage.jpegData(compressionQuality: 0.5) else { return }
             
-            let task = imageRef.putData(data, metadata: nil){
-                (metadata, error) in
-                imageRef.downloadURL { (url, error) in
-                    print(url)
+            let task = imageRef.putData(data, metadata: nil) {
+                (metadata, error) in imageRef.downloadURL { (url, error) in print(url)
                     
                     guard let imageUrl = url else { return }
                     self.addProductImage = "\(imageUrl)"
@@ -412,6 +409,4 @@ extension ProductDetailViewController : UIImagePickerControllerDelegate, UINavig
     }
     
 }
-
-
 

@@ -16,7 +16,7 @@ import JGProgressHUD
 
 @UIApplicationMain
 
-class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -28,8 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
         return true
     }
     
-    
-    
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
             print("error")
@@ -38,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
         guard let authentication = user.authentication else { return }
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,accessToken: authentication.accessToken)
         Auth.auth().signIn(with: credential) { ( user, error) in
-            if let error = error {
+            if error != nil {
                 print("error")
                 return
             }
@@ -46,7 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
                 let name = user?.user.displayName,
                 let email = user?.user.email,
                 let image = user?.user.photoURL?.absoluteString else { return }
-            
             
             let size = "?width=400&height=400"
             let picture = "\(image + size)"
@@ -85,7 +82,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
     
     var window: UIWindow?
     
-    
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         ApplicationDelegate.shared.application(app, open: url, options: options)
     }
@@ -94,8 +90,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
         
         return GIDSignIn.sharedInstance().handle(url)
     }
-    
-    
     
 }
 

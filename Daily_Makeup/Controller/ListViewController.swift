@@ -22,7 +22,7 @@ class ListViewController: UIViewController {
     let userDefaults = UserDefaults.standard
     
     var listArray = [Product]() {
-        didSet{
+        didSet {
             if listArray.isEmpty {
                 self.totalNumber.isHidden = true
             } else {
@@ -34,15 +34,14 @@ class ListViewController: UIViewController {
     }
     
     var isFilter = false {
-        didSet{
+        didSet {
             self.totalNumber.text = "\(self.listArray.count)"
             self.listTableView.reloadData()
         }
     }
     
-    
     var filterArray: [Product] = [] {
-        didSet{
+        didSet {
             if filterArray.isEmpty {
                 self.totalNumber.isHidden = true
             } else {
@@ -54,7 +53,6 @@ class ListViewController: UIViewController {
     }
     var swtichDisplay = false
     
-    
     @IBOutlet var serchBar: UISearchBar!
     @IBOutlet var searchTextField: UITextField!
     @IBOutlet var totalNumber: UILabel!
@@ -62,11 +60,14 @@ class ListViewController: UIViewController {
     
     @IBAction func backtoTop(_ sender: Any) {
         
+        if self.listArray.count == 0{
+            return
+        }
+        
         let indexPath = IndexPath(row: 0, section: 0)
         self.listTableView.scrollToRow(at: indexPath, at: .top, animated: true)
         
     }
-    
     
     @IBAction func addImageButton(_ sender: UIButton) {
         
@@ -102,15 +103,14 @@ class ListViewController: UIViewController {
     func productList() {
         //category跟list一樣的名字就能找到對應的list
         db.collection("ProductDetail").whereField("category", isEqualTo: list)
-            .getDocuments() { (querySnapshot, err) in
-                if let err = err {
+            .getDocuments() { (querySnapshot, err) in if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
                     self.listArray = []
                     
                     for document in querySnapshot!.documents {
                         
-                        do{
+                        do {
                             
                             guard let result = try document.data(as: Product.self, decoder: Firestore.Decoder()) else { return }
                             
@@ -132,9 +132,6 @@ class ListViewController: UIViewController {
                     self.listTableView.reloadData()
                 }
         }
-        
-        
-        
         
     }
     
@@ -175,9 +172,6 @@ class ListViewController: UIViewController {
         
     }
     
-    
-    
-    
     @objc func back() {
         navigationController?.popViewController(animated: true)
         
@@ -207,10 +201,8 @@ class ListViewController: UIViewController {
         
     }
     
- 
-    
-    func deletDocument(a:Int) {
-        let id = listArray[a].id
+    func deletDocument(documentID: Int) {
+        let id = listArray[documentID].id
         db.collection("ProductDetail").document(id).delete() { err in
             if let err  = err {
                 print("Error removing document: \(err)")
@@ -259,11 +251,9 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
         let url = URL(string: listArray[indexPath.row].image[0])
         cell.productImage.kf.setImage(with: url)
         
-        
         return cell
         //        return UITableViewCell()
     }
-    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 110
@@ -273,13 +263,12 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
     //刪除cell
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            deletDocument(a: indexPath.row)
+            deletDocument(documentID: indexPath.row)
             listArray.remove(at: indexPath.row)
         }
         
         tableView.reloadData()
     }
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

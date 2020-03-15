@@ -23,8 +23,6 @@ class CategoryViewController: UIViewController {
     var db:Firestore!
     var productArray: [Product] = []
     
-    
-    
     @IBAction func lipsBtn(_ sender: UIButton) {
         
         guard let listVC = storyboard?.instantiateViewController(withIdentifier: "litspage") as?  ListViewController else { return }
@@ -39,7 +37,6 @@ class CategoryViewController: UIViewController {
         self.show(listVC, sender: nil)
     }
     
-    
     @IBAction func blusherBtn(_ sender: Any) {
         
         guard let listVC = storyboard?.instantiateViewController(withIdentifier: "litspage") as?  ListViewController else { return }
@@ -47,20 +44,12 @@ class CategoryViewController: UIViewController {
         self.show(listVC, sender: nil)
     }
     
-    
     @IBAction func othersBtn(_ sender: Any) {
         
         guard let listVC = storyboard?.instantiateViewController(withIdentifier: "litspage") as?  ListViewController else { return }
         listVC.list = "其他"
         self.show(listVC, sender: nil)
     }
-    
-    
-    
-    
-    
-    
-    
     
 }
 

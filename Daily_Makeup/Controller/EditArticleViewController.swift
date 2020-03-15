@@ -16,7 +16,7 @@ import JGProgressHUD
 
 class EditArticleViewController: UIViewController{
     
-    var db:Firestore!
+    var db: Firestore!
     var imageStore: [UIImage] = []
     var uid = ""
     var name = ""
@@ -45,7 +45,7 @@ class EditArticleViewController: UIViewController{
         imageCollectionView.dataSource = self
         imageCollectionView.delegate = self
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title:"share" , style: .plain, target: self, action:#selector(share) )
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "share", style: .plain, target: self, action:#selector(share) )
         navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "cancel", style: .plain, target: self, action: #selector(cancel))
         navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
@@ -166,7 +166,7 @@ extension EditArticleViewController: UITextViewDelegate {
     }
 }
 
-extension EditArticleViewController:UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
+extension EditArticleViewController:UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imageStore.count + 1
@@ -176,7 +176,7 @@ extension EditArticleViewController:UICollectionViewDataSource,UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? EditArticleCollectionViewCell else { return UICollectionViewCell() }
-        if indexPath.row == imageStore.count{
+        if indexPath.row == imageStore.count {
             cell.addImageBtn.isHidden = false
             cell.articleImage.isHidden = true
 //            return cell
@@ -198,7 +198,6 @@ extension EditArticleViewController:UICollectionViewDataSource,UICollectionViewD
         return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 12  )
     }
     
-    
 }
 
 extension EditArticleViewController:PassDataDelegate{
@@ -217,14 +216,13 @@ extension EditArticleViewController:PassDataDelegate{
         
         imagePickerAlertController.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
-        
-        let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (Void) in
+        let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (void) in
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                 imagePickerController.sourceType = .photoLibrary
                 self.present(imagePickerController, animated: true, completion: nil)
             }
         }
-        let imageFromCameraAction = UIAlertAction(title: "相機", style: .default) { (Void) in
+        let imageFromCameraAction = UIAlertAction(title: "相機", style: .default) { (void) in
             
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 imagePickerController.sourceType = .camera
@@ -232,7 +230,7 @@ extension EditArticleViewController:PassDataDelegate{
             }
         }
         
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (Void) in
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (void) in
            
             imagePickerAlertController.dismiss(animated: true, completion: nil)
         }
@@ -253,14 +251,12 @@ extension EditArticleViewController: UIImagePickerControllerDelegate,UINavigatio
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        
         var selectedImageFromPicker: UIImage?
         
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             
             selectedImageFromPicker = pickedImage
         }
-        
         
         if let selectedImage = selectedImageFromPicker {
             
@@ -282,7 +278,6 @@ extension EditArticleViewController: UIImagePickerControllerDelegate,UINavigatio
             })
             print("\(selectedImage)")
         }
-        
         
     }
 }

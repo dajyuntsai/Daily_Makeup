@@ -268,7 +268,7 @@ class PostViewController: UIViewController {
             
             let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
             
-            cancelAction.setValue(UIColor(red: 208/255 , green:129/255 , blue: 129/255, alpha: 1),forKey: "titleTextColor")
+            cancelAction.setValue(UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1),forKey: "titleTextColor")
             
             alertcontroller.addAction(cancelAction)
             
@@ -276,7 +276,6 @@ class PostViewController: UIViewController {
             
         }
     }
-    
     
     func deleatedArticle() {
         
@@ -296,7 +295,6 @@ class PostViewController: UIViewController {
         
     }
     
-    
     func uploadUserUID() {
         
         guard let uid = userDefaults.string(forKey: "uid") else { return }
@@ -304,7 +302,7 @@ class PostViewController: UIViewController {
         let document = db.collection("user").document(uid)
         
         guard let articleUid = article?.uid else { return }
-        document.updateData(["blackList" : FieldValue.arrayUnion([articleUid])
+        document.updateData(["blackList": FieldValue.arrayUnion([articleUid])
         ])
     }
     
@@ -316,11 +314,10 @@ class PostViewController: UIViewController {
         
         guard let articleId = article?.id else { return }
         
-        document.updateData(["articleLike" : FieldValue.arrayUnion([articleId])
+        document.updateData(["articleLike": FieldValue.arrayUnion([articleId])
         ])
         
     }
-    
     
     func deleteButtonState() {
         
@@ -330,7 +327,7 @@ class PostViewController: UIViewController {
         
         guard let articleId = article?.id else { return }
         
-        document.updateData(["articleLike" : FieldValue.arrayRemove([articleId])
+        document.updateData(["articleLike": FieldValue.arrayRemove([articleId])
         ])
         
     }
@@ -351,12 +348,11 @@ class PostViewController: UIViewController {
     //刪除文章
     func deleated() {
         
-        guard let uid = userDefaults.string(forKey:"uid") else { return }
+        guard let uid = userDefaults.string(forKey: "uid") else { return }
         guard let id = article?.id else { return }
         
         db.collection("user").document(uid).collection("article").document(id).delete() {
-            err in
-            if let err = err {
+            err in if let err = err {
                 print("Error removing document: \(err)")
             } else {
                 print("Document successfully removed!")
@@ -367,7 +363,7 @@ class PostViewController: UIViewController {
     
 }
 
-extension PostViewController:UITableViewDelegate,UITableViewDataSource{
+extension PostViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -376,8 +372,6 @@ extension PostViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let article = article else { return UITableViewCell() }
-        
-        
         
         if indexPath.row == 2 {
             if let timecell = tableView.dequeueReusableCell(withIdentifier: "timecell", for: indexPath) as? PostTimeTableViewCell {
@@ -399,7 +393,6 @@ extension PostViewController:UITableViewDelegate,UITableViewDataSource{
                 cell.passText = { [weak self] text in
                     self?.article?.title = text
                 }
-                
                 
                 return cell
             } else {
