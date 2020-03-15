@@ -11,13 +11,13 @@
 <div align="left">
  <img src= "https://github.com/dajyuntsai/Daily_Makeup/blob/master/Simulator%20Screen%20Shot%20-%20iPhone%2011%20Pro%20Max%20-%202020-03-05%20at%2020.10.44.png" height="450px">
  <img src= "https://github.com/dajyuntsai/Daily_Makeup/blob/master/Simulator%20Screen%20Shot%20-%20iPhone%2011%20Pro%20Max%20-%202020-03-05%20at%2020.11.14.png" height="450px"> 
-</div>
+</div>  
 
 ∙ 彩妝品紀錄 - 清楚的分類，分別是口紅、腮紅、眼影盤與其他讓您能隨時紀錄自己手邊有的彩妝用品，再也不怕買到重複色號。  
-   ⁃ 可新增產品資訊  
-   ⁃ 可重複修改資料   
-   ⁃ 可回到最上層  
-   ⁃ 計算總數量  
+   -  可新增產品資訊  
+   -  可重複修改資料   
+   -  可回到最上層  
+   -  計算總數量  
   
 
 文章收藏 - 看到喜歡的文章馬上加入收藏
