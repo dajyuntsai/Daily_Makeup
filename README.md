@@ -4,9 +4,9 @@
 # Feature
 特色功能：  
 ∙ 貼文分享 - 即時看到大家分享最新的彩妝心得    
-   ⁃ 可看到發文者最新的文章分享  
-   ⁃ 可搜尋發文者及文章標題  
-   ⁃ 可按收藏  
+      ⁃ 可看到發文者最新的文章分享     
+      ⁃ 可搜尋發文者及文章標題    
+      ⁃ 可按收藏  
 
 <div align="left">
  <img src= "https://github.com/dajyuntsai/Daily_Makeup/blob/master/Simulator%20Screen%20Shot%20-%20iPhone%2011%20Pro%20Max%20-%202020-03-05%20at%2020.10.44.png" height="450px">
