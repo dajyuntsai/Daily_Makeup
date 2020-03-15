@@ -1,19 +1,36 @@
 # Daily_Makeup
-
-
-
-
+買完彩妝品總是忘記自己的色號，或是買到類似的顏色，Lofty是一款可以紀錄自己的美妝產品及分享美妝心得的app，讓你隨時隨地都能關注最流行的彩妝資訊！
 
 # Feature
+特色功能：
+
+貼文分享 - 好用的東西大家分享起乃！即時看到大家分享最新的彩妝心得。
+
+彩妝品紀錄 - 清楚的分類讓您能隨時紀錄自己手邊有的彩妝用品，再也不怕買到重複色號。
+
+文章收藏 - 看到喜歡的文章馬上加入收藏
 
 
+
+ 
 # Library
+∙  SwiftLint  
+∙  Alamofire  
+∙  JGProgressHUD  
+∙  ESPullToRefresh  
+∙  Kingfisher  
+∙  IQKeyboardManagerSwift    
+∙  Firebase/Core    
+∙  GoogleAnalytics  
+∙  Facebook SDK
+
 
 
 # Requirement
+iOS 13.0+
 
 
 # Contacts
-
+Bethany Tsai ang7534387@gmail.com
 
 
