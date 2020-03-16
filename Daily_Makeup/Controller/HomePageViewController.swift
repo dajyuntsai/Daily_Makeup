@@ -24,7 +24,7 @@ class HomePageViewController: UIViewController {
         
     }
     
-    var db: Firestore!
+    var database: Firestore!
     
     let userDefaults = UserDefaults.standard
     var imageStore: [String] = []
@@ -58,7 +58,7 @@ class HomePageViewController: UIViewController {
         
         //
         
-        db = Firestore.firestore()
+        database = Firestore.firestore()
         article.delegate = self
         article.dataSource = self
         //        loadData()
@@ -151,7 +151,7 @@ class HomePageViewController: UIViewController {
         
         //全部人的文章
         
-        db.collection("article").order(by: "time", descending: true).getDocuments() { (querySnapshot, err) in
+        database.collection("article").order(by: "time", descending: true).getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
@@ -202,7 +202,7 @@ class HomePageViewController: UIViewController {
         for count in 0 ..< articleArray.count {
             print(articleArray[count].uid)
             
-            self.db.collection("user").whereField("uid", isEqualTo: articleArray[count].uid).getDocuments { (querySnapshot, err) in
+            self.database.collection("user").whereField("uid", isEqualTo: articleArray[count].uid).getDocuments { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
@@ -239,7 +239,7 @@ class HomePageViewController: UIViewController {
         
         guard let uid = userDefaults.string(forKey: "uid") else { return }
         
-        db.collection("user").document(uid).collection("article").getDocuments() {
+        database.collection("user").document(uid).collection("article").getDocuments() {
             
             (querySnapshot, err) in
             
@@ -268,7 +268,7 @@ class HomePageViewController: UIViewController {
         
         guard let uid =  userDefaults.string(forKey: "uid") else { return }
         
-        let docRef = db.collection("user").document(uid)
+        let docRef = database.collection("user").document(uid)
         
         docRef.getDocument { (document, error) in
             let result = Result {

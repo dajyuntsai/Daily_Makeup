@@ -189,12 +189,6 @@ class PostViewController: UIViewController {
                 print("Document successfully updated")
             }
         }
-        
-        
-    
-        
-        
-
 //
 //        documentTitle.updateData(["title" :FieldValue.arrayUnion([article.title])])
         

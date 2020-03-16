@@ -16,7 +16,6 @@ import FirebaseFirestoreSwift
 import CryptoKit
 import AuthenticationServices
 
-
 @available(iOS 13.0, *)
 class SinginViewController: UIViewController {
     

@@ -69,7 +69,7 @@ class PersonalPageViewController: UIViewController {
         
     }
         
-    @objc func getdata(){
+    @objc func getdata() {
         getArticleData()
     }
     
@@ -109,7 +109,7 @@ class PersonalPageViewController: UIViewController {
         
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         
-        cancelAction.setValue(UIColor(red: 208/255 , green:141/255 , blue: 125/255, alpha: 1),forKey: "titleTextColor")
+        cancelAction.setValue(UIColor(red: 208/255, green: 141/255 , blue: 125/255, alpha: 1),forKey: "titleTextColor")
         alertcontroller.addAction(cancelAction)
         
         present(alertcontroller, animated: true, completion: nil)
@@ -227,7 +227,7 @@ class PersonalPageViewController: UIViewController {
     guard let uid = userDefaults.string(forKey: "uid") else { return }
         
         db.collection("article").whereField("uid", isEqualTo: uid)
-            .getDocuments() { (querySnapshot, err) in if let err = err {
+            .getDocuments(){ (querySnapshot, err) in if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
                     self.articleArray = []
