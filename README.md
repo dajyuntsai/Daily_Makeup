@@ -32,7 +32,7 @@
 <div align="left">
  <img src= "https://github.com/dajyuntsai/Daily_Makeup/blob/master/ImageLibrary/Simulator%20Screen%20Shot%20-%20iPhone%2011%20Pro%20Max%20-%202020-03-05%20at%2020.11.25.png" height="450px">
  <img src= "https://github.com/dajyuntsai/Daily_Makeup/blob/master/ImageLibrary/Simulator%20Screen%20Shot%20-%20iPhone%2011%20Pro%20Max%20-%202020-03-05%20at%2020.16.53.png" height="450px"> 
- <img src= "https://github.com/dajyuntsai/Daily_Makeup/blob/master/ImageLibrary/Simulator%20Screen%20Shot%20-%20iPhone%2011%20Pro%20Max%20-%202020-03-05%20at%2020.17.04.png" height="450px"> 
+ <img src= "https://github.com/dajyuntsai/Daily_Makeup/blob/master/ImageLibrary/Simulator%20Screen%20Shot%20-%20iPhone%2011%20Pro%20Max%20-%202020-03-05%20at%2020.17.30.png" height="450px"> 
 </div>    
    
              
@@ -41,7 +41,7 @@
 看到喜歡的文章馬上加入收藏
 
 <div align="left">
- <img src= "https://github.com/dajyuntsai/Daily_Makeup/blob/master/ImageLibrary/Simulator%20Screen%20Shot%20-%20iPhone%2011%20Pro%20Max%20-%202020-03-05%20at%2020.17.30.png" height="450px">
+ <img src= "https://github.com/dajyuntsai/Daily_Makeup/blob/master/ImageLibrary/Simulator%20Screen%20Shot%20-%20iPhone%2011%20Pro%20Max%20-%202020-03-05%20at%2020.17.04.png" height="450px">
 </div>  
 
 ### 個人主頁
