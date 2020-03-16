@@ -309,7 +309,7 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
         navigationController?.pushViewController(postVC, animated: true)
         
         let article = articleArray[indexPath.item]
-        
+        postVC.article = article
         //書籤狀態
         for post in personalSave {
             if article.id == post.id {

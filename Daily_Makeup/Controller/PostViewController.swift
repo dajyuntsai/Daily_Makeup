@@ -14,7 +14,6 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseStorage
 
-
 class PostViewController: UIViewController {
     
     var db: Firestore!
@@ -216,6 +215,7 @@ class PostViewController: UIViewController {
     @IBAction func settingsBtn(_ sender: Any) {
         
         if self.userDefaults.string(forKey: "uid") == article?.uid {
+        
             let alertcontroller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
             alertcontroller.view.tintColor = UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1)
