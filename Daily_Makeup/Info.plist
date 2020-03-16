@@ -45,7 +45,7 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>Privacy – Camera Usage Description</key>
+	<key>NSCameraUsageDescription</key>
 	<string>您的相機將在Lofty內被開啟，用於存取照片</string>
 	<key>Privacy – Photo Library Usage Description</key>
 	<string>當有需要上傳照片時，您的照片將在Lofty內被使用</string>

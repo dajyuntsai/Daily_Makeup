@@ -58,6 +58,7 @@ class EditArticleViewController: UIViewController{
     
     
     @objc func share() {
+
         
         let group = DispatchGroup()
         

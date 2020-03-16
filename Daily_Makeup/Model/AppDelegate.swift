@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             let size = "?width=400&height=400"
             let picture = "\(image + size)"
             
-            let signInID = SignID (
+            let signInID = SignID(
                 name: name,
                 email: email,
                 uid: uid
@@ -68,9 +68,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 print(error)
             }
             NotificationCenter.default.post(name: Notification.Name("success"), object: nil)
-            //            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-            //            appDelegate.window?.rootViewController = viewController
-            //
+//            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+//            appDelegate.window?.rootViewController = 
+            
             
         }
         

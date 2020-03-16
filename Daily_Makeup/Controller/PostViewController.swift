@@ -107,9 +107,6 @@ class PostViewController: UIViewController {
             
         }
         
-        
-        
-        
     }
     
     @IBAction func shareBtn(_ sender: Any) {
@@ -120,6 +117,8 @@ class PostViewController: UIViewController {
         super.viewDidLoad()
         
         db =  Firestore.firestore()
+        
+        imageScrollView.frame.size.width = UIScreen.main.bounds.width
         
         postTableView.delegate = self
         postTableView.dataSource = self
@@ -135,14 +134,17 @@ class PostViewController: UIViewController {
         let url = URL(string: personalImage)
         profilePhoto.kf.setImage(with: url)
         
-        
         authorLabel.text = nameLabel
-        
         
         //照片數量
         for number in 0 ..< urlArray.count {
             
-            let imageView = UIImageView(frame: CGRect(x: view.frame.width * CGFloat(number), y: 0, width: 414, height: 376))
+            let targetFrame = CGRect(x: UIScreen.main.bounds.width * CGFloat(number), y: 0, width: UIScreen.main.bounds.width, height: 376)
+            
+            print("---", targetFrame)
+            
+            let imageView = UIImageView(frame: targetFrame)
+            imageView.clipsToBounds = true
             
             self.imageScrollView.addSubview(imageView)
             
@@ -154,13 +156,14 @@ class PostViewController: UIViewController {
             //            let url = urlArray[number]
             let url = URL(string: urlArray[number])
             imageView.kf.setImage(with: url)
-            
         }
         
         pageControl.numberOfPages = urlArray.count
         
         print(imageScrollView.contentSize)
-        imageScrollView.contentSize = CGSize(width: view.frame.width * CGFloat(urlArray.count), height: 376)
+        imageScrollView.contentSize = CGSize(width: UIScreen.main.bounds.width * CGFloat(urlArray.count), height: 376)
+        
+        imageScrollView.isPagingEnabled = true
         
         if saveState {
             saveBtn.setImage(UIImage(named:
@@ -413,6 +416,8 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        print(scrollView.frame)
         
         let frameWidth = Int(imageScrollView.frame.size.width)
         let contentOffsetX = Int(imageScrollView.contentOffset.x) + frameWidth / 3
