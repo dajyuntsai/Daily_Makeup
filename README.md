@@ -1,6 +1,8 @@
 # Lofty
 買完彩妝品總是忘記自己的色號，或是買到類似的顏色，Lofty是一款可以紀錄自己的美妝產品及分享美妝心得的app，讓你隨時隨地都能關注最流行的彩妝資訊！
 
+<a href="https://apps.apple.com/tw/app/lofty/id1501673305?mt=8"><img src="https://i.imgur.com/Pc1KdHw.png" height="40"></a>
+
 # Feature
 
  ### 貼文分享 
