@@ -12,4 +12,3 @@ struct LikeButton: Codable {
     
     let  btnState: Bool
 }
-

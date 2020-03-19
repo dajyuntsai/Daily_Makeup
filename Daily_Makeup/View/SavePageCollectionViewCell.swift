@@ -12,8 +12,6 @@ import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-
-
 class SavePageCollectionViewCell: UICollectionViewCell {
     
     var btnState = false {
@@ -30,7 +28,7 @@ class SavePageCollectionViewCell: UICollectionViewCell {
     
     var article: Article?
     
-    var db = Firestore.firestore()
+    var database = Firestore.firestore()
     
     var saveBtnState:((Bool) -> Void)?
     
@@ -72,7 +70,7 @@ class SavePageCollectionViewCell: UICollectionViewCell {
             let article = article else { return }
         
         do {
-            let docRef = db.collection("user").document(uid).collection("article").document(article.id)
+            let docRef = database.collection("user").document(uid).collection("article").document(article.id)
             try docRef.setData(from: article)
         } catch {
             print(error)
@@ -81,10 +79,10 @@ class SavePageCollectionViewCell: UICollectionViewCell {
     
     func deleated() {
         
-        guard let uid = userDefaults.string(forKey:"uid") else { return }
+        guard let uid = userDefaults.string(forKey: "uid") else { return }
         guard let id = article?.id else { return }
         
-        db.collection("user").document(uid).collection("article").document(id).delete() { err in
+        database.collection("user").document(uid).collection("article").document(id).delete { err in
             if let err = err {
                 print("Error removing document: \(err)")
             } else {

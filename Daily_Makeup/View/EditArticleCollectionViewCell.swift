@@ -17,7 +17,6 @@ class EditArticleCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var articleImage: UIImageView!
     
-    
     @IBOutlet var addImageBtn: UIButton!
     
     @IBAction func addImageBtn(_ sender: Any) {

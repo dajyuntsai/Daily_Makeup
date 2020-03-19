@@ -45,7 +45,6 @@
 		5C78699D23E1F8E2007A94A1 /* SavePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C78699C23E1F8E2007A94A1 /* SavePageViewController.swift */; };
 		5C78699F23E1F91C007A94A1 /* SavePageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C78699E23E1F91C007A94A1 /* SavePageCollectionViewCell.swift */; };
 		5CBA45BA23F7E3B100DC32A8 /* article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBA45B923F7E3B000DC32A8 /* article.swift */; };
-		5CBE793C240B87C600D8735E /* JGProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBE793B240B87C600D8735E /* JGProgressHUD.swift */; };
 		5CC4651223E84C2F00424243 /* SinginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC4651123E84C2F00424243 /* SinginViewController.swift */; };
 		5CF684C923E2B75800F3C363 /* PersonalPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF684C823E2B75800F3C363 /* PersonalPageViewController.swift */; };
 		5CF684CB23E2B78E00F3C363 /* PersonalPageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF684CA23E2B78E00F3C363 /* PersonalPageCollectionViewCell.swift */; };
@@ -102,7 +101,6 @@
 		5C78699C23E1F8E2007A94A1 /* SavePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePageViewController.swift; sourceTree = "<group>"; };
 		5C78699E23E1F91C007A94A1 /* SavePageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePageCollectionViewCell.swift; sourceTree = "<group>"; };
 		5CBA45B923F7E3B000DC32A8 /* article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = article.swift; sourceTree = "<group>"; };
-		5CBE793B240B87C600D8735E /* JGProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGProgressHUD.swift; sourceTree = "<group>"; };
 		5CBE793D240D48C500D8735E /* Daily_Makeup.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Daily_Makeup.entitlements; sourceTree = "<group>"; };
 		5CC4651123E84C2F00424243 /* SinginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinginViewController.swift; sourceTree = "<group>"; };
 		5CF684C823E2B75800F3C363 /* PersonalPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalPageViewController.swift; sourceTree = "<group>"; };
@@ -174,7 +172,6 @@
 		5C78699123E1B5D8007A94A1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				5CBE793B240B87C600D8735E /* JGProgressHUD.swift */,
 				5C57F34623DC46E00010A672 /* AppDelegate.swift */,
 				5C3D6AAD23E97F5D00257991 /* productDetail.swift */,
 				5C3D6AAF23EA90F700257991 /* editProfile.swift */,
@@ -263,6 +260,7 @@
 				BD657616C98E1A1FD16380E7 /* [CP] Embed Pods Frameworks */,
 				0CD550F61B7E7E3BE011022B /* [CP] Copy Pods Resources */,
 				5C330A18241B8B55005E7147 /* ShellScript */,
+				5CA4E8F62420921F00627D94 /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -367,6 +365,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n\n";
 		};
+		5CA4E8F62420921F00627D94 /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Crashlytics;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\"\n";
+		};
 		BD657616C98E1A1FD16380E7 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -431,7 +447,6 @@
 				5C78699723E1BB2B007A94A1 /* HomePageCollectionViewCell.swift in Sources */,
 				5C3D6AAE23E97F5D00257991 /* productDetail.swift in Sources */,
 				5C52A36623E4279D00969BDE /* ProductDetailViewController.swift in Sources */,
-				5CBE793C240B87C600D8735E /* JGProgressHUD.swift in Sources */,
 				5C57F34B23DC46E00010A672 /* ViewController.swift in Sources */,
 				5CF684CB23E2B78E00F3C363 /* PersonalPageCollectionViewCell.swift in Sources */,
 				5C52A36C23E4992B00969BDE /* ListViewController.swift in Sources */,
@@ -520,7 +535,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -574,7 +589,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -593,14 +608,15 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6LAT54CJSN;
 				INFOPLIST_FILE = Daily_Makeup/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = huei.Daily.Makeup.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -620,12 +636,12 @@
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = 6LAT54CJSN;
 				INFOPLIST_FILE = Daily_Makeup/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = huei.Daily.Makeup.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

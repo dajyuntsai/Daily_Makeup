@@ -13,8 +13,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import JGProgressHUD
 
-
-class EditArticleViewController: UIViewController{
+class EditArticleViewController: UIViewController {
     
     var db: Firestore!
     var imageStore: [UIImage] = []
@@ -45,7 +44,7 @@ class EditArticleViewController: UIViewController{
         imageCollectionView.dataSource = self
         imageCollectionView.delegate = self
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "share", style: .plain, target: self, action:#selector(share) )
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "share", style: .plain, target: self, action: #selector(share) )
         navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "cancel", style: .plain, target: self, action: #selector(cancel))
         navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
@@ -56,9 +55,11 @@ class EditArticleViewController: UIViewController{
         }
     }
     
-    
     @objc func share() {
-
+        
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Loading"
+        hud.show(in: view)
         
         let group = DispatchGroup()
         
@@ -73,11 +74,7 @@ class EditArticleViewController: UIViewController{
             
             group.enter()
             let task = imageRef.putData(data, metadata: nil) {
-                (metadata, error) in
-                
-                imageRef.downloadURL { [weak self] (url, error) in
-//                    print(url)
-                    
+                (_, _) in imageRef.downloadURL { [weak self] (url, _) in
                     guard let imageUrl = url else { return }
 //                    self.personalImage = "\(imageUrl)"
                     self?.articleImage.append(imageUrl.absoluteString)
@@ -126,13 +123,10 @@ class EditArticleViewController: UIViewController{
                 print(error)
             }
             
-            NotificationCenter.default.post(name:Notification.Name("sharePost"), object: nil)
+            NotificationCenter.default.post(name: Notification.Name("sharePost"), object: nil)
             strongSelf.dismiss(animated: false, completion: nil)
             
-            let hud = JGProgressHUD(style: .dark)
-            hud.textLabel.text = "Loading"
-            hud.show(in: strongSelf.view)
-            hud.dismiss(afterDelay: 3.0)
+            hud.dismiss()
         }
         
     }
@@ -144,11 +138,7 @@ class EditArticleViewController: UIViewController{
     
     @IBOutlet var imageCollectionView: UICollectionView!
     
-    
-    
 }
-
-
 
 extension EditArticleViewController: UITextViewDelegate {
     
@@ -167,12 +157,11 @@ extension EditArticleViewController: UITextViewDelegate {
     }
 }
 
-extension EditArticleViewController:UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
+extension EditArticleViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imageStore.count + 1
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
@@ -201,7 +190,7 @@ extension EditArticleViewController:UICollectionViewDataSource, UICollectionView
     
 }
 
-extension EditArticleViewController:PassDataDelegate{
+extension EditArticleViewController: PassDataDelegate {
     func passData() {
         openPictureLibrary()
     }
@@ -217,13 +206,13 @@ extension EditArticleViewController:PassDataDelegate{
         
         imagePickerAlertController.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
-        let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (void) in
+        let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (_) in
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                 imagePickerController.sourceType = .photoLibrary
                 self.present(imagePickerController, animated: true, completion: nil)
             }
         }
-        let imageFromCameraAction = UIAlertAction(title: "相機", style: .default) { (void) in
+        let imageFromCameraAction = UIAlertAction(title: "相機", style: .default) { (_) in
             
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 imagePickerController.sourceType = .camera
@@ -231,12 +220,12 @@ extension EditArticleViewController:PassDataDelegate{
             }
         }
         
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (void) in
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (_) in
            
             imagePickerAlertController.dismiss(animated: true, completion: nil)
         }
         
-        cancelAction.setValue(UIColor(red: 208/255 , green:129/255 , blue: 129/255, alpha: 1),forKey: "titleTextColor")
+        cancelAction.setValue(UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1), forKey: "titleTextColor")
         imagePickerAlertController.addAction(imageFromLibAction)
         imagePickerAlertController.addAction(cancelAction)
         
@@ -248,9 +237,9 @@ extension EditArticleViewController:PassDataDelegate{
    
 }
 
-extension EditArticleViewController: UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+extension EditArticleViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
         var selectedImageFromPicker: UIImage?
         

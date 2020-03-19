@@ -20,18 +20,18 @@ class PersonalPageViewController: UIViewController {
     let userDefaults = UserDefaults.standard
     
     @IBOutlet var test: UIView!
-    var db: Firestore!
-    var profileData : Profile?
-    var articleArray: [Article] = []{
+    var database: Firestore!
+    var profileData: Profile?
+    var articleArray: [Article] = [] {
         didSet {
             if self.articleArray.count == 0 {
-               self.notyetPostLabel.isHidden = false
+                self.notyetPostLabel.isHidden = false
             } else {
                 self.notyetPostLabel.isHidden = true
             }
         }
     }
-    var personalSave :[Article] = []
+    var personalSave: [Article] = []
     var image = ""
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var bioLabel: UILabel!
@@ -50,12 +50,13 @@ class PersonalPageViewController: UIViewController {
         
         articleCollectionView.delegate = self
         articleCollectionView.dataSource = self
+        
         articleCollectionView.contentInset = UIEdgeInsets(top: test.frame.size.height, left: 0, bottom: 0, right: 0)
         
-        db = Firestore.firestore()
+        database = Firestore.firestore()
         
         NotificationCenter.default.addObserver(self, selector: #selector(getdata), name: Notification.Name("sharePost"), object: nil)
-       
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,7 +69,7 @@ class PersonalPageViewController: UIViewController {
         loadArticleData()
         
     }
-        
+    
     @objc func getdata() {
         getArticleData()
     }
@@ -89,7 +90,7 @@ class PersonalPageViewController: UIViewController {
         alertcontroller.view.tintColor = UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1)
         alertcontroller.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
-        let pickerAction = UIAlertAction(title: "Log out", style: .default) { (void) in
+        let pickerAction = UIAlertAction(title: "Log out", style: .default) { (_) in
             
             do {
                 try Auth.auth().signOut()
@@ -102,14 +103,13 @@ class PersonalPageViewController: UIViewController {
             self.userDefaults.set(nil, forKey: "uid")
             self.view.window?.rootViewController = home
             
-            
         }
-
+        
         alertcontroller.addAction(pickerAction)
         
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         
-        cancelAction.setValue(UIColor(red: 208/255, green: 141/255 , blue: 125/255, alpha: 1),forKey: "titleTextColor")
+        cancelAction.setValue(UIColor(red: 208/255, green: 141/255, blue: 125/255, alpha: 1), forKey: "titleTextColor")
         alertcontroller.addAction(cancelAction)
         
         present(alertcontroller, animated: true, completion: nil)
@@ -145,13 +145,11 @@ class PersonalPageViewController: UIViewController {
         guard let uid =  userDefaults.string(forKey: "uid") else { return }
         guard let name =  userDefaults.string(forKey: "name") else { return }
         
-        let docRef = db.collection("user").document(uid)
+        let docRef = database.collection("user").document(uid)
         
-        docRef.getDocument{(document, error) in
-            let result = Result {
-                try document.flatMap {
-                    try $0.data(as: SignID.self)
-                }
+        docRef.getDocument {(document, error) in let result = Result { try document.flatMap {
+            try $0.data(as: SignID.self)
+            }
             }
             switch result {
             case .success(let profile):
@@ -180,7 +178,7 @@ class PersonalPageViewController: UIViewController {
                     self.profileData = profile
                     self.nameLabel.text = name
                     self.bioLabel.text = profile.bio
-
+                    
                     let size = "?width=400&height=400"
                     guard let profileImage = profile.image else { return }
                     let picture = "\(profileImage + size)"
@@ -201,7 +199,7 @@ class PersonalPageViewController: UIViewController {
         //拿save頁的資料
         guard let uid = userDefaults.string(forKey: "uid") else { return }
         
-        db.collection("user").document(uid).collection("article").getDocuments() {(querySnapshot, err) in
+        database.collection("user").document(uid).collection("article").getDocuments {(querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
@@ -224,32 +222,32 @@ class PersonalPageViewController: UIViewController {
     
     func getArticleData() {
         //拿自己發過的文章
-    guard let uid = userDefaults.string(forKey: "uid") else { return }
+        guard let uid = userDefaults.string(forKey: "uid") else { return }
         
-        db.collection("article").whereField("uid", isEqualTo: uid)
-            .getDocuments(){ (querySnapshot, err) in if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    self.articleArray = []
-                    for document in querySnapshot!.documents {
+        database.collection("article").whereField("uid", isEqualTo: uid)
+            .getDocuments { (querySnapshot, err) in if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                self.articleArray = []
+                for document in querySnapshot!.documents {
+                    
+                    do {
                         
-                        do {
-                            
-                            guard let result = try document.data(as: Article.self, decoder: Firestore.Decoder()) else { return }
-                            
-                            self.articleArray.append(result)
-                            
-                        } catch {
-                            
-                            print(error)
-                            
-                        }
+                        guard let result = try document.data(as: Article.self, decoder: Firestore.Decoder()) else { return }
                         
-                        print("\(document.documentID) => \(document.data())")
+                        self.articleArray.append(result)
+                        
+                    } catch {
+                        
+                        print(error)
+                        
                     }
-                    self.postNumberLabel.text = "\(self.articleArray.count)"
-                    self.articleCollectionView.reloadData()
-                    //                    self.articleCollectionView.es.stopPullToRefresh()
+                    
+                    print("\(document.documentID) => \(document.data())")
+                }
+                self.postNumberLabel.text = "\(self.articleArray.count)"
+                self.articleCollectionView.reloadData()
+                //                    self.articleCollectionView.es.stopPullToRefresh()
                 }
         }
         
@@ -258,7 +256,7 @@ class PersonalPageViewController: UIViewController {
 }
 
 @available(iOS 13.0, *)
-extension PersonalPageViewController:UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
+extension PersonalPageViewController: UICollectionViewDataSource,         UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return articleArray.count
     }
@@ -274,7 +272,7 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
         cell.littleView.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9137254902, blue: 0.8941176471, alpha: 1)
         cell.layer.cornerRadius = UIScreen.main.bounds.width / 60
         cell.littleView.layer.cornerRadius = UIScreen.main.bounds.width / 60
-        cell.littleView.layer.maskedCorners = [.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+        cell.littleView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         
         cell.articalImage.kf.setImage(with: URL(string: articleArray[indexPath.row].image[0]))
         
@@ -311,19 +309,14 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
         let article = articleArray[indexPath.item]
         postVC.article = article
         //書籤狀態
-        for post in personalSave {
-            if article.id == post.id {
-                postVC.saveState = true
-            }
+        for post in personalSave where article.id == post.id {
+            postVC.saveState = true
         }
         
         //愛心狀態
         guard let articleLike = profileData?.articleLike else { return }
-        for likeState in articleLike {
-            if article.id == likeState {
-                postVC.likestate = true
-            }
-            
+        for likeState in articleLike where article.id == likeState {
+            postVC.likestate = true
         }
     }
     
@@ -336,4 +329,3 @@ extension PersonalPageViewController:UICollectionViewDataSource,UICollectionView
     }
     
 }
-

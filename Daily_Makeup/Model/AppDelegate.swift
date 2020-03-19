@@ -29,12 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     }
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if let error = error {
+        if error != nil {
             print("error")
             return
         }
         guard let authentication = user.authentication else { return }
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,accessToken: authentication.accessToken)
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
         Auth.auth().signIn(with: credential) { ( user, error) in
             if error != nil {
                 print("error")
@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 let image = user?.user.photoURL?.absoluteString else { return }
             
             let size = "?width=400&height=400"
-            let picture = "\(image + size)"
+            let _ = "\(image + size)"
             
             let signInID = SignID(
                 name: name,
@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 //                image: picture
             )
             let userDefaults = UserDefaults.standard
-            let db = Firestore.firestore()
+            let database = Firestore.firestore()
             
             userDefaults.set(name, forKey: "name")
             userDefaults.set(email, forKey: "email")
@@ -63,14 +63,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 //            userDefaults.set(picture, forKey: "image")
             
             do {
-                try db.collection("user").document(uid).setData(from: signInID, merge: true)
+                try database.collection("user").document(uid).setData(from: signInID, merge: true)
             } catch {
                 print(error)
             }
             NotificationCenter.default.post(name: Notification.Name("success"), object: nil)
-//            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-//            appDelegate.window?.rootViewController = 
             
+//            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+//            appDelegate.window?.rootViewController = viewController
+//            
             
         }
         
@@ -82,7 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
     var window: UIWindow?
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         ApplicationDelegate.shared.application(app, open: url, options: options)
     }
     
@@ -90,6 +91,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         
         return GIDSignIn.sharedInstance().handle(url)
     }
-    
 }
-

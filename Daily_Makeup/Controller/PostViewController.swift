@@ -16,7 +16,7 @@ import FirebaseStorage
 
 class PostViewController: UIViewController {
     
-    var db: Firestore!
+    var database: Firestore!
     
     var article: Article?
     
@@ -51,7 +51,6 @@ class PostViewController: UIViewController {
     
     @IBOutlet var likeBtn: UIButton!
     
-    
     //返回上一頁
     @IBAction func backToImages(_ sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
@@ -72,7 +71,6 @@ class PostViewController: UIViewController {
         
         likestate = !likestate
     }
-    
     
     @IBAction func saveBtn(_ sender: Any) {
         
@@ -115,7 +113,7 @@ class PostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        db =  Firestore.firestore()
+        database =  Firestore.firestore()
         
         imageScrollView.frame.size.width = UIScreen.main.bounds.width
         
@@ -169,17 +167,16 @@ class PostViewController: UIViewController {
                 "bookmark (4)"), for: .normal)
         }
         
-//        if likestate {
-//            likeBtn.setImage(UIImage(named: "heart (2)" ), for: .normal)
-//        }
+        //        if likestate {
+        //            likeBtn.setImage(UIImage(named: "heart (2)" ), for: .normal)
+        //        }
     }
-    
     
     @objc func done() {
         
         guard let article = article else { return }
         
-        let document = db.collection("article").document(article.id)
+        let document = database.collection("article").document(article.id)
         
         document.updateData([
             "content": article.content ,
@@ -191,8 +188,8 @@ class PostViewController: UIViewController {
                 print("Document successfully updated")
             }
         }
-//
-//        documentTitle.updateData(["title" :FieldValue.arrayUnion([article.title])])
+        //
+        //        documentTitle.updateData(["title" :FieldValue.arrayUnion([article.title])])
         
         let backhomepage = navigationController?.viewControllers[0] as? HomePageViewController
         backhomepage?.getAllArticle()
@@ -207,29 +204,26 @@ class PostViewController: UIViewController {
         
     }
     
-    
-    
-    
     @IBOutlet var postTableView: UITableView!
     
     @IBAction func settingsBtn(_ sender: Any) {
         
         if self.userDefaults.string(forKey: "uid") == article?.uid {
-        
+            
             let alertcontroller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
             alertcontroller.view.tintColor = UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1)
             alertcontroller.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             
-            let pickerEdit = UIAlertAction(title: "編輯", style: .default) { (void) in
+            let pickerEdit = UIAlertAction(title: "編輯", style: .default) { (_) in
                 self.editting = true
                 self.navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.7058823529, green: 0.537254902, blue: 0.4980392157, alpha: 1)
-
+                
                 self.navigationItem.rightBarButtonItem?.isEnabled = true
                 self.postTableView.reloadData()
             }
             
-            let pickerdelete = UIAlertAction(title: "刪除", style: .default) { (void) in
+            let pickerdelete = UIAlertAction(title: "刪除", style: .default) { (_) in
                 
                 self.deleatedArticle()
                 print(123) }
@@ -239,23 +233,21 @@ class PostViewController: UIViewController {
             
             let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
             
-            cancelAction.setValue(UIColor(red: 208/255 , green:129/255 , blue: 129/255, alpha: 1),forKey: "titleTextColor")
+            cancelAction.setValue(UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1), forKey: "titleTextColor")
             
             alertcontroller.addAction(cancelAction)
             
             present(alertcontroller, animated: true, completion: nil)
-        }  else {
-            
-            let alertcontroller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            } else { let alertcontroller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
             alertcontroller.view.tintColor = UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1)
             alertcontroller.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             
-            let pickerEdit = UIAlertAction(title: "檢舉", style: .default) { (void) in
+            let pickerEdit = UIAlertAction(title: "檢舉", style: .default) { (_) in
                 self.uploadUserUID()
             }
             
-            let pickerdelete = UIAlertAction(title: "封鎖", style: .default) { (void) in
+            let pickerdelete = UIAlertAction(title: "封鎖", style: .default) { (_) in
                 
                 self.uploadUserUID()
                 print(123) }
@@ -265,7 +257,7 @@ class PostViewController: UIViewController {
             
             let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
             
-            cancelAction.setValue(UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1),forKey: "titleTextColor")
+            cancelAction.setValue(UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1), forKey: "titleTextColor")
             
             alertcontroller.addAction(cancelAction)
             
@@ -278,7 +270,7 @@ class PostViewController: UIViewController {
         
         guard let articleId = article?.id else { return }
         
-        db.collection("article").document(articleId).delete { err in
+        database.collection("article").document(articleId).delete { err in
             if let err = err {
                 print("Error removing document: \(err)")
                 
@@ -296,7 +288,7 @@ class PostViewController: UIViewController {
         
         guard let uid = userDefaults.string(forKey: "uid") else { return }
         
-        let document = db.collection("user").document(uid)
+        let document = database.collection("user").document(uid)
         
         guard let articleUid = article?.uid else { return }
         document.updateData(["blackList": FieldValue.arrayUnion([articleUid])
@@ -307,7 +299,7 @@ class PostViewController: UIViewController {
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        let document = db.collection("user").document(uid)
+        let document = database.collection("user").document(uid)
         
         guard let articleId = article?.id else { return }
         
@@ -320,7 +312,7 @@ class PostViewController: UIViewController {
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        let document = db.collection("user").document(uid)
+        let document = database.collection("user").document(uid)
         
         guard let articleId = article?.id else { return }
         
@@ -335,7 +327,7 @@ class PostViewController: UIViewController {
             let article = article else { return }
         
         do {
-            let docRef = db.collection("user").document(uid).collection("article").document(article.id)
+            let docRef = database.collection("user").document(uid).collection("article").document(article.id)
             try docRef.setData(from: article)
         } catch {
             print(error)
@@ -348,9 +340,8 @@ class PostViewController: UIViewController {
         guard let uid = userDefaults.string(forKey: "uid") else { return }
         guard let id = article?.id else { return }
         
-        db.collection("user").document(uid).collection("article").document(id).delete() {
-            err in if let err = err {
-                print("Error removing document: \(err)")
+        database.collection("user").document(uid).collection("article").document(id).delete {
+            err in if let err = err { print("Error removing document: \(err)")
             } else {
                 print("Document successfully removed!")
             }
@@ -360,7 +351,7 @@ class PostViewController: UIViewController {
     
 }
 
-extension PostViewController: UITableViewDelegate, UITableViewDataSource{
+extension PostViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -378,10 +369,8 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource{
                 timecell.postTimeLabel.text = result
                 return timecell
             } else {
-                return UITableViewCell()
-            }
+                return UITableViewCell()}
         }
-            
         else if indexPath.row == 0 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? PostTitleTableViewCell {
                 cell.articleTitle.text = article.title
@@ -393,10 +382,9 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource{
                 
                 return cell
             } else {
-                return UITableViewCell()
-            }
-        }
+                return UITableViewCell()}
             
+        }
         else if indexPath.row == 1 {
             if let cell1 = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) as? PostContentTableViewCell {
                 

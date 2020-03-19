@@ -15,8 +15,7 @@ class TabViewController: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
-        
-        
+            
     }
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
@@ -57,13 +56,13 @@ class TabViewController: UITabBarController, UITabBarControllerDelegate {
         
         imagePickerAlertController.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
-        let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (void) in
+        let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (_) in
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                 imagePickerController.sourceType = .photoLibrary
                 self.present(imagePickerController, animated: true, completion: nil)
             }
         }
-        let imageFromCameraAction = UIAlertAction(title: "相機", style: .default) { (void) in
+        let imageFromCameraAction = UIAlertAction(title: "相機", style: .default) { (_) in
             
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 imagePickerController.sourceType = .camera
@@ -71,12 +70,12 @@ class TabViewController: UITabBarController, UITabBarControllerDelegate {
             }
         }
         
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (void) in
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (_) in
             
             imagePickerAlertController.dismiss(animated: true, completion: nil)
         }
         
-        cancelAction.setValue(UIColor(red: 208/255, green: 129/255 , blue: 129/255, alpha: 1),forKey: "titleTextColor")
+        cancelAction.setValue(UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1),         forKey: "titleTextColor")
         imagePickerAlertController.addAction(imageFromLibAction)
         imagePickerAlertController.addAction(cancelAction)
         
@@ -88,9 +87,9 @@ class TabViewController: UITabBarController, UITabBarControllerDelegate {
     
 }
 
-extension TabViewController: UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+extension TabViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
         var selectedImageFromPicker: UIImage?
         
@@ -120,4 +119,3 @@ extension TabViewController: UIImagePickerControllerDelegate,UINavigationControl
         
     }
 }
-

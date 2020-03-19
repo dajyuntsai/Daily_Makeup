@@ -15,6 +15,5 @@ class PersonalPageCollectionViewCell: UICollectionViewCell {
     @IBOutlet var articalTitle: UILabel!
     
     @IBOutlet var littleView: UIView!
-    
-    
+
 }

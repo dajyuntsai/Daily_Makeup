@@ -14,6 +14,7 @@ import FirebaseFirestoreSwift
 import Kingfisher
 import ESPullToRefresh
 import JGProgressHUD
+import Crashlytics
 
 class HomePageViewController: UIViewController {
     
@@ -35,7 +36,7 @@ class HomePageViewController: UIViewController {
     
     var articleArray: [Article] = []
     
-    var filterArray : [Article] = [] {
+    var filterArray: [Article] = [] {
         didSet {
             
             self.article.reloadData()
@@ -56,7 +57,7 @@ class HomePageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //
+        
         
         database = Firestore.firestore()
         article.delegate = self
@@ -104,8 +105,7 @@ class HomePageViewController: UIViewController {
     
     @IBOutlet var article: UICollectionView!
     
-    
-    @objc func loadData(){
+    @objc func loadData() {
         
         self.articleArray = []
         
@@ -151,7 +151,7 @@ class HomePageViewController: UIViewController {
         
         //全部人的文章
         
-        database.collection("article").order(by: "time", descending: true).getDocuments() { (querySnapshot, err) in
+        database.collection("article").order(by: "time", descending: true).getDocuments { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
@@ -186,6 +186,8 @@ class HomePageViewController: UIViewController {
                         print(error)
                     }
                 }
+                
+                self.article.reloadData()
                 
                 self.loadPersonalImage()
             }
@@ -239,12 +241,9 @@ class HomePageViewController: UIViewController {
         
         guard let uid = userDefaults.string(forKey: "uid") else { return }
         
-        database.collection("user").document(uid).collection("article").getDocuments() {
+        database.collection("user").document(uid).collection("article").getDocuments {
             
-            (querySnapshot, err) in
-            
-            if let err = err {
-                print("Error getting documents: \(err)")
+            (querySnapshot, err) in if let err = err { print("Error getting documents: \(err)")
             } else {
                 self.saveArticle = []
                 for document in querySnapshot!.documents {
@@ -296,7 +295,7 @@ class HomePageViewController: UIViewController {
     
 }
 
-extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+extension HomePageViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
@@ -312,7 +311,7 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
             return UICollectionViewCell()
         }
         
-        var container : [Article] = []
+        var container: [Article] = []
         if isFilter {
             container = filterArray
         } else {
@@ -356,25 +355,21 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
             if isSave {
                 self.saveArticle.append(self.articleArray[indexPath.row])
             } else {
-                if indexPath.row < self.saveArticle.count{
+                if indexPath.row < self.saveArticle.count {
                     self.saveArticle.remove(at: indexPath.row)
                     
                 }
             }
             
         }
-        
         //cell的收藏狀態
         cell1.likeBtnState = false
-        for post in saveArticle {
-            if container[indexPath.row].id == post.id {
-                cell1.likeBtnState = true
-            }
+        for post in saveArticle where container[indexPath.row].id == post.id {
+             cell1.likeBtnState = true
         }
         
         return cell1
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (UIScreen.main.bounds.width - 36)/2
@@ -398,7 +393,14 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         
         guard let postVC = storyboard?.instantiateViewController(withIdentifier: "postVC") as? PostViewController else { return }
         
-        let article = articleArray[indexPath.item]
+        var container: [Article] = []
+        if isFilter {
+            container = filterArray
+        } else {
+            container = articleArray
+        }
+        
+        let article = container[indexPath.item]
         
         postVC.nameLabel = article.name
         postVC.article = article
@@ -408,10 +410,8 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         self.show(postVC, sender: nil)
         
         //書籤狀態
-        for post in saveArticle {
-            if article.id == post.id {
+        for post in saveArticle where article.id == post.id {
                 postVC.saveState = true
-            }
         }
         
     }

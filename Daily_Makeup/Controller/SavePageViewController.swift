@@ -17,12 +17,12 @@ class SavePageViewController: ViewController {
     
     let userDefaults = UserDefaults.standard
     
-    var db: Firestore!
+    var database: Firestore!
     
     var profilePhoto = ""
     
-    var imageStore: [String] = []{
-        didSet{
+    var imageStore: [String] = [] {
+        didSet {
             if self.imageStore.count == 0 {
                 self.notyetSaveLabel.isHidden = false
             } else {
@@ -32,8 +32,8 @@ class SavePageViewController: ViewController {
         }
     }
     
-    var userData: [Article] = []{
-        didSet{
+    var userData: [Article] = [] {
+        didSet {
             self.articleSave.reloadData()
         }
     }
@@ -41,7 +41,7 @@ class SavePageViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        db = Firestore.firestore()
+        database = Firestore.firestore()
         articleSave.delegate = self
         articleSave.dataSource = self
         
@@ -62,10 +62,9 @@ class SavePageViewController: ViewController {
         self.imageStore = []
         
         self.userData = []
-        db.collection("user").document(uid).collection("article").getDocuments() {
+        database.collection("user").document(uid).collection("article").getDocuments {
             
-            (querySnapshot, err) in if let err = err {
-                print("Error getting documents: \(err)")
+            (querySnapshot, err) in if let err = err { print("Error getting documents: \(err)")
             } else {
                 self.userData = []
                 for document in querySnapshot!.documents {
@@ -74,7 +73,7 @@ class SavePageViewController: ViewController {
                             else { return }
                         
                         print(result)
-                        self.db.collection("user").whereField("uid", isEqualTo: result.uid).getDocuments { (querySnapshot, err) in
+                        self.database.collection("user").whereField("uid", isEqualTo: result.uid).getDocuments { (querySnapshot, err) in
                             if let err = err {
                                 print("Error getting documents: \(err)")
                             } else {
@@ -86,11 +85,6 @@ class SavePageViewController: ViewController {
                                     self.userData.append(result)
                                     guard let userImage = userResult.image else { return }
                                     self.imageStore.append(userImage)
-                                    //                                    if self.imageStore.count == 0 {
-                                    //                                         self.notyetSaveLabel.isHidden = false
-                                    //                                    } else {
-                                    //                                        self.notyetSaveLabel.isHidden = true
-                                    //                                    }
                                     print(result)
                                 } catch {
                                     print(error)
@@ -104,20 +98,15 @@ class SavePageViewController: ViewController {
                     
                 }
                 
-                
             }
             
         }
         
     }
     
-    
-    
-    
-    
 }
 
-extension SavePageViewController:UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
+extension SavePageViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return userData.count
@@ -159,7 +148,6 @@ extension SavePageViewController:UICollectionViewDataSource,UICollectionViewDele
             
         }
         
-        
         cell.btnState = false
         for post in userData {
             let article = userData[indexPath.row]
@@ -169,8 +157,6 @@ extension SavePageViewController:UICollectionViewDataSource,UICollectionViewDele
             
         }
         
-        
-        
         return cell
     }
     
@@ -179,7 +165,6 @@ extension SavePageViewController:UICollectionViewDataSource,UICollectionViewDele
         //佔螢幕高度的1/2.8
         let size = CGSize(width: width, height: UIScreen.main.bounds.height / 2.8)
         return size
-        
         
     }
     
@@ -207,10 +192,8 @@ extension SavePageViewController:UICollectionViewDataSource,UICollectionViewDele
         
         //        postVC.saveBtn = userData[indexPath.row].saveState
         self.show(postVC, sender: nil)
-        for post in userData {
-            if article.id == post.id {
-                postVC.saveState = true
-            }
+        for post in userData where article.id == post.id {
+            postVC.saveState = true
         }
         
     }

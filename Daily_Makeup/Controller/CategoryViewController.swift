@@ -20,7 +20,7 @@ class CategoryViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.8758758903, green: 0.8143615723, blue: 0.7450860143, alpha: 1)
     }
     
-    var db:Firestore!
+    var database: Firestore!
     var productArray: [Product] = []
     
     @IBAction func lipsBtn(_ sender: UIButton) {
@@ -52,5 +52,3 @@ class CategoryViewController: UIViewController {
     }
     
 }
-
-

@@ -17,10 +17,9 @@ class EditProfileTableViewCell: UITableViewCell {
 
     @IBOutlet var profileLabel: UILabel!
     
-    
     @IBOutlet var nameTextField: UITextField!
     
-    var profileText:((String) -> Void)?
+    var profileText: ((String) -> Void)?
     
     @IBAction func profileTexEnd(_ sender: UITextField) {
         

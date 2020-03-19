@@ -24,4 +24,3 @@ struct Profile: Codable {
     
     var blackList: [String] = []
 }
-

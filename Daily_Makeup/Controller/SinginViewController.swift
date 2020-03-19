@@ -19,7 +19,7 @@ import AuthenticationServices
 @available(iOS 13.0, *)
 class SinginViewController: UIViewController {
     
-    var db: Firestore!
+    var database: Firestore!
     var uid = ""
     var name = ""
     @IBOutlet var appleSignin: UIView!
@@ -28,7 +28,7 @@ class SinginViewController: UIViewController {
         let button = ASAuthorizationAppleIDButton()
         button.cornerRadius = 22.5
         if #available(iOS 13, *) {
-            button.addTarget(self, action: #selector(startSignInWithAppleFlow) , for: .touchUpInside)
+            button.addTarget(self, action: #selector(startSignInWithAppleFlow), for: .touchUpInside)
         } else {
             // Fallback on earlier versions
         }
@@ -39,7 +39,8 @@ class SinginViewController: UIViewController {
     // Adapted from https://auth0.com/docs/api-auth/tutorials/nonce#generate-a-cryptographically-random-nonce
     private func randomNonceString(length: Int = 32) -> String {
         precondition(length > 0)
-        let charset: Array<Character> =
+        
+        let charset: [Character] =
             Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
         var result = ""
         var remainingLength = length
@@ -109,7 +110,7 @@ class SinginViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(success), name: Notification.Name("success"), object: nil)
         
         GIDSignIn.sharedInstance()?.presentingViewController = self
-        db = Firestore.firestore()
+        database = Firestore.firestore()
         
         //        appleButton = ASAuthorizationAppleIDButton()
         view.layoutIfNeeded()
@@ -149,9 +150,12 @@ class SinginViewController: UIViewController {
     @objc func success() {
         guard let home = storyboard?.instantiateViewController(withIdentifier: "tabBarController") as? UITabBarController else { return }
         
-        self.view.window?.rootViewController = home
+        //        self.view.window?.rootViewController = home
         
-        //        self.present(home, animated: true, completion: nil)
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        appDelegate.window?.rootViewController = home
+        
+        //                self.present(home, animated: true, completion: nil)
     }
     
     @IBAction func guestSignin(_ sender: Any) {
@@ -165,7 +169,7 @@ class SinginViewController: UIViewController {
     @IBAction func fbsigninButton(_ sender: UIButton) {
         
         let fbLoginManager = LoginManager()
-        fbLoginManager.logIn(permissions: ["public_profile", "email"], from: self) { (result, error) in
+        fbLoginManager.logIn(permissions: ["public_profile", "email"], from: self) { (_, error) in
             if let error = error {
                 print("Failed to login: \(error.localizedDescription)")
                 return
@@ -208,7 +212,7 @@ class SinginViewController: UIViewController {
                 //                self.userDefaults.set(picture, forKey: "image")
                 
                 do {
-                    try self.db.collection("user").document(uid).setData(from: signInID, merge: true)
+                    try self.database.collection("user").document(uid).setData(from: signInID, merge: true)
                 } catch {
                     print(error)
                 }
@@ -269,7 +273,7 @@ extension SinginViewController: ASAuthorizationControllerDelegate, ASAuthorizati
             //            Sign in with Firebase.
             Auth.auth().signIn(with: credential, completion: { (user, error) in
                 if let error = error {
-                    print(self.currentNonce)
+                    print(self.currentNonce!)
                     
                     print("Login error: \(error.localizedDescription)")
                     let alertController = UIAlertController(title: "Login Error", message: error.localizedDescription, preferredStyle: .alert)
@@ -284,10 +288,13 @@ extension SinginViewController: ASAuthorizationControllerDelegate, ASAuthorizati
                     let email = user?.user.email
                     else { return }
                 
-                //let name = user?.user.displayName ?? ""
-                let name = (appleIDCredential.fullName?.givenName)! + (appleIDCredential.fullName?.familyName)!
+//                let name = user?.user.displayName ?? ""
+                let givenName = appleIDCredential.fullName?.givenName ?? ""
+                let familyName = appleIDCredential.fullName?.familyName ?? ""
                 
-                let signInID = SignID (
+                let name = givenName + familyName
+                
+                let signInID = SignID(
                     name: name,
                     email: email,
                     uid: uid
@@ -300,7 +307,7 @@ extension SinginViewController: ASAuthorizationControllerDelegate, ASAuthorizati
                 //                self.userDefaults.set(picture, forKey: "image")
                 
                 do {
-                    try self.db.collection("user").document(uid).setData(from: signInID, merge: true)
+                    try self.database.collection("user").document(uid).setData(from: signInID, merge: true)
                 } catch {
                     print(error)
                 }

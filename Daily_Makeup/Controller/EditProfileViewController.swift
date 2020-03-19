@@ -15,7 +15,7 @@ import Kingfisher
 
 class EditProfileViewController: UIViewController {
     
-    var db: Firestore!
+    var database: Firestore!
     
     var editProfileName = ""
     var editProfileEmail = ""
@@ -30,7 +30,7 @@ class EditProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        db = Firestore.firestore()
+        database = Firestore.firestore()
         //        setUp()
         profileTableView.delegate = self
         profileTableView.dataSource = self
@@ -54,20 +54,20 @@ class EditProfileViewController: UIViewController {
         imagePickerController.delegate = self
         let imagePickerAlertController = UIAlertController(title: "上傳圖片", message: "請選擇要上傳的圖片", preferredStyle: .actionSheet)
         
-        let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (void) in
+        let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (_) in
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                 imagePickerController.sourceType = .photoLibrary
                 self.present(imagePickerController, animated: true, completion: nil)
             }
         }
-        let imageFromCameraAction = UIAlertAction(title: "相機", style: .default) { (void) in
+        let imageFromCameraAction = UIAlertAction(title: "相機", style: .default) { (_) in
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 imagePickerController.sourceType = .camera
                 self.present(imagePickerController, animated: true, completion: nil)
             }
         }
     
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (void) in
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (_) in
             imagePickerAlertController.dismiss(animated: true, completion: nil)
         }
         
@@ -87,16 +87,16 @@ class EditProfileViewController: UIViewController {
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        let document = db.collection("user").document(uid)
+        let document = database.collection("user").document(uid)
         
-        let profile = Profile (
+        let profile = Profile(
             name: editProfileName,
             email: editProfileEmail,
             bio: editProfileBio,
             uid: uid,
             image: editImage,
             articleLike: articleLike,
-            blackList:blackList
+            blackList: blackList
         )
         do {
             try document.setData(from: profile, merge: true)
@@ -114,22 +114,22 @@ class EditProfileViewController: UIViewController {
         let imagePickerAlertController = UIAlertController(title: "上傳圖片", message: "請選擇要上傳的圖片", preferredStyle: .actionSheet)
         
         imagePickerAlertController.view.tintColor = UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1)
-        let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (void) in if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+        let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (_) in if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                 imagePickerController.sourceType = .photoLibrary
                 self.present(imagePickerController, animated: true, completion: nil)
             }
         }
-        let imageFromCameraAction = UIAlertAction(title: "相機", style: .default) { (void) in if UIImagePickerController.isSourceTypeAvailable(.camera) {
+        let imageFromCameraAction = UIAlertAction(title: "相機", style: .default) { (_) in if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 imagePickerController.sourceType = .camera
                 self.present(imagePickerController, animated: true, completion: nil)
             }
         }
         
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (void) in
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (_) in
             imagePickerAlertController.dismiss(animated: true, completion: nil)
         }
         
-        cancelAction.setValue(UIColor(red: 208/255, green: 129/255 , blue: 129/255, alpha: 1),forKey: "titleTextColor")
+        cancelAction.setValue(UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1), forKey: "titleTextColor")
         
         imagePickerAlertController.addAction(imageFromLibAction)
         imagePickerAlertController.addAction(imageFromCameraAction)
@@ -142,7 +142,7 @@ class EditProfileViewController: UIViewController {
         
         guard let uid = userDefaults.string(forKey: "uid") else { return }
         
-        let docRef = db.collection("user").document(uid)
+        let docRef = database.collection("user").document(uid)
         
         docRef.getDocument { (document, error) in
             let result = Result {
@@ -201,11 +201,11 @@ class EditProfileViewController: UIViewController {
     @IBOutlet var profileTableView: UITableView!
     @IBOutlet var profileImage: UIImageView!
     
-    let profile = ["name","email","bio"]
+    let profile = ["name", "email", "bio"]
     
 }
 
-extension EditProfileViewController:UITableViewDataSource,UITableViewDelegate{
+extension EditProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return profile.count
@@ -241,7 +241,7 @@ extension EditProfileViewController:UITableViewDataSource,UITableViewDelegate{
 }
 
 extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
         var selectedImageFromPicker: UIImage?
         // 取得從 UIImagePickerController 選擇的檔案
@@ -261,8 +261,8 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
             
             guard let data = selectedImage.jpegData(compressionQuality: 0.5) else { return }
             
-            let task = imageRef.putData(data, metadata: nil) { (metadata, error) in
-                imageRef.downloadURL { (url, error) in
+            let task = imageRef.putData(data, metadata: nil) { (_, _) in
+                imageRef.downloadURL { (url, _) in
 //                    print(url)
                     guard let imageUrl = url else { return }
                     self.editImage = "\(imageUrl)"
@@ -276,5 +276,3 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
         
     }
 }
-
-

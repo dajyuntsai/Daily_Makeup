@@ -17,21 +17,12 @@ class ListTableViewCell: UITableViewCell {
 
     @IBOutlet var productImage: UIImageView!
     
-    
     @IBOutlet var productBrand: UILabel!
     
     @IBOutlet var productTitle: UILabel!
     
     @IBOutlet var productColorTone: UILabel!
-    
-   
-    
 
-    
-    
-    
-    
-    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
@@ -39,4 +30,3 @@ class ListTableViewCell: UITableViewCell {
     }
 
 }
-

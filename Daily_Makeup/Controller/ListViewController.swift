@@ -15,7 +15,7 @@ import Kingfisher
 
 class ListViewController: UIViewController {
     
-    var db: Firestore!
+    var database: Firestore!
     
     var list = ""
     var listImage = ""
@@ -60,7 +60,7 @@ class ListViewController: UIViewController {
     
     @IBAction func backtoTop(_ sender: Any) {
         
-        if self.listArray.count == 0{
+        if self.listArray.count == 0 {
             return
         }
         
@@ -102,8 +102,8 @@ class ListViewController: UIViewController {
     //拿產品資訊
     func productList() {
         //category跟list一樣的名字就能找到對應的list
-        db.collection("ProductDetail").whereField("category", isEqualTo: list)
-            .getDocuments() { (querySnapshot, err) in if let err = err {
+        database.collection("ProductDetail").whereField("category", isEqualTo: list)
+            .getDocuments { (querySnapshot, err) in if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
                     self.listArray = []
@@ -143,7 +143,7 @@ class ListViewController: UIViewController {
         listTableView.dataSource = self
         listTableView.separatorStyle = .none
         
-        db = Firestore.firestore()
+        database = Firestore.firestore()
         
         //        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(back))
         navigationItem.title = "List"
@@ -203,19 +203,17 @@ class ListViewController: UIViewController {
     
     func deletDocument(documentID: Int) {
         let id = listArray[documentID].id
-        db.collection("ProductDetail").document(id).delete() { err in
+        database.collection("ProductDetail").document(id).delete { err in
             if let err  = err {
                 print("Error removing document: \(err)")
-            }  else {
-                print("Document successfully removed!")
-            }
+            } else { print("Document successfully removed!")}
             
         }
     }
     
 }
 
-extension ListViewController: UITableViewDelegate,UITableViewDataSource {
+extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -272,7 +270,7 @@ extension ListViewController: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard let productDetailVC = storyboard?.instantiateViewController(withIdentifier: "addProduct") as? ProductDetailViewController else   { return }
+        guard let productDetailVC = storyboard?.instantiateViewController(withIdentifier: "addProduct") as? ProductDetailViewController else { return }
         
         productDetailVC.productDocumentID = listArray[indexPath.row].id
         productDetailVC.loadViewIfNeeded()

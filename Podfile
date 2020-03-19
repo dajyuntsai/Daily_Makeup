@@ -25,5 +25,8 @@ target 'Daily_Makeup' do
   pod 'JGProgressHUD'
   pod 'ESPullToRefresh'
   pod 'SwiftLint'
+  pod 'Fabric', '~> 1.10.2'
+  pod 'Crashlytics', '~> 3.14.0'
+
 
 end
