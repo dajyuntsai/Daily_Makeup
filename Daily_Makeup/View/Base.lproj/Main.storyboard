@@ -1011,7 +1011,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xvt-RB-eEP">
-                                <rect key="frame" x="72" y="26" width="42" height="12"/>
+                                <rect key="frame" x="72" y="21.5" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1206,7 +1206,6 @@
                             <constraint firstItem="E3X-uy-fe3" firstAttribute="trailing" secondItem="zLG-Q1-S6y" secondAttribute="trailing" id="UTU-vz-e5i"/>
                             <constraint firstItem="Xvt-RB-eEP" firstAttribute="centerY" secondItem="QVM-pH-yjc" secondAttribute="centerY" id="bUF-Cw-xqY"/>
                             <constraint firstItem="Xvt-RB-eEP" firstAttribute="leading" secondItem="QVM-pH-yjc" secondAttribute="trailing" constant="16" id="ckh-ud-aQi"/>
-                            <constraint firstItem="Xvt-RB-eEP" firstAttribute="top" secondItem="zLG-Q1-S6y" secondAttribute="top" constant="26" id="ejh-3a-eKi"/>
                             <constraint firstItem="zLG-Q1-S6y" firstAttribute="trailing" secondItem="ldJ-aP-f77" secondAttribute="trailing" constant="20" id="gIm-px-tbf"/>
                             <constraint firstItem="QVM-pH-yjc" firstAttribute="top" secondItem="zLG-Q1-S6y" secondAttribute="top" constant="12" id="kl1-mg-1c5"/>
                             <constraint firstItem="V8m-CM-jHO" firstAttribute="top" secondItem="QVM-pH-yjc" secondAttribute="bottom" constant="8" id="oS7-b4-tZH"/>

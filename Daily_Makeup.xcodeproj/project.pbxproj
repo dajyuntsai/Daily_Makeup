@@ -607,7 +607,7 @@
 				CODE_SIGN_ENTITLEMENTS = Daily_Makeup/Daily_Makeup.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6LAT54CJSN;
 				INFOPLIST_FILE = Daily_Makeup/Info.plist;
@@ -633,7 +633,7 @@
 				CODE_SIGN_ENTITLEMENTS = Daily_Makeup/Daily_Makeup.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6LAT54CJSN;
 				INFOPLIST_FILE = Daily_Makeup/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;

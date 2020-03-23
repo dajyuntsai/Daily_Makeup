@@ -57,8 +57,6 @@ class HomePageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         database = Firestore.firestore()
         article.delegate = self
         article.dataSource = self
@@ -72,7 +70,7 @@ class HomePageViewController: UIViewController {
         navigationItem.title = "Makeup"
         navigationItem.searchController = search
         navigationItem.largeTitleDisplayMode = .never
-        search.searchBar.placeholder = "搜尋品牌..."
+        search.searchBar.placeholder = "搜尋文章標題、作者..."
         search.searchBar.tintColor = .white
         search.searchBar.delegate = self
         search.searchResultsUpdater = self
