@@ -57,6 +57,19 @@ class EditArticleViewController: UIViewController {
     
     @objc func share() {
         
+        if articleTextview.text == "write a caption" || articleTextField.text == "" {
+            let controller = UIAlertController(title: "溫馨小提示", message: "記得輸入文章標題或內容喔！", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "ok", style: .default, handler: nil)
+            
+            controller.view.tintColor = UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1)
+            
+            controller.addAction(okAction)
+            
+            present(controller, animated: true, completion: nil)
+            return
+        }
+        //var  debugstr  = articleTextField.text
         let hud = JGProgressHUD(style: .dark)
         hud.textLabel.text = "Loading"
         hud.show(in: view)

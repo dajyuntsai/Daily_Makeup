@@ -95,8 +95,11 @@ class HomePageViewController: UIViewController {
         self.article.es.addPullToRefresh {
             [unowned self] in
             
+            //self.article.reloadData()
             self.loadData()
+            
         }
+        
     }
     
     @objc func reload() {
@@ -116,6 +119,7 @@ class HomePageViewController: UIViewController {
         hud.textLabel.text = "loading"
         hud.show(in: self.view)
         hud.dismiss(afterDelay: 1.5)
+        
     }
     
     //    func getUserData() {
