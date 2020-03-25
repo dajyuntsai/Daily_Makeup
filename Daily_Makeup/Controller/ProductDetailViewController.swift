@@ -332,7 +332,7 @@ extension ProductDetailViewController: UITableViewDelegate, UITableViewDataSourc
     }
 }
 
-extension ProductDetailViewController: UIImagePickerControllerDelegate,               UINavigationControllerDelegate {
+extension ProductDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
         var selectedImageFromPicker: UIImage?

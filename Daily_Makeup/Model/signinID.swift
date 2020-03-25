@@ -15,5 +15,6 @@ struct SignID: Codable {
     let email: String
     
     let uid: String
-
+    
+    var blackList: [String] = []
 }

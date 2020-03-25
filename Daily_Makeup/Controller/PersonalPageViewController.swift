@@ -256,7 +256,7 @@ class PersonalPageViewController: UIViewController {
 }
 
 @available(iOS 13.0, *)
-extension PersonalPageViewController: UICollectionViewDataSource,         UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
+extension PersonalPageViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return articleArray.count
     }
