@@ -71,6 +71,8 @@ class ProductDetailViewController: UIViewController, UIPickerViewDataSource, UIP
         imagePickerController.delegate = self
         let imagePickerAlertController = UIAlertController(title: "上傳圖片", message: "請選擇要上傳的圖片", preferredStyle: .actionSheet)
         
+        imagePickerAlertController.view.tintColor = UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1)
+        
         let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (_) in
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                 imagePickerController.sourceType = .photoLibrary
@@ -91,6 +93,8 @@ class ProductDetailViewController: UIViewController, UIPickerViewDataSource, UIP
             
             imagePickerAlertController.dismiss(animated: true, completion: nil)
         }
+        
+        cancelAction.setValue(UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1), forKey: "titleTextColor")
         
         // 將上面三個 UIAlertAction 動作加入 UIAlertController
         imagePickerAlertController.addAction(imageFromLibAction)

@@ -454,7 +454,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NoB-ns-wmO">
-                                <rect key="frame" x="283" y="485" width="72" height="72"/>
+                                <rect key="frame" x="319" y="521" width="36" height="36"/>
                                 <state key="normal" image="001-up"/>
                                 <connections>
                                     <action selector="backtoTop:" destination="xjj-EY-lZ5" eventType="touchUpInside" id="z7y-8A-FZh"/>
@@ -464,13 +464,13 @@
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a0A-GC-xET">
-                                        <rect key="frame" x="161" y="13" width="53" height="24"/>
+                                        <rect key="frame" x="161" y="13" width="60.5" height="24"/>
                                         <fontDescription key="fontDescription" name="NotoSerifCJKtc-Bold" family="Noto Serif CJK TC" pointSize="17"/>
                                         <color key="textColor" red="0.58431372550000005" green="0.31124237179999997" blue="0.18426963690000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HTI-2A-7ol">
-                                        <rect key="frame" x="215" y="15" width="10" height="20"/>
+                                        <rect key="frame" x="222.5" y="13" width="10" height="24.5"/>
                                         <fontDescription key="fontDescription" name="NotoSerifCJKtc-Bold" family="Noto Serif CJK TC" pointSize="17"/>
                                         <color key="textColor" red="0.58431372550000005" green="0.31124237179999997" blue="0.18426963690000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
@@ -627,7 +627,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sticker" translatesAutoresizingMaskIntoConstraints="NO" id="tSs-Eh-yCB">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ECD7C7C3-1B96-45FC-BF8D-BE25BD2A9C9C" translatesAutoresizingMaskIntoConstraints="NO" id="tSs-Eh-yCB">
                                                     <rect key="frame" x="12" y="259.5" width="25" height="25"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
@@ -1456,7 +1456,7 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Db4-Ts-iys">
                                 <rect key="frame" x="0.0" y="44" width="375" height="195"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="S__33742968" translatesAutoresizingMaskIntoConstraints="NO" id="SSq-aL-4zJ">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ECD7C7C3-1B96-45FC-BF8D-BE25BD2A9C9C" translatesAutoresizingMaskIntoConstraints="NO" id="SSq-aL-4zJ">
                                         <rect key="frame" x="20" y="18" width="90" height="90"/>
                                         <color key="backgroundColor" red="0.87450980392156863" green="0.87450980392156863" blue="0.87450980392156863" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
@@ -1869,7 +1869,7 @@
         <image name="001-up" width="36" height="36"/>
         <image name="019-facebook-1" width="32" height="32"/>
         <image name="Asset 45 (1)" width="3013" height="2485"/>
-        <image name="S__33742968" width="500" height="883"/>
+        <image name="ECD7C7C3-1B96-45FC-BF8D-BE25BD2A9C9C" width="1000" height="1000"/>
         <image name="blusher 300" width="4199" height="1566"/>
         <image name="bookmark (5)" width="128" height="128"/>
         <image name="chevron.left" catalog="system" width="48" height="64"/>

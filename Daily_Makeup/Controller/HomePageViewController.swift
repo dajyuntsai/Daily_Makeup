@@ -36,6 +36,8 @@ class HomePageViewController: UIViewController {
     
     var articleArray: [Article] = []
     
+    var personalImageFilter: [String] = []
+    
     var filterArray: [Article] = [] {
         didSet {
             
@@ -310,19 +312,22 @@ extension HomePageViewController: UICollectionViewDelegate, UICollectionViewData
         }
         
         var container: [Article] = []
+        var imageContainer: [String] = []
         if isFilter {
             container = filterArray
+            imageContainer = personalImageFilter
         } else {
             container = articleArray
+            imageContainer = imageStore
         }
         
-        if imageStore[indexPath.item].isEmpty {
+        if imageContainer[indexPath.item].isEmpty {
             
-            cell1.personalImage.image = UIImage(named: "S__33742968")
+            cell1.personalImage.image = UIImage(named: "ECD7C7C3-1B96-45FC-BF8D-BE25BD2A9C9C")
             
         } else {
             
-            guard let url = URL(string: imageStore[indexPath.row])
+            guard let url = URL(string: imageContainer[indexPath.row])
                 //              let user = profileDeta
                 else {
                     return UICollectionViewCell() }
@@ -391,19 +396,22 @@ extension HomePageViewController: UICollectionViewDelegate, UICollectionViewData
         
         guard let postVC = storyboard?.instantiateViewController(withIdentifier: "postVC") as? PostViewController else { return }
         
+        var imageContainer: [String] = []
         var container: [Article] = []
         if isFilter {
             container = filterArray
+            imageContainer = personalImageFilter
         } else {
             container = articleArray
+            imageContainer = imageStore
         }
         
         let article = container[indexPath.item]
-        
+        let image = imageContainer[indexPath.item]
         postVC.nameLabel = article.name
         postVC.article = article
         postVC.urlArray = article.image
-        postVC.personalImage = imageStore[indexPath.row]
+        postVC.personalImage = image
         
         self.show(postVC, sender: nil)
         
@@ -432,9 +440,13 @@ extension HomePageViewController: UISearchResultsUpdating {
         
         isFilter = true
         
-        filterArray = articleArray.filter { article in
-            
+        filterArray = []
+        personalImageFilter = []
+        
+        for (index, article) in articleArray.enumerated() {
+           
             let title = article.title
+            
             let name = article.name
             
             let titleMatch = title.localizedCaseInsensitiveContains(search)
@@ -442,13 +454,28 @@ extension HomePageViewController: UISearchResultsUpdating {
             let nameMatch = name.localizedCaseInsensitiveContains(search)
             
             if titleMatch || nameMatch {
-                print(article)
-                return true
-            } else {
-                return false
+                filterArray.append(article)
+                personalImageFilter.append(imageStore[index])
             }
+
         }
-        
+//        filterArray = articleArray.filter { article in
+//
+//            let title = article.title
+//            let name = article.name
+//
+//            let titleMatch = title.localizedCaseInsensitiveContains(search)
+//
+//            let nameMatch = name.localizedCaseInsensitiveContains(search)
+//
+//            if titleMatch || nameMatch {
+//                print(article)
+//                return true
+//            } else {
+//                return false
+//            }
+//        }
+//
         article.reloadData()
     }
     
