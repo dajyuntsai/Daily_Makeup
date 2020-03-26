@@ -58,7 +58,7 @@ class EditArticleViewController: UIViewController {
     @objc func share() {
         
         if articleTextview.text == "write a caption" || articleTextField.text == "" {
-            let controller = UIAlertController(title: "溫馨小提示", message: "記得輸入文章標題或內容喔！", preferredStyle: .alert)
+            let controller = UIAlertController(title: "溫馨小提示", message: "記得輸入文章標題和內容喔！", preferredStyle: .alert)
             
             let okAction = UIAlertAction(title: "ok", style: .default, handler: nil)
             

@@ -129,7 +129,7 @@ class PostViewController: UIViewController {
         navigationItem.rightBarButtonItem?.isEnabled = false
         
         let url = URL(string: personalImage)
-        profilePhoto.kf.setImage(with: url)
+        profilePhoto.kf.setImage(with: url, placeholder: UIImage(named: "ECD7C7C3-1B96-45FC-BF8D-BE25BD2A9C9C"))
         
         authorLabel.text = nameLabel
         
