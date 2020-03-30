@@ -118,12 +118,7 @@ class SinginViewController: UIViewController {
         //        appleButton.addTarget(self, action: #selector(startSignInWithAppleFlow) , for: .touchUpInside)
         appleButton.frame = CGRect(x: 0, y: 0, width: appleSignin.frame.width, height: appleSignin.frame.height)
         appleSignin.addSubview(appleButton)
-        //        NSLayoutConstraint.activate([
-        //            appleButton.topAnchor.constraint(equalTo: appleSignin.topAnchor),
-        //            appleButton.bottomAnchor.constraint(equalTo: appleSignin.bottomAnchor),
-        //            appleButton.leadingAnchor.constraint(equalTo: appleSignin.leadingAnchor),
-        //            appleButton.trailingAnchor.constraint(equalTo: appleSignin.trailingAnchor),
-        //        ])
+   
         if userDefaults.string(forKey: "uid") != nil {
             if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "tabBarController") {
                 
