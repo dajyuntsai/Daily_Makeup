@@ -26,6 +26,8 @@ class PostViewController: UIViewController {
     
     var urlArray: [String] = []
     
+    var getPostComment: [Comment] = []
+    
     var personalImage = ""
     
     var saveState = false
@@ -113,7 +115,11 @@ class PostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         database =  Firestore.firestore()
+        
+        getComment()
         
         imageScrollView.frame.size.width = UIScreen.main.bounds.width
         
@@ -238,7 +244,7 @@ class PostViewController: UIViewController {
             alertcontroller.addAction(cancelAction)
             
             present(alertcontroller, animated: true, completion: nil)
-            } else { let alertcontroller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        } else { let alertcontroller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
             alertcontroller.view.tintColor = UIColor(red: 208/255, green: 129/255, blue: 129/255, alpha: 1)
             alertcontroller.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -349,84 +355,125 @@ class PostViewController: UIViewController {
         
     }
     
-}
-
-extension PostViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func getComment() {
         
-        return 3
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let article = article else { return UITableViewCell() }
+        guard let article = article else { return }
         
-        if indexPath.row == 2 {
-            if let timecell = tableView.dequeueReusableCell(withIdentifier: "timecell", for: indexPath) as? PostTimeTableViewCell {
-                
-                timecell.postTimeLabel.textColor = .systemGray
-                let result = self.timeConverter(time: article.time)
-                timecell.postTimeLabel.text = result
-                return timecell
+        database.collection("article").document(article.id).collection("comment").getDocuments {
+            
+            (querySnapshot, err) in if let err = err { print("Error getting documents: \(err)")
             } else {
-                return UITableViewCell()}
-        }
-        else if indexPath.row == 0 {
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? PostTitleTableViewCell {
-                cell.articleTitle.text = article.title
-                
-                cell.articleTitle.isEnabled = editting
-                cell.passText = { [weak self] text in
-                    self?.article?.title = text
+                for document in querySnapshot!.documents {
+                    do {
+                        guard let result = try document.data(as: Comment.self, decoder: Firestore.Decoder())
+                            else { return }
+                        self.getPostComment.append(result)
+                        print(result)
+                    } catch {
+                        print(error)
+                    }
                 }
-                
-                return cell
-            } else {
-                return UITableViewCell()}
+                self.postTableView.reloadData()
+            }
             
         }
-        else if indexPath.row == 1 {
-            if let cell1 = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) as? PostContentTableViewCell {
-                
-                cell1.articleContent.text = article.content
-                
-                cell1.articleContent.isEditable = editting
-                
-                cell1.articleContent.delegate = self
-                
-                return cell1
-            } else {
-                return UITableViewCell()
-            }
-        }
-        
-        return UITableViewCell()
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        print(scrollView.frame)
-        
-        let frameWidth = Int(imageScrollView.frame.size.width)
-        let contentOffsetX = Int(imageScrollView.contentOffset.x) + frameWidth / 3
-        let currentPage = contentOffsetX / frameWidth
-        pageControl.currentPage = currentPage
-        
-    }
-    
-    func timeConverter(time: Int) -> String {
-        let time = Date.init(timeIntervalSince1970: TimeInterval(time))
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm"
-        let timeConvert = dateFormatter.string(from: time)
-        return timeConvert
     }
 }
-
-extension PostViewController: UITextViewDelegate {
     
-    func textViewDidEndEditing(_ textView: UITextView) {
-        article?.content = textView.text
+    extension PostViewController: UITableViewDelegate, UITableViewDataSource {
+        
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            print("============= \(3 + getPostComment.count)=====")
+            return 3 + getPostComment.count
+            
+        }
+        
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            
+            print("============= \(3 + indexPath.row)=====")
+            
+            
+            guard let article = article else { return UITableViewCell() }
+            
+            if indexPath.row == 2 {
+                if let timecell = tableView.dequeueReusableCell(withIdentifier: "timecell", for: indexPath) as? PostTimeTableViewCell {
+                    
+                    timecell.postTimeLabel.textColor = .systemGray
+                    let result = self.timeConverter(time: article.time)
+                    timecell.postTimeLabel.text = result
+                    return timecell
+                } else {
+                    return UITableViewCell()}
+            }
+            else if indexPath.row == 0 {
+                if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? PostTitleTableViewCell {
+                    cell.articleTitle.text = article.title
+                    
+                    cell.articleTitle.isEnabled = editting
+                    cell.passText = { [weak self] text in
+                        self?.article?.title = text
+                    }
+                    
+                    return cell
+                } else {
+                    return UITableViewCell()}
+                
+            }
+            else if indexPath.row == 1 {
+                if let cell1 = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) as? PostContentTableViewCell {
+                    
+                    cell1.articleContent.text = article.content
+                    
+                    cell1.articleContent.isEditable = editting
+                    
+                    cell1.articleContent.delegate = self
+                    
+                    return cell1
+                } else {
+                    return UITableViewCell()
+                }
+            }
+            
+            else if indexPath.row >= 3 {
+                if let commentCell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath) as? CommentTableViewCell {
+                    
+                    commentCell.commentLabel.text = getPostComment[indexPath.row - 3 ].text
+                    
+                    return commentCell
+
+                } else {
+                    return UITableViewCell()
+                }
+            }
+       
+            
+            return UITableViewCell()
+        }
+        
+        func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            
+            print(scrollView.frame)
+            
+            let frameWidth = Int(imageScrollView.frame.size.width)
+            let contentOffsetX = Int(imageScrollView.contentOffset.x) + frameWidth / 3
+            let currentPage = contentOffsetX / frameWidth
+            pageControl.currentPage = currentPage
+            
+        }
+        
+        func timeConverter(time: Int) -> String {
+            let time = Date.init(timeIntervalSince1970: TimeInterval(time))
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd hh:mm"
+            let timeConvert = dateFormatter.string(from: time)
+            return timeConvert
+        }
     }
     
+    extension PostViewController: UITextViewDelegate {
+        
+        func textViewDidEndEditing(_ textView: UITextView) {
+            article?.content = textView.text
+        }
+        
 }
