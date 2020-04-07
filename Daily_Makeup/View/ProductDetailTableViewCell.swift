@@ -39,8 +39,8 @@ class ProductDetailTableViewCell: UITableViewCell {
 extension ProductDetailTableViewCell: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
         textField.resignFirstResponder()
         return true
+        
     }
 }

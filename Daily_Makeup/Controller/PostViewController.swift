@@ -24,6 +24,8 @@ class PostViewController: UIViewController {
     
     var nameLabel = ""
     
+    var commentText = ""
+    
     var urlArray: [String] = []
     
     var getPostComment: [Comment] = []
@@ -42,6 +44,32 @@ class PostViewController: UIViewController {
         
         imageScrollView.contentOffset.x = CGFloat(sender.currentPage * urlArray.count)
     }
+    
+    @IBAction func postButton(_ sender: Any) {
+        
+        guard let id = article?.id else { return }
+        
+        guard let commentTextField = addCommentTextField.text else { return }
+        
+        let document = database.collection("article").document(id).collection("comment").document()
+        
+        let comment = Comment(
+            text: commentTextField
+        )
+        
+        do {
+            try document.setData(from: comment)
+        } catch {
+            print(error)
+        }
+        
+        getComment()
+        
+        addCommentTextField.text = ""
+        
+    }
+    
+    @IBOutlet var addCommentTextField: UITextField!
     
     @IBOutlet var pageControl: UIPageControl!
     
@@ -355,10 +383,12 @@ class PostViewController: UIViewController {
         
     }
     
+    //get comment from firebase
     func getComment() {
         
         guard let article = article else { return }
-        
+            
+        self.getPostComment = []
         database.collection("article").document(article.id).collection("comment").getDocuments {
             
             (querySnapshot, err) in if let err = err { print("Error getting documents: \(err)")
