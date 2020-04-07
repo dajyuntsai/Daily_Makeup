@@ -55,6 +55,7 @@ class EditArticleViewController: UIViewController {
         }
     }
     
+    //upload articel to firebase
     @objc func share() {
         
         if articleTextview.text == "write a caption" || articleTextField.text == "" {

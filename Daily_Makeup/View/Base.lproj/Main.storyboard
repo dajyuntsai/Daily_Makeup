@@ -1146,7 +1146,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Po5-SM-Wmn">
-                                                    <rect key="frame" x="44" y="12" width="38.5" height="11"/>
+                                                    <rect key="frame" x="42" y="12" width="38.5" height="11"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1168,11 +1168,11 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="ndA-gA-Tap" secondAttribute="bottom" constant="12" id="39m-W7-5Jh"/>
+                                                <constraint firstItem="Po5-SM-Wmn" firstAttribute="leading" secondItem="TEd-Zd-vAc" secondAttribute="trailing" constant="6" id="EAw-fJ-3z3"/>
                                                 <constraint firstAttribute="bottom" secondItem="Po5-SM-Wmn" secondAttribute="bottom" constant="12" id="PAB-fO-iJF"/>
-                                                <constraint firstItem="Po5-SM-Wmn" firstAttribute="leading" secondItem="TEd-Zd-vAc" secondAttribute="trailing" constant="8" id="PcJ-Be-qQI"/>
-                                                <constraint firstItem="ndA-gA-Tap" firstAttribute="leading" secondItem="Po5-SM-Wmn" secondAttribute="trailing" constant="6" id="VwY-6i-Xvh"/>
                                                 <constraint firstAttribute="bottom" secondItem="TEd-Zd-vAc" secondAttribute="bottom" constant="12" id="YiB-KI-wpH"/>
                                                 <constraint firstItem="ndA-gA-Tap" firstAttribute="top" secondItem="kNA-qO-VvT" secondAttribute="top" constant="12" id="Z55-Ub-8WB"/>
+                                                <constraint firstItem="ndA-gA-Tap" firstAttribute="leading" secondItem="Po5-SM-Wmn" secondAttribute="trailing" constant="8" id="bda-rG-3g7"/>
                                                 <constraint firstItem="TEd-Zd-vAc" firstAttribute="top" secondItem="kNA-qO-VvT" secondAttribute="top" constant="12" id="bfe-Xo-5LW"/>
                                                 <constraint firstItem="Po5-SM-Wmn" firstAttribute="top" secondItem="kNA-qO-VvT" secondAttribute="top" constant="12" id="dhW-QH-eFW"/>
                                                 <constraint firstItem="TEd-Zd-vAc" firstAttribute="leading" secondItem="kNA-qO-VvT" secondAttribute="leading" constant="8" id="lR6-GP-3Gf"/>
@@ -1180,7 +1180,9 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.81568627449999997" green="0.50588235290000005" blue="0.50588235290000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <connections>
-                                            <outlet property="commentLabel" destination="Po5-SM-Wmn" id="GAM-Z0-CcF"/>
+                                            <outlet property="commentContentLabel" destination="ndA-gA-Tap" id="VTJ-64-tMi"/>
+                                            <outlet property="commentImage" destination="TEd-Zd-vAc" id="rne-pf-9Su"/>
+                                            <outlet property="commentNameLabel" destination="Po5-SM-Wmn" id="GAM-Z0-CcF"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

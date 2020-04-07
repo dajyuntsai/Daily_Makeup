@@ -30,6 +30,8 @@ class PostViewController: UIViewController {
     
     var getPostComment: [Comment] = []
     
+    var commentImage = ""
+    
     var personalImage = ""
     
     var saveState = false
@@ -49,12 +51,18 @@ class PostViewController: UIViewController {
         
         guard let id = article?.id else { return }
         
+        guard let name = userDefaults.string(forKey: "name") else { return }
+        
         guard let commentTextField = addCommentTextField.text else { return }
         
         let document = database.collection("article").document(id).collection("comment").document()
         
         let comment = Comment(
-            text: commentTextField
+            
+            text: commentTextField,
+            name: name,
+            image: commentImage
+            
         )
         
         do {
@@ -142,8 +150,6 @@ class PostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         
         database =  Firestore.firestore()
         
@@ -463,20 +469,18 @@ class PostViewController: UIViewController {
                     return UITableViewCell()
                 }
             }
-            
+                
             else if indexPath.row >= 3 {
                 if let commentCell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath) as? CommentTableViewCell {
                     
-                    commentCell.commentLabel.text = getPostComment[indexPath.row - 3 ].text
-                    
+                    commentCell.commentContentLabel.text = getPostComment[indexPath.row - 3 ].text
+                    commentCell.commentNameLabel.text = getPostComment[indexPath.row - 3 ].name
                     return commentCell
 
                 } else {
                     return UITableViewCell()
                 }
             }
-       
-            
             return UITableViewCell()
         }
         

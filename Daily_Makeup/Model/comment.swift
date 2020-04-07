@@ -11,5 +11,9 @@ import Foundation
 struct Comment: Codable {
     
     let text: String
-}
+    
+    let name: String
+    
+    var image: String
 
+}
