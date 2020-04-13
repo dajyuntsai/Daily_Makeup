@@ -82,8 +82,7 @@ class PersonalPageViewController: UIViewController {
         }
     }
     
-    @IBAction func settingBtn(_ sender: UIButton
-    ) {
+    @IBAction func settingBtn(_ sender: UIButton) {
         
         let alertcontroller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         

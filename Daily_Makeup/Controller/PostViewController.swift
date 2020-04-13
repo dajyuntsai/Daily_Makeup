@@ -30,6 +30,8 @@ class PostViewController: UIViewController {
     
     var getPostComment: [Comment] = []
     
+    var imageStore: [String] = []
+    
     var commentImage = ""
     
     var personalImage = ""
@@ -53,6 +55,8 @@ class PostViewController: UIViewController {
         
         guard let name = userDefaults.string(forKey: "name") else { return }
         
+        guard let uid = userDefaults.string(forKey: "uid") else { return }
+        
         guard let commentTextField = addCommentTextField.text else { return }
         
         let document = database.collection("article").document(id).collection("comment").document()
@@ -61,7 +65,8 @@ class PostViewController: UIViewController {
             
             text: commentTextField,
             name: name,
-            image: commentImage
+            uid: uid,
+            commentId: document.documentID
             
         )
         
@@ -393,8 +398,9 @@ class PostViewController: UIViewController {
     func getComment() {
         
         guard let article = article else { return }
-            
+        
         self.getPostComment = []
+        
         database.collection("article").document(article.id).collection("comment").getDocuments {
             
             (querySnapshot, err) in if let err = err { print("Error getting documents: \(err)")
@@ -404,110 +410,242 @@ class PostViewController: UIViewController {
                         guard let result = try document.data(as: Comment.self, decoder: Firestore.Decoder())
                             else { return }
                         self.getPostComment.append(result)
+                        
                         print(result)
+                        
                     } catch {
                         print(error)
                     }
                 }
+                
                 self.postTableView.reloadData()
+                
+                self.loadPersonalImage()
+            }
+        }
+    }
+    
+    func loadPersonalImage() {
+        
+        imageStore = [String](repeating: "", count: getPostComment.count)
+        var test: [String] = []
+        
+        for count in 0 ..< getPostComment.count {
+            print(getPostComment[count].uid)
+            
+            self.database.collection("user").whereField("uid", isEqualTo: getPostComment[count].uid).getDocuments { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    //文章擁有者的個人資料
+                    
+                    guard let querySnapshot = querySnapshot else { return }
+                    querySnapshot.documents.forEach({ document in
+                        
+                        do {
+                            guard let userResult = try document.data(as: Profile.self, decoder: Firestore.Decoder())
+                                else { return }
+                            guard let userImage = userResult.image else { return }
+                            test.append(userImage)
+                            self.imageStore[count] = userImage
+                            if test.count == self.getPostComment.count {
+                                
+                                self.postTableView.reloadData()
+                            }
+                        } catch {
+                            (print(error))
+                        }
+                    })
+                }
+                
             }
             
         }
     }
+    
+    func deletDocument(documentID: Int) {
+        let id = getPostComment[documentID - 3].commentId
+        guard let uid = article?.id else { return }
+        database.collection("article").document(uid).collection("comment").document(id).delete { err in
+            if let err  = err {
+                print("Error removing document: \(err)")
+            } else { print("Document successfully removed!")}
+            
+        }
+    }
+    
+    func uploadCommentUID(documentID: Int) {
+        
+        guard let article = article else { return }
+        guard let pushuid = userDefaults.string(forKey: "uid") else { return }
+        let documentID = getPostComment[documentID - 3].commentId
+        let document = database.collection("article").document(article.id).collection("comment").document(documentID)
+        
+        document.updateData(["blackList": FieldValue.arrayUnion([pushuid])
+        ])
+        
+    }
+    
+    //    func loadCommentImage() {
+    //
+    //        for user in getPostComment {
+    //            database.collection("user").whereField("uid", isEqualTo: ).getDocuments { (querySnapshot, err) in
+    //                       if let err = err {
+    //
+    //                       }else{
+    //                           guard let querySnapshot = querySnapshot else {
+    //                               return }
+    //                           do {
+    //                               guard let userResult = try querySnapshot.documents[0].data(as: Profile.self, decoder: Firestore.Decoder())
+    //                                   else { return }
+    //
+    //                           }
+    //                       }
+    //                   }
+    //        }
+    //
+    //
+    //
+    //
+    //    }
+    
+    
 }
-    
-    extension PostViewController: UITableViewDelegate, UITableViewDataSource {
-        
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            print("============= \(3 + getPostComment.count)=====")
-            return 3 + getPostComment.count
-            
-        }
-        
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            
-            print("============= \(3 + indexPath.row)=====")
-            
-            
-            guard let article = article else { return UITableViewCell() }
-            
-            if indexPath.row == 2 {
-                if let timecell = tableView.dequeueReusableCell(withIdentifier: "timecell", for: indexPath) as? PostTimeTableViewCell {
-                    
-                    timecell.postTimeLabel.textColor = .systemGray
-                    let result = self.timeConverter(time: article.time)
-                    timecell.postTimeLabel.text = result
-                    return timecell
-                } else {
-                    return UITableViewCell()}
-            }
-            else if indexPath.row == 0 {
-                if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? PostTitleTableViewCell {
-                    cell.articleTitle.text = article.title
-                    
-                    cell.articleTitle.isEnabled = editting
-                    cell.passText = { [weak self] text in
-                        self?.article?.title = text
-                    }
-                    
-                    return cell
-                } else {
-                    return UITableViewCell()}
-                
-            }
-            else if indexPath.row == 1 {
-                if let cell1 = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) as? PostContentTableViewCell {
-                    
-                    cell1.articleContent.text = article.content
-                    
-                    cell1.articleContent.isEditable = editting
-                    
-                    cell1.articleContent.delegate = self
-                    
-                    return cell1
-                } else {
-                    return UITableViewCell()
-                }
-            }
-                
-            else if indexPath.row >= 3 {
-                if let commentCell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath) as? CommentTableViewCell {
-                    
-                    commentCell.commentContentLabel.text = getPostComment[indexPath.row - 3 ].text
-                    commentCell.commentNameLabel.text = getPostComment[indexPath.row - 3 ].name
-                    return commentCell
 
-                } else {
-                    return UITableViewCell()
-                }
-            }
-            return UITableViewCell()
-        }
+extension PostViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("============= \(3 + getPostComment.count)=====")
+        return 3 + getPostComment.count
         
-        func scrollViewDidScroll(_ scrollView: UIScrollView) {
-            
-            print(scrollView.frame)
-            
-            let frameWidth = Int(imageScrollView.frame.size.width)
-            let contentOffsetX = Int(imageScrollView.contentOffset.x) + frameWidth / 3
-            let currentPage = contentOffsetX / frameWidth
-            pageControl.currentPage = currentPage
-            
-        }
-        
-        func timeConverter(time: Int) -> String {
-            let time = Date.init(timeIntervalSince1970: TimeInterval(time))
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd hh:mm"
-            let timeConvert = dateFormatter.string(from: time)
-            return timeConvert
-        }
     }
     
-    extension PostViewController: UITextViewDelegate {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        func textViewDidEndEditing(_ textView: UITextView) {
-            article?.content = textView.text
+        print("============= \(3 + indexPath.row)=====")
+        
+        guard let article = article else { return UITableViewCell() }
+        
+        if indexPath.row == 2 {
+            if let timecell = tableView.dequeueReusableCell(withIdentifier: "timecell", for: indexPath) as? PostTimeTableViewCell {
+                
+                timecell.postTimeLabel.textColor = .systemGray
+                let result = self.timeConverter(time: article.time)
+                timecell.postTimeLabel.text = result
+                return timecell
+            } else {
+                return UITableViewCell()}
         }
+        else if indexPath.row == 0 {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? PostTitleTableViewCell {
+                cell.articleTitle.text = article.title
+                
+                cell.articleTitle.isEnabled = editting
+                cell.passText = { [weak self] text in
+                    self?.article?.title = text
+                }
+                
+                return cell
+            } else {
+                return UITableViewCell()}
+            
+        }
+        else if indexPath.row == 1 {
+            if let cell1 = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) as? PostContentTableViewCell {
+                
+                cell1.articleContent.text = article.content
+                
+                cell1.articleContent.isEditable = editting
+                
+                cell1.articleContent.delegate = self
+                
+                return cell1
+            } else {
+                return UITableViewCell()
+            }
+        }
+            
+        else if indexPath.row >= 3 {
+            if let commentCell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath) as? CommentTableViewCell {
+                
+                commentCell.commentContentLabel.text = getPostComment[indexPath.row - 3 ].text
+                commentCell.commentNameLabel.text = getPostComment[indexPath.row - 3 ].name
+                guard let url = URL(string: imageStore[indexPath.row - 3 ]) else { return UITableViewCell() }
+                commentCell.commentImage.kf.setImage(with: url)
+                return commentCell
+                
+            } else {
+                return UITableViewCell()
+            }
+        }
+        return UITableViewCell()
+    }
+    
+    //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    //
+    //        if self.userDefaults.string(forKey: "uid") == getPostComment[indexPath.row - 3].uid {
+    //
+    //            if editingStyle == .delete {
+    //                deletDocument(documentID: indexPath.row )
+    //                getPostComment.remove(at: indexPath.row - 3 )
+    //            }
+    //            postTableView.reloadData()
+    //        }
+    //    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
+        var customAction: UIContextualAction
+        
+        if self.userDefaults.string(forKey: "uid") == self.getPostComment[indexPath.row - 3].uid {
+            customAction = UIContextualAction(style: .normal, title: "刪除") { (action, view, completionHandler) in
+                
+                self.deletDocument(documentID: indexPath.row )
+                self.getPostComment.remove(at: indexPath.row - 3 )
+                
+                self.postTableView.reloadData()
+                
+                completionHandler(true)
+            }
+        } else {
+            customAction = UIContextualAction(style: .normal, title: "檢舉") { (action, view, completionHandler) in
+
+
+                self.uploadCommentUID(documentID: indexPath.row)
+                self.postTableView.reloadData()
+
+                completionHandler(true)
+
+            }
+            
+        }
+            
+        return UISwipeActionsConfiguration(actions: [customAction])
+    }
+            
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+                
+                print(scrollView.frame)
+                
+                let frameWidth = Int(imageScrollView.frame.size.width)
+                let contentOffsetX = Int(imageScrollView.contentOffset.x) + frameWidth / 3
+                let currentPage = contentOffsetX / frameWidth
+                pageControl.currentPage = currentPage
+                
+    }
+            
+    func timeConverter(time: Int) -> String {
+                let time = Date.init(timeIntervalSince1970: TimeInterval(time))
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd hh:mm"
+                let timeConvert = dateFormatter.string(from: time)
+                return timeConvert
+            }
+    
+}
+extension PostViewController: UITextViewDelegate {
+            
+            func textViewDidEndEditing(_ textView: UITextView) {
+                article?.content = textView.text
+            }
 }

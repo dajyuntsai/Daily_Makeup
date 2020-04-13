@@ -14,6 +14,8 @@ struct Comment: Codable {
     
     let name: String
     
-    var image: String
+    var uid: String
+    
+    var commentId: String
 
 }

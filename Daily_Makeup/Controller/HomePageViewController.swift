@@ -161,19 +161,20 @@ class HomePageViewController: UIViewController {
             } else {
                 
                 self.articleArray = []
-                //                group.leave()
+               
                 for document in querySnapshot!.documents {
                     
                     do {
                         
                         guard let result = try document.data(as: Article.self, decoder: Firestore.Decoder()) else { return }
+                        //訪客模式
                         if self.profileDeta == nil {
                             
                             self.articleArray.append(result)
                             
                             continue
                         }
-                        
+                        //如果blacklist有result裡面相同的id就不append進去
                         if self.profileDeta!.blackList.contains(where: { $0 == result.uid}) {
                             
                             print(result)

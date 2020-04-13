@@ -85,7 +85,7 @@ class SavePageViewController: ViewController {
                                     self.userData.append(result)
                                     if let userImage = userResult.image {
                                         self.imageStore.append(userImage)
-                                    } else {                                        self.imageStore.append("https://firebasestorage.googleapis.com/v0/b/dailymakeup-8ac8c.appspot.com/o/placeholder%2FECD7C7C3-1B96-45FC-BF8D-BE25BD2A9C9C.png?alt=media&token=eec4c021-4677-4707-a52b-b86aabd477ac")
+                                    } else {                                         self.imageStore.append("https://firebasestorage.googleapis.com/v0/b/dailymakeup-8ac8c.appspot.com/o/placeholder%2FECD7C7C3-1B96-45FC-BF8D-BE25BD2A9C9C.png?alt=media&token=eec4c021-4677-4707-a52b-b86aabd477ac")
                                     }
 //                                    self.imageStore.append(userImage)
                                     print(result)
