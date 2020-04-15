@@ -17,5 +17,7 @@ struct Comment: Codable {
     var uid: String
     
     var commentId: String
+    
+    var blackList: [String] = []
 
 }

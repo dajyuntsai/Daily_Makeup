@@ -30,6 +30,10 @@ class PostViewController: UIViewController {
     
     var getPostComment: [Comment] = []
     
+    var commemtContent: Comment!
+    
+    var commentBlackList = [""]
+    
     var imageStore: [String] = []
     
     var commentImage = ""
@@ -57,6 +61,8 @@ class PostViewController: UIViewController {
         
         guard let uid = userDefaults.string(forKey: "uid") else { return }
         
+        if addCommentTextField.text?.isEmpty == true || addCommentTextField.text?.isEmpty == nil { return }
+    
         guard let commentTextField = addCommentTextField.text else { return }
         
         let document = database.collection("article").document(id).collection("comment").document()
@@ -66,7 +72,8 @@ class PostViewController: UIViewController {
             text: commentTextField,
             name: name,
             uid: uid,
-            commentId: document.documentID
+            commentId: document.documentID,
+            blackList: commentBlackList
             
         )
         
@@ -399,7 +406,10 @@ class PostViewController: UIViewController {
         
         guard let article = article else { return }
         
+        guard let pushuid = userDefaults.string(forKey: "uid") else { return }
         self.getPostComment = []
+        
+        self.imageStore = []
         
         database.collection("article").document(article.id).collection("comment").getDocuments {
             
@@ -409,8 +419,17 @@ class PostViewController: UIViewController {
                     do {
                         guard let result = try document.data(as: Comment.self, decoder: Firestore.Decoder())
                             else { return }
-                        self.getPostComment.append(result)
+//                        self.getPostComment.append(result)
                         
+                        if !result.blackList.contains(pushuid) {
+                            self.getPostComment.append(result)
+                        }
+                        
+//                        if result.blackList.contains(pushuid) {
+//                            print(result)
+//                        } else {
+//                            self.getPostComment.append(result)
+//                        }
                         print(result)
                         
                     } catch {
@@ -463,8 +482,8 @@ class PostViewController: UIViewController {
         }
     }
     
-    func deletDocument(documentID: Int) {
-        let id = getPostComment[documentID - 3].commentId
+    func deletDocument(index: Int) {
+        let id = getPostComment[index - 3].commentId
         guard let uid = article?.id else { return }
         database.collection("article").document(uid).collection("comment").document(id).delete { err in
             if let err  = err {
@@ -472,44 +491,27 @@ class PostViewController: UIViewController {
             } else { print("Document successfully removed!")}
             
         }
+        imageStore.remove(at: index - 3)
+        getPostComment.remove(at: index - 3)
+        postTableView.reloadData()
     }
     
-    func uploadCommentUID(documentID: Int) {
+    func uploadCommentUID(index: Int) {
         
         guard let article = article else { return }
         guard let pushuid = userDefaults.string(forKey: "uid") else { return }
-        let documentID = getPostComment[documentID - 3].commentId
+        let documentID = getPostComment[index - 3].commentId
         let document = database.collection("article").document(article.id).collection("comment").document(documentID)
         
         document.updateData(["blackList": FieldValue.arrayUnion([pushuid])
         ])
+        getPostComment.remove(at: index - 3)
+        imageStore.remove(at: index - 3)
+        postTableView.reloadData()
+        
+//        getComment()
         
     }
-    
-    //    func loadCommentImage() {
-    //
-    //        for user in getPostComment {
-    //            database.collection("user").whereField("uid", isEqualTo: ).getDocuments { (querySnapshot, err) in
-    //                       if let err = err {
-    //
-    //                       }else{
-    //                           guard let querySnapshot = querySnapshot else {
-    //                               return }
-    //                           do {
-    //                               guard let userResult = try querySnapshot.documents[0].data(as: Profile.self, decoder: Firestore.Decoder())
-    //                                   else { return }
-    //
-    //                           }
-    //                       }
-    //                   }
-    //        }
-    //
-    //
-    //
-    //
-    //    }
-    
-    
 }
 
 extension PostViewController: UITableViewDelegate, UITableViewDataSource {
@@ -581,45 +583,50 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         return UITableViewCell()
     }
     
-    //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-    //
-    //        if self.userDefaults.string(forKey: "uid") == getPostComment[indexPath.row - 3].uid {
-    //
-    //            if editingStyle == .delete {
-    //                deletDocument(documentID: indexPath.row )
-    //                getPostComment.remove(at: indexPath.row - 3 )
-    //            }
-    //            postTableView.reloadData()
-    //        }
-    //    }
+    
+//    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+//
+//        if tableView.isEditing {
+//            indexPath.row <= 2
+//            return .none
+//
+//        }
+//
+//        return .delete
+//    }
+
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        if indexPath.row <= 2 {
+            return nil
+        }
         
         var customAction: UIContextualAction
         
         if self.userDefaults.string(forKey: "uid") == self.getPostComment[indexPath.row - 3].uid {
             customAction = UIContextualAction(style: .normal, title: "刪除") { (action, view, completionHandler) in
                 
-                self.deletDocument(documentID: indexPath.row )
-                self.getPostComment.remove(at: indexPath.row - 3 )
+                self.deletDocument(index: indexPath.row )
+//                self.getPostComment.remove(at: indexPath.row - 3 )
                 
-                self.postTableView.reloadData()
+//                self.postTableView.reloadData()
                 
                 completionHandler(true)
+                
             }
         } else {
             customAction = UIContextualAction(style: .normal, title: "檢舉") { (action, view, completionHandler) in
 
-
-                self.uploadCommentUID(documentID: indexPath.row)
-                self.postTableView.reloadData()
+                self.uploadCommentUID(index: indexPath.row)
+//                self.postTableView.reloadData()
 
                 completionHandler(true)
 
             }
             
         }
-            
+        customAction.backgroundColor = UIColor.red
         return UISwipeActionsConfiguration(actions: [customAction])
     }
             

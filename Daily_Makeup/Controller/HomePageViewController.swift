@@ -29,7 +29,7 @@ class HomePageViewController: UIViewController {
     
     let userDefaults = UserDefaults.standard
     var imageStore: [String] = []
-    var profileDeta: Profile?
+    var profileData: Profile?
     var saveArticle: [Article] = []
     
     //    var likeState: [Bool] = []
@@ -168,14 +168,14 @@ class HomePageViewController: UIViewController {
                         
                         guard let result = try document.data(as: Article.self, decoder: Firestore.Decoder()) else { return }
                         //訪客模式
-                        if self.profileDeta == nil {
+                        if self.profileData == nil {
                             
                             self.articleArray.append(result)
                             
                             continue
                         }
                         //如果blacklist有result裡面相同的id就不append進去
-                        if self.profileDeta!.blackList.contains(where: { $0 == result.uid}) {
+                        if self.profileData!.blackList.contains(where: { $0 == result.uid}) {
                             
                             print(result)
                         } else {
@@ -285,7 +285,7 @@ class HomePageViewController: UIViewController {
             case .success(let profile):
                 if let profile = profile {
                     print("Profile: \(profile)")
-                    self.profileDeta = profile
+                    self.profileData = profile
                     
                 } else {
                     print("Document does not exist")
