@@ -21,6 +21,7 @@ class CommentTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    @IBOutlet var commentTimeLabel: UILabel!
     @IBOutlet var commentContentLabel: UILabel!
     @IBOutlet var commentImage: UIImageView!
     @IBOutlet var commentNameLabel: UILabel!

@@ -26,6 +26,8 @@ class PostViewController: UIViewController {
     
     var commentText = ""
     
+    let now = NSDate()
+    
     var urlArray: [String] = []
     
     var getPostComment: [Comment] = []
@@ -65,6 +67,9 @@ class PostViewController: UIViewController {
     
         guard let commentTextField = addCommentTextField.text else { return }
         
+        let currentTimes = Int(self.now.timeIntervalSince1970)
+        
+        
         let document = database.collection("article").document(id).collection("comment").document()
         
         let comment = Comment(
@@ -73,7 +78,8 @@ class PostViewController: UIViewController {
             name: name,
             uid: uid,
             commentId: document.documentID,
-            blackList: commentBlackList
+            blackList: commentBlackList,
+            time: currentTimes
             
         )
         
@@ -411,7 +417,7 @@ class PostViewController: UIViewController {
         
         self.imageStore = []
         
-        database.collection("article").document(article.id).collection("comment").getDocuments {
+        database.collection("article").document(article.id).collection("comment").order(by: "time", descending: false).getDocuments {
             
             (querySnapshot, err) in if let err = err { print("Error getting documents: \(err)")
             } else {
@@ -572,6 +578,12 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 commentCell.commentContentLabel.text = getPostComment[indexPath.row - 3 ].text
                 commentCell.commentNameLabel.text = getPostComment[indexPath.row - 3 ].name
+                commentCell.commentTimeLabel.textColor = .systemGray
+                let commentTime = self.timeConverter(time: getPostComment[indexPath.row - 3].time)
+                commentCell.commentTimeLabel.text = commentTime
+                
+                
+                
                 guard let url = URL(string: imageStore[indexPath.row - 3 ]) else { return UITableViewCell() }
                 commentCell.commentImage.kf.setImage(with: url)
                 return commentCell
@@ -583,7 +595,6 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         return UITableViewCell()
     }
     
-    
 //    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
 //
 //        if tableView.isEditing {
@@ -594,8 +605,6 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
 //
 //        return .delete
 //    }
-
-    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         if indexPath.row <= 2 {

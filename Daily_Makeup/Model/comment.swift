@@ -19,5 +19,7 @@ struct Comment: Codable {
     var commentId: String
     
     var blackList: [String] = []
+    
+    let time: Int
 
 }
