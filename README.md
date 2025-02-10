@@ -74,6 +74,6 @@ iOS 13.0+
 
 
 # Contacts
-Bethany Tsai ang7534387@gmail.com
+Hazel Tsai: ang7534387@gmail.com
 
 
